@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: otus-arch-deployment
+spec:
+    replicas: 3
+    selector:
+       matchLabels:
+          app: otus-arch-app
+    template:
+       metadata:
+          labels:
+             app: otus-arch-app
+       spec:
+          containers:
+          - name: otus-arch
+            image: yuriykrasilnikov/otus-arch:v1
+            ports:
+              - name: web 
+                containerPort: 80
+            livenessProbe:
+               httpGet:
+                  port: 80
+                  path: /
+               initialDelaySeconds: 10
+               periodSeconds: 5
+               timeoutSeconds: 2
+            readinessProbe:
+               httpGet:
+                  port: 80
+                  path: /health
+               initialDelaySeconds: 10
+               periodSeconds: 5

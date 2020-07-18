@@ -1,1 +1,2 @@
-"# otusArch" 
+# otusArch
+Author: Yuriy Krasilnikov
