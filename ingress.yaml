@@ -9,7 +9,7 @@ spec:
   - host: arch.homework
     http:
       paths:
-        - path: /yuriy-krasilnikov($|/)(.*)
+        - path:  /otusapp/yuriy-krasilnikov($|/)(.*)
           backend:
             serviceName: otus-arch-service
             servicePort: 9000
