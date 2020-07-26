@@ -3,8 +3,8 @@ FROM python:3.8.4-slim-buster
 WORKDIR /var/www
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY app.py .
+COPY test.py .
 
-EXPOSE 8000
+EXPOSE 80
 
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["python", "test.py"]
