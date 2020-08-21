@@ -1,0 +1,2 @@
+
+kubectl port-forward service/envoy-service --address 0.0.0.0 8000:8080 -n development

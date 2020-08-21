@@ -1,0 +1,5 @@
+eval $(minikube docker-env)
+
+docker build -t grpc_react_client:0.1.0 -f grpc_react_client/.docker/Dockerfile grpc_react_client/
+
+minikube start --mount

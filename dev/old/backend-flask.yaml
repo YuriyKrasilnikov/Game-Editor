@@ -1,0 +1,89 @@
+#Backend python
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backend-pv-volume
+  namespace: development
+  labels:
+    app: hello-flask
+    type: local
+    tier: backend
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadOnlyMany
+  hostPath:
+    path: "/minikube-host/StartupAcademy/otusArch/backend/src/"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: backend-pv-claim
+  namespace: development
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend-deployment
+  namespace: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-backend-containers
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: flask-backend-containers
+        tier: backend
+    spec:
+      containers:
+      - name: flask-backend-pod
+        image: backend:0.1.0
+        imagePullPolicy: Never 
+        ports:
+        - containerPort: 80
+          name: backend-port
+        volumeMounts:
+        - name: backend-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: backend-storage
+        persistentVolumeClaim:
+          claimName: backend-pv-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-backend-service
+  namespace: development
+  labels:
+    app: hello-flask
+    tier: backend
+spec:
+  type: LoadBalancer
+  selector:
+    app: flask-backend-containers
+  ports:
+  - name: backend-port
+    protocol: TCP
+    port: 8080 #тук тук
+    nodePort: 30007
+    targetPort: 80
+  externalIPs:
+  - 172.17.0.3 #minikube ip

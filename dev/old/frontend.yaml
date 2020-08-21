@@ -1,0 +1,128 @@
+#Frontend react
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: frontend-src-pv-volume
+  namespace: development
+  labels:
+    app: react-frontend
+    type: local
+    tier: frontend
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadOnlyMany
+  hostPath:
+    path: "/minikube-host/StartupAcademy/otusArch/frontend/src/"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: frontend-src-pv-claim
+  namespace: development
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: frontend-public-pv-volume
+  namespace: development
+  labels:
+    app: react-frontend
+    type: local
+    tier: frontend
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadOnlyMany
+  hostPath:
+    path: "/minikube-host/StartupAcademy/otusArch/frontend/public/"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: frontend-public-pv-claim
+  namespace: development
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  namespace: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-frontend-containers
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend-containers
+        tier: frontend
+    spec:
+      containers:
+      - name: react-pod
+        image: frontend:0.1.0
+        imagePullPolicy: Never 
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: 3000
+          name: frontend-port
+        volumeMounts:
+        - name: frontend-src-storage
+          mountPath: /usr/frontend/src
+        - name: frontend-public-storage
+          mountPath: /usr/frontend/public
+      volumes:
+      - name: frontend-src-storage
+        persistentVolumeClaim:
+          claimName: frontend-src-pv-claim
+      - name: frontend-public-storage
+        persistentVolumeClaim:
+          claimName: frontend-public-pv-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+  namespace: development
+  labels:
+    app: react-frontend
+    tier: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: react-frontend-containers
+  ports:
+  - name: frontend-port
+    protocol: TCP
+    port: 80 #тук тук
+    nodePort: 30008
+    targetPort: 3000
+  externalIPs:
+  - 172.17.0.3 #minikube ip

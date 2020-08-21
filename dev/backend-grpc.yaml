@@ -1,0 +1,90 @@
+#GRPC Backend python
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grpc-backend-pv-volume
+  namespace: development
+  labels:
+    app: hello-grpc-server
+    type: local
+    tier: backend
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadOnlyMany
+  hostPath:
+    path: "/minikube-host/StartupAcademy/otusArch/grpc_greeter_server/src/"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grpc-backend-pv-claim
+  namespace: development
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-backend-deployment
+  namespace: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: grpc-backend-containers
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: grpc-backend-containers
+        tier: backend
+    spec:
+      containers:
+      - name: grpc-backend-pod
+        image: grpc_greeter_server:0.1.0
+        imagePullPolicy: Never 
+        ports:
+        - name: grpc-bk-port
+          containerPort: 9090
+        volumeMounts:
+        - name: grpc-backend-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: grpc-backend-storage
+        persistentVolumeClaim:
+          claimName: grpc-backend-pv-claim
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-backend-service
+  namespace: development
+  labels:
+    app: hello-grpc-server
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: grpc-backend-containers
+  ports:
+  - name: grpc-bk-port
+    protocol: TCP
+    port: 9090 #тук тук
+    nodePort: 30007
+    targetPort: 9090
+  externalIPs:
+  - 172.17.0.3 #minikube ip

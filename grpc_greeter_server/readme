@@ -1,0 +1,5 @@
+eval $(minikube docker-env)
+
+docker build -t grpc_greeter_server:0.1.0 -f grpc_greeter_server/.docker/Dockerfile grpc_greeter_server/
+
+minikube start --mount
