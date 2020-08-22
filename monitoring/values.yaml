@@ -1,0 +1,23 @@
+# Disable kubeEtcd
+kubeEtcd:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+prometheusOperator:
+  createCustomResource: false
+
+kubelet:
+  serviceMonitor:
+    https: true
+
+## serviceMonitorSelector will limit which servicemonitors are used to create scrape
+## configs in Prometheus. By default all are loaded
+##
+serviceMonitorSelector: {}
+## serviceMonitorNamespaceSelector will limit namespaces from which serviceMonitors are used to create scrape
+## configs in Prometheus. By default all namespaces will be used
+##
+serviceMonitorNamespaceSelector: {}

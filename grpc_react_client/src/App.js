@@ -20,7 +20,7 @@ const App = ( ) => {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="LearnReact/"
           target="_blank"
           rel="noopener noreferrer"
         >

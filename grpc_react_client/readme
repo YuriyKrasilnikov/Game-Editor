@@ -1,2 +1,0 @@
-
-kubectl port-forward service/react-service --address 0.0.0.0 8000:80 -n development

@@ -124,5 +124,28 @@ spec:
     port: 3000 #тук тук
     nodePort: 30008
     targetPort: 3000
-  externalIPs:
-  - 172.17.0.3 #minikube ip
+  - name: metrics
+    port: 9002
+
+---
+# пока не придумал
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: react-service-monitoring
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+    app: react-frontend
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: react-frontend
+  namespaceSelector:
+    matchNames:
+    - development
+  endpoints:
+  - port: metrics
+    scheme: http
+    interval: 60s

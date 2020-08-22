@@ -3,7 +3,8 @@ import * as grpcWeb from 'grpc-web';
 import {HelloRequest, RepeatHelloRequest, HelloReply} from './proto/api_demo_pb';
 import {GreeterClient} from './proto/api_demo_grpc_web_pb';
 
-const client = new GreeterClient('http://' + window.location.hostname + ':8000',
+const client = new GreeterClient(
+                          'http://' + window.location.hostname + ':8000/api/v1',
                           null, null);
 
 // simple unary call

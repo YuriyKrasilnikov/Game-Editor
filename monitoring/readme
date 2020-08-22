@@ -1,0 +1,9 @@
+
+helm install \
+prometheus-operator stable/prometheus-operator \
+-f monitoring/values.yaml \
+--namespace monitoring
+
+kubectl port-forward -n monitoring service/prometheus-operator-prometheus --address 0.0.0.0 9090:9090
+
+kubectl port-forward -n monitoring service/prometheus-operator-grafana  --address 0.0.0.0 8888:80

@@ -13,8 +13,8 @@ resources:
       - endpoint:
           address:
             socket_address:
-              address: 172.17.0.3
-              port_value: 9090
+              address: grpc-backend-service
+              port_value: 9000
 
 - "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster"
   name: react_client
@@ -29,28 +29,22 @@ resources:
       - endpoint:
           address:
             socket_address:
-              address: 172.17.0.3
+              address: react-service
               port_value: 3000
 
 - "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster"
-  name: service_google
+  name: prometheus_client
   connect_timeout: 0.25s
-  type: LOGICAL_DNS
+  type: logical_dns
   dns_lookup_family: V4_ONLY
-  lb_policy: ROUND_ROBIN
+  lb_policy: round_robin
   load_assignment:
-    cluster_name: service_google
+    cluster_name: cluster_2
     endpoints:
     - lb_endpoints:
       - endpoint:
           address:
             socket_address:
-              address: www.google.com
-              port_value: 443
-  transport_socket:
-    name: envoy.transport_sockets.tls
-    typed_config:
-      "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-      sni: www.google.com
-        
+              address: prometheus-operator-prometheus.monitoring
+              port_value: 9090
 

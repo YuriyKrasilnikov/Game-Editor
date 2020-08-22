@@ -23,3 +23,12 @@ metadata:
   labels:
     name: production
     app: ykrasilnikov-app
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    name: monitoring
+    app: ykrasilnikov-app

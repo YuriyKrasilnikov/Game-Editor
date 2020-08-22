@@ -57,7 +57,7 @@ spec:
         imagePullPolicy: Never 
         ports:
         - name: grpc-bk-port
-          containerPort: 9090
+          containerPort: 9000
         volumeMounts:
         - name: grpc-backend-storage
           mountPath: /usr/src/app
@@ -83,8 +83,31 @@ spec:
   ports:
   - name: grpc-bk-port
     protocol: TCP
-    port: 9090 #тук тук
+    port: 9000 #тук тук
     nodePort: 30007
-    targetPort: 9090
-  externalIPs:
-  - 172.17.0.3 #minikube ip
+    targetPort: 9000
+  - name: metrics
+    port: 9001
+  
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grpc-backend-service-monitoring
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+    app: hello-grpc-server
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: hello-grpc-server
+  namespaceSelector:
+    matchNames:
+    - development
+  endpoints:
+  - port: metrics
+    path: /
+    scheme: http
+    interval: 60s
