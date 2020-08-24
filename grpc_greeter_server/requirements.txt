@@ -1,4 +1,3 @@
 grpcio
 protobuf
-python-grpc-prometheus
 prometheus_client

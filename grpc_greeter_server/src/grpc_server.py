@@ -4,7 +4,7 @@ import grpc
 from concurrent.futures import ThreadPoolExecutor
 
 import prometheus_client
-from python_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
+from py_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
 
 import proto.api_demo_pb2 as api_demo_pb2
 import proto.api_demo_pb2_grpc as api_demo_pb2_grpc
@@ -32,9 +32,9 @@ class Server:
     self.serve()
 
   def serve(self):
-    print('Prometheus client starting...')
+    print('Prometheus client starting...', flush=True)
     prometheus_client.start_http_server(9001)
-    print('Server starting...')
+    print('GRPC Server starting...', flush=True)
     api_demo_pb2_grpc.add_GreeterServicer_to_server(Greeter(), self.server)
     self.server.add_insecure_port('[::]:9000')
     self.server.start()

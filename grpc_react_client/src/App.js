@@ -7,7 +7,12 @@ import { client, helloRequest, helloStream } from './grpc-client'
 const App = ( ) => {
 
   useEffect(() => {
-    helloRequest();
+    setInterval(()=>{
+      for (let i = 0; i < 50; i++) {
+        helloRequest();
+      }
+    }, 3000);
+
     helloStream();
   });
 
