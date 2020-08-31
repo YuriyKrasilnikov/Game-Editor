@@ -1,0 +1,18 @@
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+pip install cqlsh
+
+helm install \
+cassandra bitnami/cassandra \
+-f cassandra/values.yaml \
+--namespace cassandra
+
+helm status cassandra --namespace cassandra
+
+kubectl port-forward --namespace cassandra svc/cassandra 9042:9042 &
+
+jobs
+
+
+kubectl exec -it cassandra-0 -n cassandra -- nodetool status 
+

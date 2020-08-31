@@ -32,19 +32,3 @@ resources:
               address: react-service
               port_value: 3000
 
-- "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster"
-  name: prometheus_client
-  connect_timeout: 0.25s
-  type: logical_dns
-  dns_lookup_family: V4_ONLY
-  lb_policy: round_robin
-  load_assignment:
-    cluster_name: cluster_2
-    endpoints:
-    - lb_endpoints:
-      - endpoint:
-          address:
-            socket_address:
-              address: prometheus-operator-prometheus.monitoring
-              port_value: 9090
-

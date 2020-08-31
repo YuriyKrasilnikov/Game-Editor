@@ -1,46 +1,14 @@
 #Backend python
 
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: envoy-pv-volume
-  namespace: development
-  labels:
-    app: envoy
-    type: local
-    tier: envoy-proxy
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadOnlyMany
-  hostPath:
-    path: "/minikube-host/StartupAcademy/otusArch/envoy-proxy/"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: envoy-pv-claim
-  namespace: development
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 10Gi
-
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: envoy-deployment
   namespace: development
 spec:
   replicas: 1
+  serviceName: envoy-service
   selector:
     matchLabels:
       app: envoy-containers
@@ -62,8 +30,8 @@ spec:
           mountPath: /etc/envoy/
       volumes:
       - name: envoy-storage
-        persistentVolumeClaim:
-          claimName: envoy-pv-claim
+        hostPath:
+          path: /minikube-host/StartupAcademy/otusArch/envoy-proxy/
 
 ---
 apiVersion: v1
@@ -75,7 +43,7 @@ metadata:
     app: envoy-proxy
     tier: backend
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: envoy-containers
   ports:
@@ -84,5 +52,29 @@ spec:
     port: 8080 #тук тук
     nodePort: 30009
     targetPort: 8080
-  externalIPs:
-  - 172.17.0.3 #minikube ip
+  - name: metrics
+    port: 9999
+
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: envoy-service-monitoring
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+    app: envoy-proxy
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: envoy-proxy
+  namespaceSelector:
+    matchNames:
+    - development
+  endpoints:
+  - port: metrics
+    path: /stats/prometheus
+    scheme: http
+    interval: 60s

@@ -32,3 +32,12 @@ metadata:
   labels:
     name: monitoring
     app: ykrasilnikov-app
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cassandra
+  labels:
+    name: cassandra
+    app: ykrasilnikov-app

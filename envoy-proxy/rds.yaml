@@ -8,16 +8,6 @@ resources:
     domains: ["*"]
     routes:
     - match: 
-        prefix: "/prometheus/"
-      route:
-        cluster: prometheus_client
-        #prefix_rewrite: "/"
-        regex_rewrite: 
-          pattern:
-            google_re2: {}
-            regex: ^/prometheus/(.*)$
-          substitution: /\1
-    - match: 
         prefix: "/api/v1/"
         headers: 
         - name: "X-Grpc-Web"

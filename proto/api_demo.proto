@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package api.demo;
 
+/* Hello demo sevice */
+
 service Greeter {
   // unary call
   rpc SayHello(HelloRequest) returns (HelloReply);
@@ -20,4 +22,38 @@ message RepeatHelloRequest {
 
 message HelloReply {
   string message = 1;
+}
+
+
+/* CRUD Customer demo sevice */
+service CustomerService {
+    rpc GetAll (Empty) returns (CustomerList);
+    rpc Get (Customer.ID) returns (Customer);
+    rpc Insert (Customer.Info) returns (Customer);
+    rpc Update (Customer) returns (Customer);
+    rpc Remove (Customer.ID) returns (Empty);
+}
+
+message Empty {}
+
+message Customer {
+  message ID {
+    string id = 1;
+  }
+  /*
+  message CreatedAt {
+    string created_at = 1;
+  }
+  */
+  message Info {
+    string name = 1;
+    int32 age = 2;
+    string address = 3;
+  }
+  ID id = 1;
+  Info info = 2;
+}
+
+message CustomerList {
+    repeated Customer customers = 1;
 }

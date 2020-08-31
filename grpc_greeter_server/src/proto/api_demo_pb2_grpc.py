@@ -6,7 +6,9 @@ from proto import api_demo_pb2 as proto_dot_api__demo__pb2
 
 
 class GreeterStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Hello demo sevice 
+
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -27,7 +29,9 @@ class GreeterStub(object):
 
 
 class GreeterServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Hello demo sevice 
+
+    """
 
     def SayHello(self, request, context):
         """unary call
@@ -64,7 +68,9 @@ def add_GreeterServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Greeter(object):
-    """Missing associated documentation comment in .proto file."""
+    """Hello demo sevice 
+
+    """
 
     @staticmethod
     def SayHello(request,
@@ -97,5 +103,204 @@ class Greeter(object):
         return grpc.experimental.unary_stream(request, target, '/api.demo.Greeter/SayRepeatHello',
             proto_dot_api__demo__pb2.RepeatHelloRequest.SerializeToString,
             proto_dot_api__demo__pb2.HelloReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class CustomerServiceStub(object):
+    """CRUD Customer demo sevice 
+
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.GetAll = channel.unary_unary(
+                '/api.demo.CustomerService/GetAll',
+                request_serializer=proto_dot_api__demo__pb2.Empty.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.CustomerList.FromString,
+                )
+        self.Get = channel.unary_unary(
+                '/api.demo.CustomerService/Get',
+                request_serializer=proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                )
+        self.Insert = channel.unary_unary(
+                '/api.demo.CustomerService/Insert',
+                request_serializer=proto_dot_api__demo__pb2.Customer.Info.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                )
+        self.Update = channel.unary_unary(
+                '/api.demo.CustomerService/Update',
+                request_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                )
+        self.Remove = channel.unary_unary(
+                '/api.demo.CustomerService/Remove',
+                request_serializer=proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.Empty.FromString,
+                )
+
+
+class CustomerServiceServicer(object):
+    """CRUD Customer demo sevice 
+
+    """
+
+    def GetAll(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Get(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Insert(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Remove(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_CustomerServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'GetAll': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAll,
+                    request_deserializer=proto_dot_api__demo__pb2.Empty.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.CustomerList.SerializeToString,
+            ),
+            'Get': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=proto_dot_api__demo__pb2.Customer.ID.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+            ),
+            'Insert': grpc.unary_unary_rpc_method_handler(
+                    servicer.Insert,
+                    request_deserializer=proto_dot_api__demo__pb2.Customer.Info.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+            ),
+            'Remove': grpc.unary_unary_rpc_method_handler(
+                    servicer.Remove,
+                    request_deserializer=proto_dot_api__demo__pb2.Customer.ID.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.Empty.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'api.demo.CustomerService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class CustomerService(object):
+    """CRUD Customer demo sevice 
+
+    """
+
+    @staticmethod
+    def GetAll(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/GetAll',
+            proto_dot_api__demo__pb2.Empty.SerializeToString,
+            proto_dot_api__demo__pb2.CustomerList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Get',
+            proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+            proto_dot_api__demo__pb2.Customer.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Insert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Insert',
+            proto_dot_api__demo__pb2.Customer.Info.SerializeToString,
+            proto_dot_api__demo__pb2.Customer.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Update',
+            proto_dot_api__demo__pb2.Customer.SerializeToString,
+            proto_dot_api__demo__pb2.Customer.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Remove(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Remove',
+            proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+            proto_dot_api__demo__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

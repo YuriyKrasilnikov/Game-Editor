@@ -1,50 +1,17 @@
 #GRPC Backend python
 
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: grpc-backend-pv-volume
-  namespace: development
-  labels:
-    app: hello-grpc-server
-    type: local
-    tier: backend
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadOnlyMany
-  hostPath:
-    path: "/minikube-host/StartupAcademy/otusArch/grpc_greeter_server/src/"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: grpc-backend-pv-claim
-  namespace: development
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 10Gi
-
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: grpc-backend-deployment
   namespace: development
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: grpc-backend-containers
       tier: backend
+  serviceName: grpc-backend-service
   template:
     metadata:
       labels:
@@ -63,8 +30,8 @@ spec:
           mountPath: /usr/src/app
       volumes:
       - name: grpc-backend-storage
-        persistentVolumeClaim:
-          claimName: grpc-backend-pv-claim
+        hostPath:
+          path: /minikube-host/StartupAcademy/otusArch/grpc_greeter_server/src/
       restartPolicy: Always
 
 ---

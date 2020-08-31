@@ -1,82 +1,17 @@
 #Frontend react
 
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: frontend-src-pv-volume
-  namespace: development
-  labels:
-    app: react-frontend
-    type: local
-    tier: frontend
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadOnlyMany
-  hostPath:
-    path: "/minikube-host/StartupAcademy/otusArch/grpc_react_client/src/"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: frontend-src-pv-claim
-  namespace: development
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 10Gi
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: frontend-public-pv-volume
-  namespace: development
-  labels:
-    app: react-frontend
-    type: local
-    tier: frontend
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadOnlyMany
-  hostPath:
-    path: "/minikube-host/StartupAcademy/otusArch/grpc_react_client/public/"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: frontend-public-pv-claim
-  namespace: development
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 10Gi
-
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: react-deployment
   namespace: development
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: react-frontend-containers
       tier: frontend
+  serviceName: react-service
   template:
     metadata:
       labels:
@@ -99,11 +34,11 @@ spec:
           mountPath: /usr/frontend/public
       volumes:
       - name: frontend-src-storage
-        persistentVolumeClaim:
-          claimName: frontend-src-pv-claim
+        hostPath:
+          path: /minikube-host/StartupAcademy/otusArch/grpc_react_client/src/
       - name: frontend-public-storage
-        persistentVolumeClaim:
-          claimName: frontend-public-pv-claim
+        hostPath:
+          path: /minikube-host/StartupAcademy/otusArch/grpc_react_client/public/
 
 ---
 apiVersion: v1
