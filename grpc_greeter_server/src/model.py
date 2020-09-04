@@ -26,6 +26,7 @@ class ExampleModel(Model):
     def to_dict(self):
         return {
             'id': str(self.id),
+            'created_at': str(self.created_at),
             'name': self.name,
             'age': int(self.age),
             'address': self.address,

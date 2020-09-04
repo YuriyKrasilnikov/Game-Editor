@@ -15,6 +15,8 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
+
+var google_protobuf_field_mask_pb = require('google-protobuf/google/protobuf/field_mask_pb.js')
 const proto = {};
 proto.api = {};
 proto.api.demo = require('./api_demo_pb.js');
@@ -361,52 +363,52 @@ proto.api.demo.CustomerServicePromiseClient.prototype.getAll =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.demo.Customer.ID,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.IdCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodDescriptor_CustomerService_Get = new grpc.web.MethodDescriptor(
   '/api.demo.CustomerService/Get',
   grpc.web.MethodType.UNARY,
-  proto.api.demo.Customer.ID,
-  proto.api.demo.Customer,
+  proto.api.demo.IdCustomerRequest,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer.ID} request
+   * @param {!proto.api.demo.IdCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.demo.Customer.ID,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.IdCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodInfo_CustomerService_Get = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.demo.Customer,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer.ID} request
+   * @param {!proto.api.demo.IdCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.demo.Customer.ID} request The
+ * @param {!proto.api.demo.IdCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.demo.Customer)}
+ * @param {function(?grpc.web.Error, ?proto.api.demo.CustomerResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.demo.Customer>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.demo.CustomerResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.demo.CustomerServiceClient.prototype.get =
@@ -421,11 +423,11 @@ proto.api.demo.CustomerServiceClient.prototype.get =
 
 
 /**
- * @param {!proto.api.demo.Customer.ID} request The
+ * @param {!proto.api.demo.IdCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.demo.Customer>}
+ * @return {!Promise<!proto.api.demo.CustomerResponse>}
  *     A native promise that resolves to the response
  */
 proto.api.demo.CustomerServicePromiseClient.prototype.get =
@@ -441,52 +443,52 @@ proto.api.demo.CustomerServicePromiseClient.prototype.get =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.demo.Customer.Info,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.UpdateCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodDescriptor_CustomerService_Insert = new grpc.web.MethodDescriptor(
   '/api.demo.CustomerService/Insert',
   grpc.web.MethodType.UNARY,
-  proto.api.demo.Customer.Info,
-  proto.api.demo.Customer,
+  proto.api.demo.UpdateCustomerRequest,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer.Info} request
+   * @param {!proto.api.demo.UpdateCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.demo.Customer.Info,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.UpdateCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodInfo_CustomerService_Insert = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.demo.Customer,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer.Info} request
+   * @param {!proto.api.demo.UpdateCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.demo.Customer.Info} request The
+ * @param {!proto.api.demo.UpdateCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.demo.Customer)}
+ * @param {function(?grpc.web.Error, ?proto.api.demo.CustomerResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.demo.Customer>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.demo.CustomerResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.demo.CustomerServiceClient.prototype.insert =
@@ -501,11 +503,11 @@ proto.api.demo.CustomerServiceClient.prototype.insert =
 
 
 /**
- * @param {!proto.api.demo.Customer.Info} request The
+ * @param {!proto.api.demo.UpdateCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.demo.Customer>}
+ * @return {!Promise<!proto.api.demo.CustomerResponse>}
  *     A native promise that resolves to the response
  */
 proto.api.demo.CustomerServicePromiseClient.prototype.insert =
@@ -521,52 +523,52 @@ proto.api.demo.CustomerServicePromiseClient.prototype.insert =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.demo.Customer,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.UpdateCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodDescriptor_CustomerService_Update = new grpc.web.MethodDescriptor(
   '/api.demo.CustomerService/Update',
   grpc.web.MethodType.UNARY,
-  proto.api.demo.Customer,
-  proto.api.demo.Customer,
+  proto.api.demo.UpdateCustomerRequest,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer} request
+   * @param {!proto.api.demo.UpdateCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.demo.Customer,
- *   !proto.api.demo.Customer>}
+ *   !proto.api.demo.UpdateCustomerRequest,
+ *   !proto.api.demo.CustomerResponse>}
  */
 const methodInfo_CustomerService_Update = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.demo.Customer,
+  proto.api.demo.CustomerResponse,
   /**
-   * @param {!proto.api.demo.Customer} request
+   * @param {!proto.api.demo.UpdateCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.demo.Customer.deserializeBinary
+  proto.api.demo.CustomerResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.demo.Customer} request The
+ * @param {!proto.api.demo.UpdateCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.demo.Customer)}
+ * @param {function(?grpc.web.Error, ?proto.api.demo.CustomerResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.demo.Customer>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.demo.CustomerResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.demo.CustomerServiceClient.prototype.update =
@@ -581,11 +583,11 @@ proto.api.demo.CustomerServiceClient.prototype.update =
 
 
 /**
- * @param {!proto.api.demo.Customer} request The
+ * @param {!proto.api.demo.UpdateCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.demo.Customer>}
+ * @return {!Promise<!proto.api.demo.CustomerResponse>}
  *     A native promise that resolves to the response
  */
 proto.api.demo.CustomerServicePromiseClient.prototype.update =
@@ -601,16 +603,16 @@ proto.api.demo.CustomerServicePromiseClient.prototype.update =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.demo.Customer.ID,
+ *   !proto.api.demo.IdCustomerRequest,
  *   !proto.api.demo.Empty>}
  */
 const methodDescriptor_CustomerService_Remove = new grpc.web.MethodDescriptor(
   '/api.demo.CustomerService/Remove',
   grpc.web.MethodType.UNARY,
-  proto.api.demo.Customer.ID,
+  proto.api.demo.IdCustomerRequest,
   proto.api.demo.Empty,
   /**
-   * @param {!proto.api.demo.Customer.ID} request
+   * @param {!proto.api.demo.IdCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -623,13 +625,13 @@ const methodDescriptor_CustomerService_Remove = new grpc.web.MethodDescriptor(
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.demo.Customer.ID,
+ *   !proto.api.demo.IdCustomerRequest,
  *   !proto.api.demo.Empty>}
  */
 const methodInfo_CustomerService_Remove = new grpc.web.AbstractClientBase.MethodInfo(
   proto.api.demo.Empty,
   /**
-   * @param {!proto.api.demo.Customer.ID} request
+   * @param {!proto.api.demo.IdCustomerRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -640,7 +642,7 @@ const methodInfo_CustomerService_Remove = new grpc.web.AbstractClientBase.Method
 
 
 /**
- * @param {!proto.api.demo.Customer.ID} request The
+ * @param {!proto.api.demo.IdCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
@@ -661,7 +663,7 @@ proto.api.demo.CustomerServiceClient.prototype.remove =
 
 
 /**
- * @param {!proto.api.demo.Customer.ID} request The
+ * @param {!proto.api.demo.IdCustomerRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata

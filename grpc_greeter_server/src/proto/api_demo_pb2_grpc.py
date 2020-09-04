@@ -109,7 +109,6 @@ class Greeter(object):
 
 class CustomerServiceStub(object):
     """CRUD Customer demo sevice 
-
     """
 
     def __init__(self, channel):
@@ -125,29 +124,28 @@ class CustomerServiceStub(object):
                 )
         self.Get = channel.unary_unary(
                 '/api.demo.CustomerService/Get',
-                request_serializer=proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
-                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                request_serializer=proto_dot_api__demo__pb2.IdCustomerRequest.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.CustomerResponse.FromString,
                 )
         self.Insert = channel.unary_unary(
                 '/api.demo.CustomerService/Insert',
-                request_serializer=proto_dot_api__demo__pb2.Customer.Info.SerializeToString,
-                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                request_serializer=proto_dot_api__demo__pb2.UpdateCustomerRequest.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.CustomerResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/api.demo.CustomerService/Update',
-                request_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
-                response_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
+                request_serializer=proto_dot_api__demo__pb2.UpdateCustomerRequest.SerializeToString,
+                response_deserializer=proto_dot_api__demo__pb2.CustomerResponse.FromString,
                 )
         self.Remove = channel.unary_unary(
                 '/api.demo.CustomerService/Remove',
-                request_serializer=proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+                request_serializer=proto_dot_api__demo__pb2.IdCustomerRequest.SerializeToString,
                 response_deserializer=proto_dot_api__demo__pb2.Empty.FromString,
                 )
 
 
 class CustomerServiceServicer(object):
     """CRUD Customer demo sevice 
-
     """
 
     def GetAll(self, request, context):
@@ -190,22 +188,22 @@ def add_CustomerServiceServicer_to_server(servicer, server):
             ),
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
-                    request_deserializer=proto_dot_api__demo__pb2.Customer.ID.FromString,
-                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+                    request_deserializer=proto_dot_api__demo__pb2.IdCustomerRequest.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.CustomerResponse.SerializeToString,
             ),
             'Insert': grpc.unary_unary_rpc_method_handler(
                     servicer.Insert,
-                    request_deserializer=proto_dot_api__demo__pb2.Customer.Info.FromString,
-                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+                    request_deserializer=proto_dot_api__demo__pb2.UpdateCustomerRequest.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.CustomerResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=proto_dot_api__demo__pb2.Customer.FromString,
-                    response_serializer=proto_dot_api__demo__pb2.Customer.SerializeToString,
+                    request_deserializer=proto_dot_api__demo__pb2.UpdateCustomerRequest.FromString,
+                    response_serializer=proto_dot_api__demo__pb2.CustomerResponse.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
-                    request_deserializer=proto_dot_api__demo__pb2.Customer.ID.FromString,
+                    request_deserializer=proto_dot_api__demo__pb2.IdCustomerRequest.FromString,
                     response_serializer=proto_dot_api__demo__pb2.Empty.SerializeToString,
             ),
     }
@@ -217,7 +215,6 @@ def add_CustomerServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class CustomerService(object):
     """CRUD Customer demo sevice 
-
     """
 
     @staticmethod
@@ -249,8 +246,8 @@ class CustomerService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Get',
-            proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
-            proto_dot_api__demo__pb2.Customer.FromString,
+            proto_dot_api__demo__pb2.IdCustomerRequest.SerializeToString,
+            proto_dot_api__demo__pb2.CustomerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -266,8 +263,8 @@ class CustomerService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Insert',
-            proto_dot_api__demo__pb2.Customer.Info.SerializeToString,
-            proto_dot_api__demo__pb2.Customer.FromString,
+            proto_dot_api__demo__pb2.UpdateCustomerRequest.SerializeToString,
+            proto_dot_api__demo__pb2.CustomerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -283,8 +280,8 @@ class CustomerService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Update',
-            proto_dot_api__demo__pb2.Customer.SerializeToString,
-            proto_dot_api__demo__pb2.Customer.FromString,
+            proto_dot_api__demo__pb2.UpdateCustomerRequest.SerializeToString,
+            proto_dot_api__demo__pb2.CustomerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -300,7 +297,7 @@ class CustomerService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.demo.CustomerService/Remove',
-            proto_dot_api__demo__pb2.Customer.ID.SerializeToString,
+            proto_dot_api__demo__pb2.IdCustomerRequest.SerializeToString,
             proto_dot_api__demo__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

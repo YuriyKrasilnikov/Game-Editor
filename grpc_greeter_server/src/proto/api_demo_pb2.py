@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import field_mask_pb2 as google_dot_protobuf_dot_field__mask__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14proto/api_demo.proto\x12\x08\x61pi.demo\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"1\n\x12RepeatHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x07\n\x05\x45mpty\"\x9a\x01\n\x08\x43ustomer\x12!\n\x02id\x18\x01 \x01(\x0b\x32\x15.api.demo.Customer.ID\x12%\n\x04info\x18\x02 \x01(\x0b\x32\x17.api.demo.Customer.Info\x1a\x10\n\x02ID\x12\n\n\x02id\x18\x01 \x01(\t\x1a\x32\n\x04Info\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x05\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\"5\n\x0c\x43ustomerList\x12%\n\tcustomers\x18\x01 \x03(\x0b\x32\x12.api.demo.Customer2\x8b\x01\n\x07Greeter\x12\x38\n\x08SayHello\x12\x16.api.demo.HelloRequest\x1a\x14.api.demo.HelloReply\x12\x46\n\x0eSayRepeatHello\x12\x1c.api.demo.RepeatHelloRequest\x1a\x14.api.demo.HelloReply0\x01\x32\x91\x02\n\x0f\x43ustomerService\x12\x31\n\x06GetAll\x12\x0f.api.demo.Empty\x1a\x16.api.demo.CustomerList\x12\x30\n\x03Get\x12\x15.api.demo.Customer.ID\x1a\x12.api.demo.Customer\x12\x35\n\x06Insert\x12\x17.api.demo.Customer.Info\x1a\x12.api.demo.Customer\x12\x30\n\x06Update\x12\x12.api.demo.Customer\x1a\x12.api.demo.Customer\x12\x30\n\x06Remove\x12\x15.api.demo.Customer.ID\x1a\x0f.api.demo.Emptyb\x06proto3'
-)
+  serialized_pb=b'\n\x14proto/api_demo.proto\x12\x08\x61pi.demo\x1a google/protobuf/field_mask.proto\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"1\n\x12RepeatHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x07\n\x05\x45mpty\"V\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\ncreated_at\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0b\n\x03\x61ge\x18\x04 \x01(\x05\x12\x0f\n\x07\x61\x64\x64ress\x18\x05 \x01(\t\"5\n\x0c\x43ustomerList\x12%\n\tcustomers\x18\x01 \x03(\x0b\x32\x12.api.demo.Customer\"K\n\x11IdCustomerRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"8\n\x10\x43ustomerResponse\x12$\n\x08\x63ustomer\x18\x01 \x01(\x0b\x32\x12.api.demo.Customer\"i\n\x15UpdateCustomerRequest\x12$\n\x08\x63ustomer\x18\x01 \x01(\x0b\x32\x12.api.demo.Customer\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask2\x8b\x01\n\x07Greeter\x12\x38\n\x08SayHello\x12\x16.api.demo.HelloRequest\x1a\x14.api.demo.HelloReply\x12\x46\n\x0eSayRepeatHello\x12\x1c.api.demo.RepeatHelloRequest\x1a\x14.api.demo.HelloReply0\x01\x32\xca\x02\n\x0f\x43ustomerService\x12\x31\n\x06GetAll\x12\x0f.api.demo.Empty\x1a\x16.api.demo.CustomerList\x12>\n\x03Get\x12\x1b.api.demo.IdCustomerRequest\x1a\x1a.api.demo.CustomerResponse\x12\x45\n\x06Insert\x12\x1f.api.demo.UpdateCustomerRequest\x1a\x1a.api.demo.CustomerResponse\x12\x45\n\x06Update\x12\x1f.api.demo.UpdateCustomerRequest\x1a\x1a.api.demo.CustomerResponse\x12\x36\n\x06Remove\x12\x1b.api.demo.IdCustomerRequest\x1a\x0f.api.demo.Emptyb\x06proto3'
+  ,
+  dependencies=[google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
 
 
 
@@ -52,8 +54,8 @@ _HELLOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=34,
-  serialized_end=62,
+  serialized_start=68,
+  serialized_end=96,
 )
 
 
@@ -91,8 +93,8 @@ _REPEATHELLOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=64,
-  serialized_end=113,
+  serialized_start=98,
+  serialized_end=147,
 )
 
 
@@ -123,8 +125,8 @@ _HELLOREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=115,
-  serialized_end=144,
+  serialized_start=149,
+  serialized_end=178,
 )
 
 
@@ -148,86 +150,10 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=146,
-  serialized_end=153,
+  serialized_start=180,
+  serialized_end=187,
 )
 
-
-_CUSTOMER_ID = _descriptor.Descriptor(
-  name='ID',
-  full_name='api.demo.Customer.ID',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='api.demo.Customer.ID.id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=242,
-  serialized_end=258,
-)
-
-_CUSTOMER_INFO = _descriptor.Descriptor(
-  name='Info',
-  full_name='api.demo.Customer.Info',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='api.demo.Customer.Info.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='age', full_name='api.demo.Customer.Info.age', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='address', full_name='api.demo.Customer.Info.address', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=260,
-  serialized_end=310,
-)
 
 _CUSTOMER = _descriptor.Descriptor(
   name='Customer',
@@ -239,22 +165,43 @@ _CUSTOMER = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='id', full_name='api.demo.Customer.id', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='info', full_name='api.demo.Customer.info', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='created_at', full_name='api.demo.Customer.created_at', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='api.demo.Customer.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='age', full_name='api.demo.Customer.age', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='address', full_name='api.demo.Customer.address', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[_CUSTOMER_ID, _CUSTOMER_INFO, ],
+  nested_types=[],
   enum_types=[
   ],
   serialized_options=None,
@@ -263,8 +210,8 @@ _CUSTOMER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=156,
-  serialized_end=310,
+  serialized_start=189,
+  serialized_end=275,
 )
 
 
@@ -295,21 +242,134 @@ _CUSTOMERLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=312,
-  serialized_end=365,
+  serialized_start=277,
+  serialized_end=330,
 )
 
-_CUSTOMER_ID.containing_type = _CUSTOMER
-_CUSTOMER_INFO.containing_type = _CUSTOMER
-_CUSTOMER.fields_by_name['id'].message_type = _CUSTOMER_ID
-_CUSTOMER.fields_by_name['info'].message_type = _CUSTOMER_INFO
+
+_IDCUSTOMERREQUEST = _descriptor.Descriptor(
+  name='IdCustomerRequest',
+  full_name='api.demo.IdCustomerRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.demo.IdCustomerRequest.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fields', full_name='api.demo.IdCustomerRequest.fields', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=332,
+  serialized_end=407,
+)
+
+
+_CUSTOMERRESPONSE = _descriptor.Descriptor(
+  name='CustomerResponse',
+  full_name='api.demo.CustomerResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='customer', full_name='api.demo.CustomerResponse.customer', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=409,
+  serialized_end=465,
+)
+
+
+_UPDATECUSTOMERREQUEST = _descriptor.Descriptor(
+  name='UpdateCustomerRequest',
+  full_name='api.demo.UpdateCustomerRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='customer', full_name='api.demo.UpdateCustomerRequest.customer', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fields', full_name='api.demo.UpdateCustomerRequest.fields', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=467,
+  serialized_end=572,
+)
+
 _CUSTOMERLIST.fields_by_name['customers'].message_type = _CUSTOMER
+_IDCUSTOMERREQUEST.fields_by_name['fields'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
+_CUSTOMERRESPONSE.fields_by_name['customer'].message_type = _CUSTOMER
+_UPDATECUSTOMERREQUEST.fields_by_name['customer'].message_type = _CUSTOMER
+_UPDATECUSTOMERREQUEST.fields_by_name['fields'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
 DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
 DESCRIPTOR.message_types_by_name['RepeatHelloRequest'] = _REPEATHELLOREQUEST
 DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['Customer'] = _CUSTOMER
 DESCRIPTOR.message_types_by_name['CustomerList'] = _CUSTOMERLIST
+DESCRIPTOR.message_types_by_name['IdCustomerRequest'] = _IDCUSTOMERREQUEST
+DESCRIPTOR.message_types_by_name['CustomerResponse'] = _CUSTOMERRESPONSE
+DESCRIPTOR.message_types_by_name['UpdateCustomerRequest'] = _UPDATECUSTOMERREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), {
@@ -341,27 +401,11 @@ Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
 _sym_db.RegisterMessage(Empty)
 
 Customer = _reflection.GeneratedProtocolMessageType('Customer', (_message.Message,), {
-
-  'ID' : _reflection.GeneratedProtocolMessageType('ID', (_message.Message,), {
-    'DESCRIPTOR' : _CUSTOMER_ID,
-    '__module__' : 'proto.api_demo_pb2'
-    # @@protoc_insertion_point(class_scope:api.demo.Customer.ID)
-    })
-  ,
-
-  'Info' : _reflection.GeneratedProtocolMessageType('Info', (_message.Message,), {
-    'DESCRIPTOR' : _CUSTOMER_INFO,
-    '__module__' : 'proto.api_demo_pb2'
-    # @@protoc_insertion_point(class_scope:api.demo.Customer.Info)
-    })
-  ,
   'DESCRIPTOR' : _CUSTOMER,
   '__module__' : 'proto.api_demo_pb2'
   # @@protoc_insertion_point(class_scope:api.demo.Customer)
   })
 _sym_db.RegisterMessage(Customer)
-_sym_db.RegisterMessage(Customer.ID)
-_sym_db.RegisterMessage(Customer.Info)
 
 CustomerList = _reflection.GeneratedProtocolMessageType('CustomerList', (_message.Message,), {
   'DESCRIPTOR' : _CUSTOMERLIST,
@@ -369,6 +413,27 @@ CustomerList = _reflection.GeneratedProtocolMessageType('CustomerList', (_messag
   # @@protoc_insertion_point(class_scope:api.demo.CustomerList)
   })
 _sym_db.RegisterMessage(CustomerList)
+
+IdCustomerRequest = _reflection.GeneratedProtocolMessageType('IdCustomerRequest', (_message.Message,), {
+  'DESCRIPTOR' : _IDCUSTOMERREQUEST,
+  '__module__' : 'proto.api_demo_pb2'
+  # @@protoc_insertion_point(class_scope:api.demo.IdCustomerRequest)
+  })
+_sym_db.RegisterMessage(IdCustomerRequest)
+
+CustomerResponse = _reflection.GeneratedProtocolMessageType('CustomerResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CUSTOMERRESPONSE,
+  '__module__' : 'proto.api_demo_pb2'
+  # @@protoc_insertion_point(class_scope:api.demo.CustomerResponse)
+  })
+_sym_db.RegisterMessage(CustomerResponse)
+
+UpdateCustomerRequest = _reflection.GeneratedProtocolMessageType('UpdateCustomerRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATECUSTOMERREQUEST,
+  '__module__' : 'proto.api_demo_pb2'
+  # @@protoc_insertion_point(class_scope:api.demo.UpdateCustomerRequest)
+  })
+_sym_db.RegisterMessage(UpdateCustomerRequest)
 
 
 
@@ -379,8 +444,8 @@ _GREETER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=368,
-  serialized_end=507,
+  serialized_start=575,
+  serialized_end=714,
   methods=[
   _descriptor.MethodDescriptor(
     name='SayHello',
@@ -415,8 +480,8 @@ _CUSTOMERSERVICE = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=510,
-  serialized_end=783,
+  serialized_start=717,
+  serialized_end=1047,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAll',
@@ -433,8 +498,8 @@ _CUSTOMERSERVICE = _descriptor.ServiceDescriptor(
     full_name='api.demo.CustomerService.Get',
     index=1,
     containing_service=None,
-    input_type=_CUSTOMER_ID,
-    output_type=_CUSTOMER,
+    input_type=_IDCUSTOMERREQUEST,
+    output_type=_CUSTOMERRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -443,8 +508,8 @@ _CUSTOMERSERVICE = _descriptor.ServiceDescriptor(
     full_name='api.demo.CustomerService.Insert',
     index=2,
     containing_service=None,
-    input_type=_CUSTOMER_INFO,
-    output_type=_CUSTOMER,
+    input_type=_UPDATECUSTOMERREQUEST,
+    output_type=_CUSTOMERRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -453,8 +518,8 @@ _CUSTOMERSERVICE = _descriptor.ServiceDescriptor(
     full_name='api.demo.CustomerService.Update',
     index=3,
     containing_service=None,
-    input_type=_CUSTOMER,
-    output_type=_CUSTOMER,
+    input_type=_UPDATECUSTOMERREQUEST,
+    output_type=_CUSTOMERRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -463,7 +528,7 @@ _CUSTOMERSERVICE = _descriptor.ServiceDescriptor(
     full_name='api.demo.CustomerService.Remove',
     index=4,
     containing_service=None,
-    input_type=_CUSTOMER_ID,
+    input_type=_IDCUSTOMERREQUEST,
     output_type=_EMPTY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

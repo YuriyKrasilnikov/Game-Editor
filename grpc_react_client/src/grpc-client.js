@@ -1,4 +1,5 @@
 import * as grpcWeb from 'grpc-web';
+import { FieldMask } from 'google-protobuf/google/protobuf/field_mask_pb';
 
 import {
   HelloRequest,
@@ -7,8 +8,12 @@ import {
 import {
   GreeterClient,
   CustomerServiceClient,
+  Customer,
   Empty,
-  Customer
+  CustomerList,
+  IdCustomerRequest,
+  CustomerResponse,
+  UpdateCustomerRequest,
 } from './proto/api_demo_grpc_web_pb';
 
 const greeterClient = new GreeterClient(
@@ -100,19 +105,51 @@ const getAll = ( { result } ) => {
 
 const insert = ( {name, age, address} ) => {
 
-  const customerInfo = new Customer.Info;
-  customerInfo.setName(name);
-  customerInfo.setAge(age);
-  customerInfo.setAddress(address);
+  const customer = new Customer();
+  customer.setName(name);
+  customer.setAge(age);
+  customer.setAddress(address);
+
+  const newCustomerRequest = new UpdateCustomerRequest();
+  newCustomerRequest.setCustomer(customer);
 
   const call = customerCRUDClient.insert(
-    customerInfo, {}, 
+    newCustomerRequest, {}, 
     (err, response) => {
       if (err) {
-        console.log(`Unexpected error for getAll: code = ${err.code}, message = "${err.message}"`);
+        console.log(`Unexpected error for Insert: code = ${err.code}, message = "${err.message}"`);
       } else {
-        console.log("getAll not error... Get response");
-        console.log("insert",response.toObject());
+        console.log("Insert not error... Get response");
+        console.log("Insert", response.toObject() );
+      }
+  });
+  /*
+  call.on('status', (status) => {
+    console.log(status.code);
+    console.log(status.details);
+    console.log(status.metadata);
+  });
+  */
+
+}
+
+const get = ( {id, fields} ) => {
+
+  const mask = new FieldMask();
+  mask.setPathsList(fields)
+  
+  const customer = new IdCustomerRequest();
+  customer.setId(id);
+  customer.setFields(mask);
+
+  const call = customerCRUDClient.get(
+    customer, {}, 
+    (err, response) => {
+      if (err) {
+        console.log(`Unexpected error for get: code = ${err.code}, message = "${err.message}"`);
+      } else {
+        console.log("get not error... Get response");
+        console.log("get", response.toObject() );
       }
   });
   /*
@@ -127,5 +164,4 @@ const insert = ( {name, age, address} ) => {
 
 
 
-
-export { helloRequest, helloStream, getAll, insert};
+export { helloRequest, helloStream, getAll, insert, get};

@@ -21,7 +21,7 @@ import proto.api_demo_pb2_grpc as api_demo_pb2_grpc
 
 from model import ExampleModel
 
-
+from google.protobuf import field_mask_pb2
 
 class Greeter(api_demo_pb2_grpc.GreeterServicer):
 
@@ -39,7 +39,6 @@ class Greeter(api_demo_pb2_grpc.GreeterServicer):
           message=f"Hello, grpc {request.name} {i}/{request.count}!"
         )
 
-
 class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
 
     def __init__(self, model):
@@ -56,12 +55,7 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
         customer_dict = customer.to_dict()
         response.customers.append(
           api_demo_pb2.Customer(
-            id = api_demo_pb2.Customer.ID(
-              id=customer_dict.pop("id", '')
-            ),
-            info = api_demo_pb2.Customer.Info(
               **customer_dict
-            )
           )
         )
 
@@ -71,49 +65,51 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     #rpc Get (CustomerRequestId) returns (Customer)
     def Get(self, request, context):
       
-      customer_list = self.model.objects
+      print(f'Get Request: {request}', flush=True)
 
-      customer_id = request.id
+      instance = self.model.objects(
+        id=request.id
+      ).get().to_dict()
 
-      customer = {
-        "id":"0",
-        "name":"User_0_Name",
-        "age":31,
-        "address":"address1 address2 address3",
-      }
-
-      return api_demo_pb2.Customer(
-        customer
+      source = api_demo_pb2.CustomerResponse(
+            customer = api_demo_pb2.Customer(
+              **instance
+            )
       )
+
+      result = api_demo_pb2.CustomerResponse()
+
+      mask = field_mask_pb2.FieldMask(
+        paths = request.fields.paths
+      )
+
+      mask.MergeMessage(source, result)
+
+      return result
 
     #---
     #rpc Insert (Customer) returns (Customer)
     def Insert(self, request, context):
       
       print(f'Insert...', flush=True)
-
-      customer_name = request.name
-      customer_age = request.age
-      customer_address = request.address
-
-      print(f'request: {request}', flush=True)
+      print(f'Request: {request}', flush=True)
 
       instance = self.model.create(
-        name            = request.name,
-        age             = request.age,
-        address         = request.address,
+        name            = request.customer.name,
+        age             = request.customer.age,
+        address         = request.customer.address,
         created_at      = datetime.now()
       ).to_dict()
+
+      print(f'instance: {instance}', flush=True)
       
-      return api_demo_pb2.Customer(
-            id = api_demo_pb2.Customer.ID(
-              id=instance.pop("id", '')
-            ),
-            info = api_demo_pb2.Customer.Info(
+      return api_demo_pb2.CustomerResponse(
+            customer = api_demo_pb2.Customer(
               **instance
             )
       )
-
+    
+    '''
     #---
     #rpc Update (Customer) returns (Customer)
     def Update(self, request, context):
@@ -139,7 +135,7 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     def Remove(self, request, context):
       customer_id = request.id
       return api_demo_pb2.Empty( )
-
+    '''
 
 class Server:
   _instance = None
@@ -162,11 +158,11 @@ class Server:
       port=metric_port
     )
     
-    #self.cas_sys_query( username='cassandra', password='Xd4VVBWt2z', hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
+    #self.cas_sys_query( username='cassandra', password='J8y7nk6eue', hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
     
     self.start_cassandra_client(
       username='cassandra',
-      password='Xd4VVBWt2z',
+      password='J8y7nk6eue',
       hosts=['cassandra.cassandra.svc'],
       default_keyspace='example_crud_keyspace',
       model=db_model
@@ -202,6 +198,7 @@ class Server:
     print(f'Prometheus client starting at port:{port}...')
     prometheus_client.start_http_server(port)
 
+
   def start_cassandra_client(self, username, password, hosts, default_keyspace, model):
     print(f'Cassandra {cassandra.__version__} starting...')
     auth_provider = PlainTextAuthProvider(
@@ -225,6 +222,9 @@ class Server:
     )
 
 
+
+
+
   def cas_sys_query(self, username, password, hosts, deleted_keyspace):
       auth_provider = PlainTextAuthProvider(
         username=username,
@@ -236,7 +236,7 @@ class Server:
 
       print(f'Cassandra release_version: { session.execute("SELECT release_version FROM system.local").one() }')
 
-      session.execute(f"DROP KEYSPACE IF EXISTS {deleted_keyspace}")
+      #session.execute(f"DROP KEYSPACE IF EXISTS {deleted_keyspace}")
 
       #Get table keyspaces
       keyspaces = session.execute("SELECT * FROM system_schema.keyspaces")
