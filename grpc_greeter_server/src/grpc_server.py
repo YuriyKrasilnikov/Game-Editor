@@ -47,6 +47,9 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     #---
     #rpc GetAll (Empty) returns (CustomerList)
     def GetAll(self, request, context):
+
+      #print(f'GetAll', flush=True)
+
       customer_list = self.model.objects
 
       response = api_demo_pb2.CustomerList()
@@ -65,7 +68,7 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     #rpc Get (CustomerRequestId) returns (Customer)
     def Get(self, request, context):
       
-      print(f'Get Request: {request}', flush=True)
+      #print(f'Get Request: {request}', flush=True)
 
       instance = self.model.objects(
         id=request.id
@@ -91,8 +94,8 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     #rpc Insert (Customer) returns (Customer)
     def Insert(self, request, context):
       
-      print(f'Insert...', flush=True)
-      print(f'Request: {request}', flush=True)
+      #print(f'Insert...', flush=True)
+      #print(f'Request: {request}', flush=True)
 
       instance = self.model.create(
         name            = request.customer.name,
@@ -101,7 +104,7 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
         created_at      = datetime.now()
       ).to_dict()
 
-      print(f'instance: {instance}', flush=True)
+      #print(f'instance: {instance}', flush=True)
       
       return api_demo_pb2.CustomerResponse(
             customer = api_demo_pb2.Customer(
@@ -109,33 +112,43 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
             )
       )
     
-    '''
     #---
     #rpc Update (Customer) returns (Customer)
     def Update(self, request, context):
       
-      customer_id = request.id
-      customer_name = request.name
-      customer_age = request.age
-      customer_address = request.address
+      #print(f'Update...', flush=True)
+      #print(f'Request: {request}', flush=True)
 
-      customer = {
-        "id": request.id,
-        "name":request.name,
-        "age":request.age,
-        "address":request.address
-      }
-
-      return api_demo_pb2.Customer(
-
+      obj = self.model.objects(
+        id=request.customer.id
       )
 
+      obj.update(
+        name            = request.customer.name,
+        age             = request.customer.age,
+        address         = request.customer.address
+      )
+
+      instance = obj.get().to_dict()
+
+      #print(f'instance: {instance}', flush=True)
+
+      return api_demo_pb2.CustomerResponse(
+              customer = api_demo_pb2.Customer(
+                **instance
+              )
+      )
+    
     #---
     #rpc Remove (CustomerRequestId) returns (Empty)
     def Remove(self, request, context):
-      customer_id = request.id
+      #print(f'Remove...', flush=True)
+      #print(f'Request: {request}', flush=True)
+      instance = self.model.objects(
+        id=request.id
+      ).delete()
       return api_demo_pb2.Empty( )
-    '''
+
 
 class Server:
   _instance = None

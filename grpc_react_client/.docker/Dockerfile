@@ -1,4 +1,4 @@
-FROM node:14.8.0-buster-slim
+FROM node:14.9.0-buster-slim
 
 MAINTAINER YuriyKrasilnikov
 
@@ -12,7 +12,7 @@ WORKDIR /usr/frontend/
 COPY package.json .env ./
 
 # Installing python dependencies
-RUN npm install --force
+RUN npm install -f
 
 # Application Environment variables
 ENV CHOKIDAR_USEPOLLING=True

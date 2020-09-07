@@ -65,13 +65,21 @@ class PromServerInterceptor(grpc.ServerInterceptor):
                 code=self._compute_status_code(servicer_context).name).inc()
           return response_or_iterator
 
-        except grpc.RpcError as e:
+        except grpc.RpcError as rpc_error:
           GRPC_SERVER_HANDLED_TOTAL_COUNTER.labels(
               grpc_type=grpc_type,
               grpc_service=grpc_service_name,
               grpc_method=grpc_method_name,
-              code=self._compute_error_code(e)).inc()
-          raise e
+              code=self._compute_error_code( rpc_error )).inc()
+          raise rpc_error
+      
+        except Exception as exception:
+          GRPC_SERVER_HANDLED_TOTAL_COUNTER.labels(
+            grpc_type=grpc_type,
+            grpc_service=grpc_service_name,
+            grpc_method=grpc_method_name,
+            code=self._compute_error_code( exception )).inc()
+          raise exception
 
         finally:
           if not response_streaming:

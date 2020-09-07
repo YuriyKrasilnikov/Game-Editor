@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { getAll, insert, get } from './grpc-client'
+import { 
+  getAll,
+  insert,
+  get
+} from '../../utilities/grpc-client'
 
-const unnormalize = (object, result) => {
+import Table from '../table/table'
+
+const unnormalize = (object, result = {} ) => {
   if (object.constructor === Object){
     Object.entries(object).forEach( ([key, value]) => {
       if (value.constructor === Object || value.constructor === Array){
@@ -34,7 +39,7 @@ const json2table = ( { json_obj } ) => {
 
   console.log('json_obj', json_obj)
 
-  const logs = unnormalize( json_obj, {} )
+  const logs = unnormalize( json_obj )
 
   return <table cellSpacing="2" border="1" cellPadding="5">
             <thead>
@@ -108,37 +113,6 @@ const useSelect = ({ options }) => {
 
 const App = ( ) => {
 
-  const [jsonGetAll, setJsonGetAll] = useState();
-  const [table, setTable] = useState();;
-
-  useEffect( ( ) => {
-    getAll( { result: setJsonGetAll } )
-  },[]);
-
-  useEffect( ( ) => {
-    setTable(
-      jsonGetAll && json2table(
-        {
-          json_obj: jsonGetAll
-        }
-      )
-    )
-  },[jsonGetAll]);
-
-  const [name, nameInput] = useInput({ type: "text" });
-  const [age, ageInput] = useInput({ type: "number" });
-  const [address, addressInput] = useInput({ type: "text" });
-
-  const addSubmit = (event) => {
-    event.preventDefault();
-    insert({
-      name: name, 
-      age: age, 
-      address: address
-    })
-    getAll( { result: setJsonGetAll } )
-  }
-
   const [id, idInput] = useInput({ type: "text" });
 
   const getSubmit = (event) => {
@@ -162,26 +136,8 @@ const App = ( ) => {
 
   return (
     <div className="App">
-      {
-        table
-      }
-      <h2>Добавить</h2>
-      <form onSubmit={addSubmit}>
-        <label>
-          name:
-          {nameInput}
-        </label>
-        <label>
-          age:
-          {ageInput}
-        </label>
-        <label>
-          address:
-          {addressInput}
-        </label>
-        <input type="submit" value="Add Customer" />
-      </form>
-      <h2>Запросить</h2>
+      <Table />
+      <hr/>
       <form onSubmit={getSubmit}>
         <label>
           ID:
@@ -191,6 +147,7 @@ const App = ( ) => {
       </form>
       <h3>Ответ:</h3>
       {maskSelect}
+
     </div>
   );
 }

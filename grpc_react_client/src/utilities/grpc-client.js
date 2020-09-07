@@ -4,7 +4,7 @@ import { FieldMask } from 'google-protobuf/google/protobuf/field_mask_pb';
 import {
   HelloRequest,
   RepeatHelloRequest
-} from './proto/api_demo_pb';
+} from '../proto/api_demo_pb';
 import {
   GreeterClient,
   CustomerServiceClient,
@@ -14,7 +14,7 @@ import {
   IdCustomerRequest,
   CustomerResponse,
   UpdateCustomerRequest,
-} from './proto/api_demo_grpc_web_pb';
+} from '../proto/api_demo_grpc_web_pb';
 
 const greeterClient = new GreeterClient(
                           'http://' + window.location.hostname + ':8000/api/v1',
@@ -88,7 +88,7 @@ const getAll = ( { result } ) => {
         console.log(`Unexpected error for getAll: code = ${err.code}, message = "${err.message}"`);
       } else {
         console.log("getAll not error... Get response");
-        //console.log( response.toObject() );
+        //console.log('response.toObject', response.toObject() );
         result( response.toObject() );
       }
   });
@@ -103,7 +103,7 @@ const getAll = ( { result } ) => {
 
 }
 
-const insert = ( {name, age, address} ) => {
+const insert = ( {name, age, address, result} ) => {
 
   const customer = new Customer();
   customer.setName(name);
@@ -121,6 +121,70 @@ const insert = ( {name, age, address} ) => {
       } else {
         console.log("Insert not error... Get response");
         console.log("Insert", response.toObject() );
+        result( response.toObject() )
+      }
+  });
+  /*
+  call.on('status', (status) => {
+    console.log(status.code);
+    console.log(status.details);
+    console.log(status.metadata);
+  });
+  */
+}
+
+const remove = ( {id, result} ) => {
+  
+  const customer = new IdCustomerRequest();
+  customer.setId(id);
+
+  const call = customerCRUDClient.remove(
+    customer, {}, 
+    (err, response) => {
+      if (err) {
+        console.log(`Unexpected error for remove: code = ${err.code}, message = "${err.message}"`);
+      } else {
+        console.log("Remove not error... Get response");
+        console.log("Remove", response.toObject() );
+        result( response.toObject() )
+      }
+  });
+  /*
+  call.on('status', (status) => {
+    console.log(status.code);
+    console.log(status.details);
+    console.log(status.metadata);
+  });
+  */
+
+}
+
+const update = ( {id, name, age, address, fields, result} ) => {
+
+  //const mask = new FieldMask();
+  //mask.setPathsList(fields)
+
+  console.log(id)
+
+  const customer = new Customer();
+  customer.setId(id);
+  customer.setName(name);
+  customer.setAge(age);
+  customer.setAddress(address);
+
+  const updateCustomerRequest = new UpdateCustomerRequest();
+  updateCustomerRequest.setCustomer(customer);
+  //updateCustomerRequest.setFields(mask);
+
+  const call = customerCRUDClient.update(
+    updateCustomerRequest, {}, 
+    (err, response) => {
+      if (err) {
+        console.log(`Unexpected error for update: code = ${err.code}, message = "${err.message}"`);
+      } else {
+        console.log("Update not error... Get response");
+        console.log("Update", response.toObject() );
+        result( response.toObject() )
       }
   });
   /*
@@ -164,4 +228,4 @@ const get = ( {id, fields} ) => {
 
 
 
-export { helloRequest, helloStream, getAll, insert, get};
+export { helloRequest, helloStream, getAll, insert, get, remove, update};
