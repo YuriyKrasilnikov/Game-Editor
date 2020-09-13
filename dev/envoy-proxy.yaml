@@ -31,7 +31,7 @@ spec:
       volumes:
       - name: envoy-storage
         hostPath:
-          path: /minikube-host/StartupAcademy/otusArch/envoy-proxy/
+          path: /minikube-host/envoy-proxy/
 
 ---
 apiVersion: v1

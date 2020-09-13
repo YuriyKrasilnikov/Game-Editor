@@ -1,4 +1,4 @@
-FROM node:14.9.0-buster-slim
+FROM node:current-buster-slim
 
 MAINTAINER YuriyKrasilnikov
 
@@ -11,7 +11,7 @@ WORKDIR /usr/frontend/
 # Copying src code to Container
 COPY package.json .env ./
 
-# Installing python dependencies
+# Installing react dependencies
 RUN npm install -f
 
 # Application Environment variables

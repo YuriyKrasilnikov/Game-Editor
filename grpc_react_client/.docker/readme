@@ -1,5 +1,7 @@
-eval $(minikube docker-env)
+## LINUX
+# eval $(minikube docker-env)
+
+## WINDOWS
+# minikube -p minikube docker-env | Invoke-Expression
 
 docker build -t grpc_react_client:0.1.0 -f grpc_react_client/.docker/Dockerfile grpc_react_client/
-
-minikube start --mount

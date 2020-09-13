@@ -35,10 +35,10 @@ spec:
       volumes:
       - name: frontend-src-storage
         hostPath:
-          path: /minikube-host/StartupAcademy/otusArch/grpc_react_client/src/
+          path: /minikube-host/grpc_react_client/src/
       - name: frontend-public-storage
         hostPath:
-          path: /minikube-host/StartupAcademy/otusArch/grpc_react_client/public/
+          path: /minikube-host/grpc_react_client/public/
 
 ---
 apiVersion: v1

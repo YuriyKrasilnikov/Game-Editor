@@ -1,6 +1,7 @@
 from concurrent import futures
 
 from datetime import datetime
+from base64 import b64decode
 
 import grpc
 
@@ -171,11 +172,13 @@ class Server:
       port=metric_port
     )
     
-    #self.cas_sys_query( username='cassandra', password='J8y7nk6eue', hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
+    #self.cas_sys_query( username='cassandra', password=b64decode("MG93ZW9lSENERg==").decode("utf-8"), hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
+    
+    #print(f"cassandra password:{b64decode('MG93ZW9lSENERg==).decode('utf-8')}", flush=True)
     
     self.start_cassandra_client(
       username='cassandra',
-      password='J8y7nk6eue',
+      password=b64decode("MG93ZW9lSENERg==").decode("utf-8"),
       hosts=['cassandra.cassandra.svc'],
       default_keyspace='example_crud_keyspace',
       model=db_model

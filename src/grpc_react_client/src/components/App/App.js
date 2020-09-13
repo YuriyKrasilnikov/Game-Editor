@@ -145,7 +145,7 @@ const App = ( ) => {
         </label>
         <input type="submit" value="Get Customer" />
       </form>
-      <h3>Ответ:</h3>
+      <h3>Фильтровать ответ:</h3>
       {maskSelect}
 
     </div>

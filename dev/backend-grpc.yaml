@@ -31,7 +31,7 @@ spec:
       volumes:
       - name: grpc-backend-storage
         hostPath:
-          path: /minikube-host/StartupAcademy/otusArch/grpc_greeter_server/src/
+          path: /minikube-host/grpc_greeter_server/src/
       restartPolicy: Always
 
 ---

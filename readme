@@ -1,0 +1,24 @@
+## Create symbolic link for windows
+# new-item -itemtype symboliclink -path <path to location> -name <the name> -value <path to target>
+
+## The default login minikube:
+## username: docker
+## password: tcuser 
+
+## ssh in hyperv
+# ssh docker@$(minikube ip)
+
+## bug win10 '--mount' is not work
+# minikube start --driver=docker --cpus=4 --memory=12g --mount
+
+## bug win10 docker 'mount' is not work
+# minikube start --driver=docker --cpus=4 --memory=12g
+# minikube mount "$PWD/:/minikube-host"
+
+# first
+minikube start --driver=hyperv --cpus=4 --memory=8g --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
+
+# restart
+minikube start --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
+
+
