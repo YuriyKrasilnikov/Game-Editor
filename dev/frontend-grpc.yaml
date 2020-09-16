@@ -1,7 +1,7 @@
 #Frontend react
 
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: react-deployment
   namespace: development
@@ -11,12 +11,13 @@ spec:
     matchLabels:
       app: react-frontend-containers
       tier: frontend
-  serviceName: react-service
+      version: v1
   template:
     metadata:
       labels:
         app: react-frontend-containers
         tier: frontend
+        version: v1
     spec:
       containers:
       - name: react-pod
@@ -25,8 +26,8 @@ spec:
         stdin: true
         tty: true
         ports:
-        - containerPort: 3000
-          name: frontend-port
+        - name: frontend-port
+          containerPort: 3000
         volumeMounts:
         - name: frontend-src-storage
           mountPath: /usr/frontend/src
@@ -54,33 +55,7 @@ spec:
   selector:
     app: react-frontend-containers
   ports:
-  - name: frontend-port
-    protocol: TCP
-    port: 3000 #тук тук
-    nodePort: 30008
-    targetPort: 3000
+  - name: http-port
+    port: 3000
   - name: metrics
     port: 9002
-
----
-# пока не придумал
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: react-service-monitoring
-  namespace: monitoring
-  labels:
-    prometheus: kube-prometheus
-    app: react-frontend
-    tier: backend
-spec:
-  selector:
-    matchLabels:
-      app: react-frontend
-  namespaceSelector:
-    matchNames:
-    - development
-  endpoints:
-  - port: metrics
-    scheme: http
-    interval: 60s

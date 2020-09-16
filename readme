@@ -16,7 +16,7 @@
 # minikube mount "$PWD/:/minikube-host"
 
 # first
-minikube start --driver=hyperv --cpus=4 --memory=8g --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
+minikube start --driver=hyperv --cpus=4 --memory=16g --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
 
 # restart
 minikube start --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
