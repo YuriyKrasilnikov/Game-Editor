@@ -1,0 +1,99 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: default
+
+  components:
+    base: # Базовые настройки. Роли, сервисы, CRD
+      enabled: true
+
+    istiodRemote: # Настройки, при которых уровень управления установлен вне кластера
+      enabled: false
+
+    policy: # Управление авторизацией, аудит с помощью Mixer, deprecated
+      enabled: false
+
+    ingressGateways: # Общая точка для входа трафика в Service mesh
+    - name: istio-ingressgateway
+      enabled: true
+    
+    egressGateways: # Общаая точка для выхода трафика из Service mesh
+    - name: istio-egressgateway
+      enabled: true
+    
+    pilot: # Управление конфигурацией proxy
+      enabled: true
+
+    # не работает
+    cni: # Istio container network interface плагин, обеспечивает настройку сети POD
+      enabled: true
+      namespace: kube-system
+
+    
+  addonComponents:
+    prometheus:
+      enabled: true
+    grafana:
+      enabled: true
+    tracing:
+      enabled: true
+  
+  # Настройки Service mesh
+  meshConfig:
+    
+    certificates: # Citadel disabled - генерируем сертификаты
+    - secretName: dns.istio-galley-service-account
+      dnsNames: [istio-galley.istio-system.svc, istio-galley.istio-system]
+    - secretName: dns.istio-sidecar-injector-service-account
+      dnsNames: [istio-sidecar-injector.istio-system.svc, istio-sidecar-injector.istio-system]
+
+    enableAutoMtls: false # Отключаем шифрование
+    enableTracing: true # Включаем tracing
+    enablePrometheusMerge: true 
+
+    defaultConfig: # Настройки proxy по-умолчанию
+      sds: # Настройки secret discovery
+        enabled: false
+      concurrency: 1 # Количество воркеров
+
+
+  # Настройки компонентов
+  values:
+    global:
+      controlPlaneSecurityEnabled: false
+
+    kiali:
+      enabled: true
+      dashboard:
+        auth:
+          strategy: anonymous
+        grafanaURL: "http://grafana:3000"
+
+    telemetry:
+      enabled: true
+      v2:
+        enabled: true
+        prometheus:
+          enabled: true
+    
+    sidecarInjectorWebhook:
+      rewriteAppHTTPProbe: true
+      enableNamespacesByDefault: true
+      objectSelector:
+        enabled: true
+        autoInject: true
+
+    istio_cni:
+      enabled: true
+
+    cni:
+      cniBinDir: /opt/cni/bin
+      cniConfDir: /etc/cni/net.d
+      excludeNamespaces:
+      - istio-system
+      - kube-system
+      - kube-node-lease
+      - kube-public
+      logLevel: info
+      repair:
+        deletePods: false

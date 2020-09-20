@@ -1,5 +1,59 @@
+
+# ---
+# Install
+
+# start minikube (Windows)
+minikube start `
+--driver=hyperv --cpus=4 --memory=16g `
+--network-plugin=cni `
+--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset `
+--extra-config=apiserver.authorization-mode=Node,RBAC `
+--mount-string=$PWD\src:/minikube-host --mount `
+--v=5
+
+# install istio
+istioctl install -f ./istio/values.yaml
+
+# create namespaces
+kubectl apply -f .\namespaces\namespace.yaml
+
+# confige istio mtls
+kubectl apply -f .\istio\mtls.yaml  
+
+# install cassandra
+helm install `
+cassandra bitnami/cassandra `
+-f cassandra/values.yaml `
+--namespace cassandra
+
+# Get cassandra key
+kubectl get secret --namespace cassandra cassandra -o jsonpath="{.data.cassandra-password}"
+
+Скопировать и заменить его в файле backend-grpc.yaml
+env: 
+- name: cassandra-key
+  value: YkV5VDZmWVROYQ==
+
+# install frontend
+kubectl apply -f .\dev\frontend-grpc.yaml
+
+# install backend
+kubectl apply -f .\dev\backend-grpc.yaml
+
+# port-forward
+kubectl port-forward -n istio-system service/istio-ingressgateway --address 0.0.0.0 8000:80
+
+# dashboard
+istioctl dashboard kiali
+
+
+
+---
+Всякое
 ## Create symbolic link for windows
 # new-item -itemtype symboliclink -path <path to location> -name <the name> -value <path to target>
+
+# kubectl exec $pod -c istio-proxy -n development -- curl $host
 
 ## The default login minikube:
 ## username: docker
@@ -8,17 +62,8 @@
 ## ssh in hyperv
 # ssh docker@$(minikube ip)
 
-## bug win10 '--mount' is not work
-# minikube start --driver=docker --cpus=4 --memory=12g --mount
 
-## bug win10 docker 'mount' is not work
-# minikube start --driver=docker --cpus=4 --memory=12g
-# minikube mount "$PWD/:/minikube-host"
 
-# first
-minikube start --driver=hyperv --cpus=4 --memory=16g --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
 
-# restart
-minikube start --mount-string='C:\Users\yuryk\otusArch\src:/minikube-host' --mount
 
 

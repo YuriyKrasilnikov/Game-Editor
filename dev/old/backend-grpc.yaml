@@ -18,13 +18,17 @@ spec:
         app: grpc-backend-containers
         tier: backend
         version: v1
+      annotations:
+        prometheus.io/scrape: "true" # determines if a pod should be scraped. Set to true to enable scraping.
+        prometheus.io/path: / # determines the path to scrape metrics at.
+        prometheus.io/port: "9001" # determines the port to scrape metrics at.
     spec:
       containers:
       - name: grpc-backend-pod
         image: yuriykrasilnikov/grpc_greeter_server:v.0.1.0
         env: 
           - name: cassandra-key
-            value: YkV5VDZmWVROYQ==
+            value: cDMyZ1hBY0J4NA==
         ports:
         - name: grpc-port
           containerPort: 9000
@@ -52,6 +56,7 @@ spec:
     app: grpc-backend-containers
   ports:
   - name: grpc-web-port
+    protocol: TCP
     port: 9000
   - name: http-metrics-port
     port: 9001

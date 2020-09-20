@@ -1,0 +1,52 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: default
+
+  components:
+    ingressGateways: # Общая точка для входа трафика в Service mesh
+    - name: istio-ingressgateway
+      enabled: true
+    
+    egressGateways: # Общаая точка для выхода трафика из Service mesh
+    - name: istio-egressgateway
+      enabled: true
+
+    
+  addonComponents:
+    prometheus:
+      enabled: true
+    grafana:
+      enabled: true
+    tracing:
+      enabled: true
+  
+  # Настройки Service mesh
+  meshConfig:
+    enableAutoMtls: true # шифрование
+    enableTracing: true # Включаем tracing
+    enablePrometheusMerge: true 
+
+  # Настройки компонентов
+  values:
+    kiali:
+      enabled: true
+      dashboard:
+        auth:
+          strategy: anonymous
+        grafanaURL: "http://grafana:3000"
+
+    telemetry:
+      enabled: true
+      v2:
+        enabled: true
+        prometheus:
+          enabled: true
+    
+    sidecarInjectorWebhook:
+      rewriteAppHTTPProbe: true
+      enableNamespacesByDefault: true
+      objectSelector:
+        enabled: true
+        autoInject: true
+
