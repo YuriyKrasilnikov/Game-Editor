@@ -3,3 +3,9 @@ persistence:
 
 metrics:
   enabled: true
+
+dbUser:
+  user: admin
+  password: password
+
+existingConfiguration: cassandra-config

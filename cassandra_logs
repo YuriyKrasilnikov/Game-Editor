@@ -1,0 +1,98 @@
+2020-09-22T19:25:22.882220Z	info	FLAG: --concurrency="1"
+2020-09-22T19:25:22.882263Z	info	FLAG: --disableInternalTelemetry="false"
+2020-09-22T19:25:22.882268Z	info	FLAG: --domain="cassandra.svc.cluster.local"
+2020-09-22T19:25:22.882272Z	info	FLAG: --help="false"
+2020-09-22T19:25:22.882274Z	info	FLAG: --id=""
+2020-09-22T19:25:22.882275Z	info	FLAG: --ip=""
+2020-09-22T19:25:22.882277Z	info	FLAG: --log_as_json="false"
+2020-09-22T19:25:22.882278Z	info	FLAG: --log_caller=""
+2020-09-22T19:25:22.882279Z	info	FLAG: --log_output_level="default:info"
+2020-09-22T19:25:22.882281Z	info	FLAG: --log_rotate=""
+2020-09-22T19:25:22.882282Z	info	FLAG: --log_rotate_max_age="30"
+2020-09-22T19:25:22.882284Z	info	FLAG: --log_rotate_max_backups="1000"
+2020-09-22T19:25:22.882285Z	info	FLAG: --log_rotate_max_size="104857600"
+2020-09-22T19:25:22.882287Z	info	FLAG: --log_stacktrace_level="default:none"
+2020-09-22T19:25:22.882291Z	info	FLAG: --log_target="[stdout]"
+2020-09-22T19:25:22.882292Z	info	FLAG: --meshConfig="./etc/istio/config/mesh"
+2020-09-22T19:25:22.882294Z	info	FLAG: --mixerIdentity=""
+2020-09-22T19:25:22.882295Z	info	FLAG: --outlierLogPath=""
+2020-09-22T19:25:22.882297Z	info	FLAG: --proxyComponentLogLevel="misc:error"
+2020-09-22T19:25:22.882298Z	info	FLAG: --proxyLogLevel="warning"
+2020-09-22T19:25:22.882300Z	info	FLAG: --serviceCluster="cassandra.cassandra"
+2020-09-22T19:25:22.882301Z	info	FLAG: --serviceregistry="Kubernetes"
+2020-09-22T19:25:22.882303Z	info	FLAG: --stsPort="0"
+2020-09-22T19:25:22.882304Z	info	FLAG: --templateFile=""
+2020-09-22T19:25:22.882306Z	info	FLAG: --tokenManagerPlugin="GoogleTokenExchange"
+2020-09-22T19:25:22.882308Z	info	FLAG: --trust-domain="cluster.local"
+2020-09-22T19:25:22.882328Z	info	Version 1.7.2-a8c04f92e236676977b3ed58132437d9fafc9aed-Clean
+2020-09-22T19:25:22.882442Z	info	Obtained private IP [10.244.0.10]
+2020-09-22T19:25:22.882508Z	info	Apply proxy config from env {"concurrency":1,"sds":{},"proxyMetadata":{"DNS_AGENT":""}}
+
+2020-09-22T19:25:22.883212Z	info	Effective config: binaryPath: /usr/local/bin/envoy
+concurrency: 1
+configPath: ./etc/istio/proxy
+controlPlaneAuthPolicy: MUTUAL_TLS
+discoveryAddress: istiod.istio-system.svc:15012
+drainDuration: 45s
+envoyAccessLogService: {}
+envoyMetricsService: {}
+parentShutdownDuration: 60s
+proxyAdminPort: 15000
+proxyMetadata:
+  DNS_AGENT: ""
+sds: {}
+serviceCluster: cassandra.cassandra
+statNameLength: 189
+statusPort: 15020
+terminationDrainDuration: 5s
+tracing:
+  zipkin:
+    address: zipkin.istio-system:9411
+
+2020-09-22T19:25:22.883272Z	info	Proxy role: &model.Proxy{Type:"sidecar", IPAddresses:[]string{"10.244.0.10"}, ID:"cassandra-0.cassandra", Locality:(*envoy_config_core_v3.Locality)(nil), DNSDomain:"cassandra.svc.cluster.local", ConfigNamespace:"", Metadata:(*model.NodeMetadata)(nil), SidecarScope:(*model.SidecarScope)(nil), PrevSidecarScope:(*model.SidecarScope)(nil), MergedGateway:(*model.MergedGateway)(nil), ServiceInstances:[]*model.ServiceInstance(nil), IstioVersion:(*model.IstioVersion)(nil), ipv6Support:false, ipv4Support:false, GlobalUnicastIP:"", XdsResourceGenerator:model.XdsResourceGenerator(nil), Active:map[string]*model.WatchedResource(nil), ActiveExperimental:map[string]*model.WatchedResource(nil), RequestedTypes:struct { CDS string; EDS string; RDS string; LDS string }{CDS:"", EDS:"", RDS:"", LDS:""}}
+2020-09-22T19:25:22.883277Z	info	JWT policy is first-party-jwt
+2020-09-22T19:25:22.883310Z	info	PilotSAN []string{"istiod.istio-system.svc"}
+2020-09-22T19:25:22.883330Z	info	MixerSAN []string{"spiffe://cluster.local/ns/istio-system/sa/istio-mixer-service-account"}
+2020-09-22T19:25:22.883368Z	info	sa.serverOptions.CAEndpoint == istiod.istio-system.svc:15012
+2020-09-22T19:25:22.883386Z	info	Using user-configured CA istiod.istio-system.svc:15012
+2020-09-22T19:25:22.883387Z	info	istiod uses self-issued certificate
+2020-09-22T19:25:22.883433Z	info	the CA cert of istiod is: -----BEGIN CERTIFICATE-----
+MIIC3TCCAcWgAwIBAgIQDyy/cVddY70Z1mkdXX8EPDANBgkqhkiG9w0BAQsFADAY
+MRYwFAYDVQQKEw1jbHVzdGVyLmxvY2FsMB4XDTIwMDkyMjE5MjEzM1oXDTMwMDky
+MDE5MjEzM1owGDEWMBQGA1UEChMNY2x1c3Rlci5sb2NhbDCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBAJYbZmL3PdHhAwx0bvkIO8lyH/tffSoH5rjTYUYn
+Z/v9PbgyKytl3bMPX93wwxxGF6BML7yG0RFym08dpjRA9mke4ME5E4QjJCPlfNOJ
+C1i65mhC+yVidWKBm9ww3emKEUxGaVVP1/8lCV4zzn/xX0ka9IKNyFPDYuTw+dWF
+kGQB8bX3PnqgZqNmCYqVptcUc/R5fjRAHs6gR9B9CErjR1vEBwIXWQAwL49s97Kx
+9euSc5jEQkkTZkuP91q/wJBbeYyNc4zYAcZ3/frZAC1YlqHEFfZvE0cw7wxdYBR+
+ru4DVGF4OOXF0OFh74aYmwYZY0BOy8oP5yQnDAv9YO+VRG8CAwEAAaMjMCEwDgYD
+VR0PAQH/BAQDAgIEMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEB
+AE05GMQpcJO7rcdgVlPWKdVbPbPm0q0WnFjGnhjGq0LVtz02JxLBv/X0znT99tiw
+bPwx8kpcAhOuOkn7+eLdewwyf0POYWv4r9X0O/m+8ZR+GJQkZHER64iofh+3GM4f
+rO+sM9WVtf4vu/9YX6nOX97zGX+dBoSsWn9azTZdqeepG/r3LG9ZOtdtA329yfGo
+X+HWei7T6n3XzGqOLDY9SXfr2Etsh9E7OeDrEw5Ej4KAuCpB2AmgV0rXUJoF7JzC
+UG53GwmprOd3cQZVrc1hxMi/brWnZKUHMZRnfDmh/WWGfXtnBl+CaoJEo3RRiMFq
+xnc/W1qS0Gcdhnggh8uAa+o=
+-----END CERTIFICATE-----
+
+2020-09-22T19:25:22.910924Z	info	sds	SDS gRPC server for workload UDS starts, listening on "./etc/istio/proxy/SDS" 
+
+2020-09-22T19:25:22.911062Z	info	Prometheus scraping configuration: {true  8080}
+2020-09-22T19:25:22.911082Z	info	Starting proxy agent
+2020-09-22T19:25:22.911069Z	info	sds	Start SDS grpc server
+2020-09-22T19:25:22.911153Z	info	Received new config, creating new Envoy epoch 0
+2020-09-22T19:25:22.911138Z	info	Opening status port 15020
+
+2020-09-22T19:25:22.911164Z	info	Epoch 0 starting
+2020-09-22T19:25:22.911835Z	warn	Error reading sys_vendor in Azure platform detection: open /sys/class/dmi/id/sys_vendor: no such file or directory
+2020-09-22T19:25:22.914176Z	info	Envoy command: [-c etc/istio/proxy/envoy-rev0.json --restart-epoch 0 --drain-time-s 45 --parent-shutdown-time-s 60 --service-cluster cassandra.cassandra --service-node sidecar~10.244.0.10~cassandra-0.cassandra~cassandra.svc.cluster.local --local-address-ip-version v4 --log-format-prefix-with-location 0 --log-format %Y-%m-%dT%T.%fZ	%l	envoy %n	%v -l warning --component-log-level misc:error --concurrency 1]
+2020-09-22T19:25:22.935900Z	warning	envoy runtime	Unable to use runtime singleton for feature envoy.reloadable_features.activate_fds_next_event_loop
+2020-09-22T19:25:22.958853Z	warning	envoy config	StreamAggregatedResources gRPC config stream closed: 14, no healthy upstream
+2020-09-22T19:25:22.958886Z	warning	envoy config	Unable to establish new stream
+2020-09-22T19:25:22.966070Z	info	sds	resource:default new connection
+2020-09-22T19:25:22.966175Z	info	sds	Skipping waiting for gateway secret
+2020-09-22T19:25:23.219987Z	info	cache	Root cert has changed, start rotating root cert for SDS clients
+2020-09-22T19:25:23.220029Z	info	cache	GenerateSecret default
+2020-09-22T19:25:23.220309Z	info	sds	resource:default pushed key/cert pair to proxy
+2020-09-22T19:25:23.221755Z	warning	envoy main	there is no configured limit to the number of allowed active connections. Set a limit via the runtime key overload.global_downstream_max_connections
+2020-09-22T19:25:24.231383Z	info	Envoy proxy is ready

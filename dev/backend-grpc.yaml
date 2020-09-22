@@ -23,8 +23,10 @@ spec:
       - name: grpc-backend-pod
         image: yuriykrasilnikov/grpc_greeter_server:v.0.1.0
         env: 
-          - name: cassandra-key
-            value: YkV5VDZmWVROYQ==
+          - name: cassandra-user
+            value: admin
+          - name: cassandra-password
+            value: password
         ports:
         - name: grpc-port
           containerPort: 9000

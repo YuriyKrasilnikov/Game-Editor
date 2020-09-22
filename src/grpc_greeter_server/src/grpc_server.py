@@ -159,7 +159,7 @@ class Server:
             Server._instance = super(Server, cls).__new__(cls)
         return Server._instance
 
-  def __init__(self, server_port, cassandra_key, metric_port=9001, db_model=ExampleModel):
+  def __init__(self, server_port, cassandra_user, cassandra_password, metric_port=9001, db_model=ExampleModel):
     print('\n'*2)
     print('#'*30)
     print(datetime.now())
@@ -172,14 +172,14 @@ class Server:
       port=metric_port
     )
     
-    cassandra_password = b64decode(cassandra_key).decode("utf-8")
+    #cassandra_password = b64decode(cassandra_key).decode("utf-8")
 
-    #self.cas_sys_query( username='cassandra', password=cassandra_password, hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
+    #self.cas_sys_query( username=cassandra_user, password=cassandra_password, hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
     
-    print(f"cassandra password: {cassandra_password}", flush=True)
+    #print(f"cassandra user: {cassandra_user} password: {cassandra_password}", flush=True)
     
     self.start_cassandra_client(
-      username='cassandra',
+      username=cassandra_user,
       password=cassandra_password,
       hosts=['cassandra.cassandra.svc'],
       default_keyspace='example_crud_keyspace',

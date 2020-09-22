@@ -9,4 +9,8 @@ import sys, os, time, logging
 _thread.start_new_thread(autoreloader.reloader_thread, (__name__,))
 
 if __name__ == '__main__':
-  Server(server_port=9000, cassandra_key=os.environ['cassandra-key'])
+  Server(
+    server_port=9000,
+    cassandra_user=os.environ['cassandra-user'],
+    cassandra_password=os.environ['cassandra-password']
+    )
