@@ -5,11 +5,10 @@ metadata:
   namespace: development
 spec:
   mtls:
-    #mode: STRICT
-    mode: DISABLE 
+    mode: STRICT
+    #mode: DISABLE 
 
 ---
-
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -17,6 +16,7 @@ metadata:
   namespace: cassandra
 spec:
   mtls:
-    #mode: STRICT
-    mode: DISABLE 
+    mode: STRICT
+    #mode: DISABLE
+
 

@@ -1,7 +1,7 @@
 
-# Install
+# How to Install
 
-## start minikube (Windows)
+###### 1. start minikube (Windows)
 minikube start `
 --cpus=4 --memory=16g `
 --network-plugin=cni `
@@ -11,38 +11,39 @@ minikube start `
 --mount-string=$PWD\src:/minikube-host --mount `
 --v=5
 
-## install istio
-istioctl install -f ./istio/values.yaml
+###### 2. install istio
+istioctl install -f .\istio\values.yaml
 
-## create namespaces
+###### 3. create namespaces
 kubectl apply -f .\namespaces\namespace.yaml
 
-## confige istio mtls
+###### 4. confige istio mtls
 kubectl apply -f .\istio\mtls.yaml
 
-## create config for cassandra
+###### 5. create config for cassandra
 kubectl apply -f .\cassandra\config.yaml 
 
-## install cassandra
+###### 6. install cassandra
 helm install `
 cassandra bitnami/cassandra `
 -f cassandra/values.yaml `
 --namespace cassandra
 
-## install frontend
+###### 7. install frontend
 kubectl apply -f .\dev\frontend-grpc.yaml
 
-## install backend
+###### 8. install backend
 kubectl apply -f .\dev\backend-grpc.yaml
 
-## proxy
+###### 9. proxy
 kubectl apply -f .\istio\proxy.yaml
 
-## port-forward
+###### 10. port-forward
 kubectl port-forward -n istio-system service/istio-ingressgateway --address 0.0.0.0 8000:80
 
-## dashboard
+###### 11. dashboard
 istioctl dashboard kiali
+
 
 ---
 

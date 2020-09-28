@@ -87,7 +87,7 @@ const getAll = ( { result } ) => {
       if (err) {
         console.log(`Unexpected error for getAll: code = ${err.code}, message = "${err.message}"`);
       } else {
-        console.log("getAll not error... Get response");
+        //console.log("getAll not error... Get response");
         //console.log('response.toObject', response.toObject() );
         result( response.toObject() );
       }

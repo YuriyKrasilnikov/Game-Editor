@@ -173,9 +173,14 @@ class Server:
     )
     
     #cassandra_password = b64decode(cassandra_key).decode("utf-8")
-
-    #self.cas_sys_query( username=cassandra_user, password=cassandra_password, hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
-    
+    '''
+    self.cas_sys_query(
+      username=cassandra_user,
+      password=cassandra_password,
+      hosts=['cassandra.cassandra.svc'],
+      deleted_keyspace='example_crud_keyspace'
+    )
+    '''
     #print(f"cassandra user: {cassandra_user} password: {cassandra_password}", flush=True)
     
     self.start_cassandra_client(
@@ -227,20 +232,18 @@ class Server:
     cassandra.cqlengine.connection.setup(
       hosts=hosts,
       default_keyspace=default_keyspace,
-      auth_provider=auth_provider
+      auth_provider=auth_provider,
+      protocol_version=4
     )
 
     cassandra.cqlengine.management.create_keyspace_simple(
       name=default_keyspace,
       replication_factor=3
-      )
+    )
 
     cassandra.cqlengine.management.sync_table(
       model=model
     )
-
-
-
 
 
   def cas_sys_query(self, username, password, hosts, deleted_keyspace):
@@ -249,7 +252,10 @@ class Server:
         password=password
       )
 
-      cluster = Cluster(hosts, auth_provider=auth_provider)
+      cluster = Cluster(
+        hosts,
+        auth_provider=auth_provider
+      )
       session = cluster.connect()
 
       print(f'Cassandra release_version: { session.execute("SELECT release_version FROM system.local").one() }')

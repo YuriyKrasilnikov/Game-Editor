@@ -11,7 +11,7 @@ spec:
       enabled: false
 
     policy: # Управление авторизацией, аудит с помощью Mixer, deprecated
-      enabled: false
+      enabled: true
 
     ingressGateways: # Общая точка для входа трафика в Service mesh
     - name: istio-ingressgateway
@@ -47,7 +47,7 @@ spec:
     - secretName: dns.istio-sidecar-injector-service-account
       dnsNames: [istio-sidecar-injector.istio-system.svc, istio-sidecar-injector.istio-system]
 
-    enableAutoMtls: false # Отключаем шифрование
+    enableAutoMtls: true # Отключаем шифрование
     enableTracing: true # Включаем tracing
     enablePrometheusMerge: true 
 
@@ -60,7 +60,7 @@ spec:
   # Настройки компонентов
   values:
     global:
-      controlPlaneSecurityEnabled: false
+      controlPlaneSecurityEnabled: true
 
     kiali:
       enabled: true
