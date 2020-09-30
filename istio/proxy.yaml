@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: http-gateway
+  name: https-gateway
   namespace: istio-system
   labels:
     app: istio-gateway
@@ -10,12 +10,26 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-  - port:
+  - hosts:
+    - arch.homework
+    port:
       number: 80
       protocol: HTTP
       name: http
-    hosts:
-    - "*"
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - arch.homework
+    port:
+      name: https
+      number: 443
+      protocol: HTTPS
+    tls:
+      credentialName: arch-homework-tsl
+      httpsRedirect: false
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -25,9 +39,9 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+  - arch.homework
   gateways:
-  - http-gateway
+  - https-gateway
   http:
   - match:
     - uri:
@@ -37,7 +51,6 @@ spec:
         host: grpc-backend-service.development.svc.cluster.local
         port:
           number: 9000
-          protocol: GRPC 
     rewrite:
       uri: /
     corsPolicy:
@@ -68,6 +81,14 @@ spec:
         - grpc-status
         - grpc-message
       allowCredentials: true
+  - match:
+    - uri:
+        prefix: /oauth2
+    route:
+    - destination:
+        host: oauth2-proxy.oauth2.svc.cluster.local
+        port:
+          number: 80
   - route:
     - destination:
         host: react-service.development.svc.cluster.local

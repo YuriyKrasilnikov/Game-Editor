@@ -49,7 +49,11 @@ class CustomerCRUD(api_demo_pb2_grpc.CustomerServiceServicer):
     #rpc GetAll (Empty) returns (CustomerList)
     def GetAll(self, request, context):
 
-      #print(f'GetAll', flush=True)
+      print(f'GetAll', flush=True)
+      print(f'context.invocation_metadata() {context.invocation_metadata()}', flush=True)
+      print(f'context.peer() {context.peer()}', flush=True)
+      print(f'context.peer_identities() {context.peer_identities()}', flush=True)
+      print(f'context.peer_identity_key() {context.peer_identity_key()}', flush=True)
 
       customer_list = self.model.objects
 

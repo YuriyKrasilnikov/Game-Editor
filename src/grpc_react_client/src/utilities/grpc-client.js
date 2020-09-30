@@ -17,11 +17,11 @@ import {
 } from '../proto/api_demo_grpc_web_pb';
 
 const greeterClient = new GreeterClient(
-                          'http://' + window.location.hostname + ':8000/api/v1',
+                          'https://' + window.location.hostname + ':443/api/v1',
                           null, null);
 
 const customerCRUDClient = new CustomerServiceClient(
-                            'http://' + window.location.hostname + ':8000/api/v1',
+                            'https://' + window.location.hostname + ':443/api/v1',
                             null, null);
 
 const helloRequest = () => {
