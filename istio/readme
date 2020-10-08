@@ -1,0 +1,25 @@
+istioctl install `
+--set profile=default `
+
+# kubectl create secret generic kiali -n istio-system --from-literal=username=admin --from-literal=passphrase=admin
+
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/addons/prometheus.yaml
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/addons/jaeger.yaml
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/addons/grafana.yaml
+
+
+helm install `
+  --namespace istio-system `
+  --set auth.strategy="anonymous" `
+  --set meshConfig.enablePrometheusMerge=true `
+  --repo https://kiali.org/helm-charts `
+  kiali-server `
+  kiali-server
+
+istioctl dashboard kiali
+
+---
+
+kubectl apply -f .\istio\proxy.yaml
+
+kubectl port-forward -n istio-system service/istio-ingressgateway --address 0.0.0.0 8000:80

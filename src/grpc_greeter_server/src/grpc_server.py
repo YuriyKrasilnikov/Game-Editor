@@ -172,13 +172,15 @@ class Server:
       port=metric_port
     )
     
-    #self.cas_sys_query( username='cassandra', password=b64decode("MG93ZW9lSENERg==").decode("utf-8"), hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
+    cassandra_password = b64decode("ck5ZRU0ycjRrbg==").decode("utf-8")
+
+    #self.cas_sys_query( username='cassandra', password=cassandra_password, hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
     
-    #print(f"cassandra password:{b64decode('MG93ZW9lSENERg==).decode('utf-8')}", flush=True)
+    #print(f"cassandra password:{cassandra_password}", flush=True)
     
     self.start_cassandra_client(
       username='cassandra',
-      password=b64decode("MG93ZW9lSENERg==").decode("utf-8"),
+      password=cassandra_password,
       hosts=['cassandra.cassandra.svc'],
       default_keyspace='example_crud_keyspace',
       model=db_model

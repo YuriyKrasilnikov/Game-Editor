@@ -1,17 +1,16 @@
 #GRPC Backend python
 
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: grpc-backend-deployment
   namespace: development
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: grpc-backend-containers
       tier: backend
-  serviceName: grpc-backend-service
   template:
     metadata:
       labels:
@@ -23,7 +22,7 @@ spec:
         image: grpc_greeter_server:0.1.0
         imagePullPolicy: Never 
         ports:
-        - name: grpc-bk-port
+        - name: grpc-port
           containerPort: 9000
         volumeMounts:
         - name: grpc-backend-storage
@@ -41,40 +40,17 @@ metadata:
   name: grpc-backend-service
   namespace: development
   labels:
-    app: hello-grpc-server
+    app: grpc-backend-service
     tier: backend
 spec:
   type: NodePort
   selector:
     app: grpc-backend-containers
   ports:
-  - name: grpc-bk-port
+  - name: grpc-web-port
     protocol: TCP
-    port: 9000 #тук тук
-    nodePort: 30007
-    targetPort: 9000
+    port: 9000
   - name: metrics
     port: 9001
-  
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: grpc-backend-service-monitoring
-  namespace: monitoring
-  labels:
-    prometheus: kube-prometheus
-    app: hello-grpc-server
-    tier: backend
-spec:
-  selector:
-    matchLabels:
-      app: hello-grpc-server
-  namespaceSelector:
-    matchNames:
-    - development
-  endpoints:
-  - port: metrics
-    path: /
-    scheme: http
-    interval: 60s
+
+

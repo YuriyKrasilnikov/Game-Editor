@@ -5,33 +5,7 @@ metadata:
   labels:
     name: development
     app: ykrasilnikov-app
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: staging 
-  labels:
-    name: staging
-    app: ykrasilnikov-app
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: production
-  labels:
-    name: production
-    app: ykrasilnikov-app
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
-  labels:
-    name: monitoring
-    app: ykrasilnikov-app
+    istio-injection: enabled # Включаем инжект сайдкаров Istio для неймспейса
 
 ---
 apiVersion: v1
@@ -41,3 +15,4 @@ metadata:
   labels:
     name: cassandra
     app: ykrasilnikov-app
+    istio-injection: enabled # Включаем инжект сайдкаров Istio для неймспейса

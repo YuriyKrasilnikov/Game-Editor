@@ -20,7 +20,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONDEVMODE=1
 
 # Exposing Ports
-EXPOSE 9090
+EXPOSE 9000
 
 # Setting Persistent data
 # VOLUME /var/www
