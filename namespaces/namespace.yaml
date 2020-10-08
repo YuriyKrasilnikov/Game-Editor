@@ -15,3 +15,13 @@ metadata:
   labels:
     name: cassandra
     app: ykrasilnikov-app
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: oauth2
+  labels:
+    name: oauth2
+    app: ykrasilnikov-app
+    

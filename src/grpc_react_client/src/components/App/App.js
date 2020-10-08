@@ -136,6 +136,23 @@ const App = ( ) => {
 
   return (
     <div className="App">
+      <div>
+        <a href="https://arch.homework/oauth2/">
+          Вход
+        </a>
+        {' | '}
+        <a href="https://arch.homework/oauth2/auth">
+          Проверка авторизации
+        </a>
+        {' | '}
+        <a href="https://arch.homework/oauth2/userinfo">
+          Информация
+        </a>
+        {' | '}
+        <a href="https://arch.homework/oauth2/sign_out">
+          Выход
+        </a>
+      </div>
       <Table />
       <hr/>
       <form onSubmit={getSubmit}>
@@ -147,7 +164,6 @@ const App = ( ) => {
       </form>
       <h3>Фильтровать ответ:</h3>
       {maskSelect}
-
     </div>
   );
 }

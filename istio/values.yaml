@@ -10,9 +10,6 @@ spec:
     istiodRemote: # Настройки, при которых уровень управления установлен вне кластера
       enabled: false
 
-    policy: # Управление авторизацией, аудит с помощью Mixer, deprecated
-      enabled: true
-
     ingressGateways: # Общая точка для входа трафика в Service mesh
     - name: istio-ingressgateway
       enabled: true
@@ -40,27 +37,13 @@ spec:
   
   # Настройки Service mesh
   meshConfig:
-    
-    certificates: # Citadel disabled - генерируем сертификаты
-    - secretName: dns.istio-galley-service-account
-      dnsNames: [istio-galley.istio-system.svc, istio-galley.istio-system]
-    - secretName: dns.istio-sidecar-injector-service-account
-      dnsNames: [istio-sidecar-injector.istio-system.svc, istio-sidecar-injector.istio-system]
-
-    enableAutoMtls: true # Отключаем шифрование
+    enableAutoMtls: true # Шифрование
     enableTracing: true # Включаем tracing
     enablePrometheusMerge: true 
-
-    defaultConfig: # Настройки proxy по-умолчанию
-      sds: # Настройки secret discovery
-        enabled: false
-      concurrency: 1 # Количество воркеров
 
 
   # Настройки компонентов
   values:
-    global:
-      controlPlaneSecurityEnabled: true
 
     kiali:
       enabled: true
@@ -80,11 +63,8 @@ spec:
       rewriteAppHTTPProbe: true
       enableNamespacesByDefault: true
       objectSelector:
-        enabled: true
+        enabled: false
         autoInject: true
-
-    istio_cni:
-      enabled: true
 
     cni:
       cniBinDir: /opt/cni/bin

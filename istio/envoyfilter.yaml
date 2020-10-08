@@ -1,0 +1,97 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: auth-filter
+  namespace: istio-system
+spec:
+  workloadSelector:
+    labels:
+      istio: ingressgateway
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: "envoy.http_connection_manager"
+            subFilter:
+              name: "envoy.router"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.lua
+        typed_config:
+          "@type": "type.googleapis.com/envoy.config.filter.http.lua.v2.Lua"
+          inlineCode: |
+            function version()
+              return "v0.1"
+            end
+        
+            function log(handle, value)
+              handle:logWarn(version() .. ": " .. value)
+            end
+
+            function envoy_on_request(request_handle)
+
+              log(request_handle, "start auth...")
+
+              local auth_host = "oauth2-proxy.oauth2.svc.cluster.local"
+              local auth_path = "/oauth2/auth"
+              local userinfo_path = "/oauth2/userinfo"
+              local auth_cluster = "outbound|80||" .. auth_host
+
+              log(request_handle, "auth host: "..auth_host..", auth path: "..auth_path..", auth cluster: "..auth_cluster)
+
+              local cookie = request_handle:headers():get("Cookie")
+              if cookie == nil then
+                return
+              end
+              
+              local auth_headers, auth_body = request_handle:httpCall(
+                auth_cluster,
+                {
+                  [":method"] = "GET",
+                  [":path"] = auth_path,
+                  [":authority"] = auth_host,
+                  ["Cookie"] = cookie
+                },
+                nil,
+                5000)
+
+              for header, value in pairs(auth_headers) do
+                if header == ":status" then
+                    status = value
+                end
+              end
+
+              log(request_handle, "token validation status: "..status)
+
+              if status ~= "202" then
+                log(request_handle, "Not validated")
+                return
+              end
+
+              request_handle:headers():add("authorization","true")
+
+              local userinfo_headers, userinfo_body = request_handle:httpCall(
+                auth_cluster,
+                {
+                  [":method"] = "GET",
+                  [":path"] = userinfo_path,
+                  [":authority"] = auth_host,
+                  ["Cookie"] = cookie
+                },
+                nil,
+                5000)
+
+              log(request_handle, "userinfo body: "..userinfo_body)
+
+              local user_info_table=load("return "..userinfo_body:gsub('("[^"]-"):','[%1]='))()
+
+              for header, value in pairs(user_info_table) do
+                request_handle:headers():add("authorization-"..header, value)
+              end
+
+            end
+  
