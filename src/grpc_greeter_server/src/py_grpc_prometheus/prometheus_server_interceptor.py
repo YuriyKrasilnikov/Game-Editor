@@ -107,6 +107,9 @@ class PromServerInterceptor(grpc.ServerInterceptor):
     if isinstance(grpc_exception, grpc.Call):
       return grpc_exception.code().name
 
+    
+    print(f'UNKNOWN',flush=True)
+
     return grpc.StatusCode.UNKNOWN.name
 
   def _wrap_rpc_behavior(self, handler, fn):

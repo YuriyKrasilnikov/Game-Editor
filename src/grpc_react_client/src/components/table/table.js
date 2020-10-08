@@ -21,7 +21,7 @@ const Table = ( ) =>{
           setData( rawdata.customersList )
         }
       })
-      
+      /*
       setInterval(()=>{
         for (let i = 0; i < 50; i++) {
           getAll( { 
@@ -31,6 +31,7 @@ const Table = ( ) =>{
           })
         }
       }, 3000);
+      */
       
   },[]);
 

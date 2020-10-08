@@ -21,8 +21,7 @@ spec:
     spec:
       containers:
       - name: react-pod
-        image: grpc_react_client:0.1.0
-        imagePullPolicy: Never 
+        image: yuriykrasilnikov/grpc_react_client:v.0.1.0
         stdin: true
         tty: true
         ports:
@@ -57,5 +56,5 @@ spec:
   ports:
   - name: http-port
     port: 3000
-  - name: metrics
+  - name: http-metrics-port
     port: 9002

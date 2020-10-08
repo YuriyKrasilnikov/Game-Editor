@@ -159,7 +159,7 @@ class Server:
             Server._instance = super(Server, cls).__new__(cls)
         return Server._instance
 
-  def __init__(self, server_port, metric_port=9001, db_model=ExampleModel):
+  def __init__(self, server_port, cassandra_user, cassandra_password, metric_port=9001, db_model=ExampleModel):
     print('\n'*2)
     print('#'*30)
     print(datetime.now())
@@ -172,14 +172,19 @@ class Server:
       port=metric_port
     )
     
-    cassandra_password = b64decode("ck5ZRU0ycjRrbg==").decode("utf-8")
-
-    #self.cas_sys_query( username='cassandra', password=cassandra_password, hosts=['cassandra.cassandra.svc'], deleted_keyspace='example_crud_keyspace')
-    
-    #print(f"cassandra password:{cassandra_password}", flush=True)
+    #cassandra_password = b64decode(cassandra_key).decode("utf-8")
+    '''
+    self.cas_sys_query(
+      username=cassandra_user,
+      password=cassandra_password,
+      hosts=['cassandra.cassandra.svc'],
+      deleted_keyspace='example_crud_keyspace'
+    )
+    '''
+    #print(f"cassandra user: {cassandra_user} password: {cassandra_password}", flush=True)
     
     self.start_cassandra_client(
-      username='cassandra',
+      username=cassandra_user,
       password=cassandra_password,
       hosts=['cassandra.cassandra.svc'],
       default_keyspace='example_crud_keyspace',
@@ -227,20 +232,18 @@ class Server:
     cassandra.cqlengine.connection.setup(
       hosts=hosts,
       default_keyspace=default_keyspace,
-      auth_provider=auth_provider
+      auth_provider=auth_provider,
+      protocol_version=4
     )
 
     cassandra.cqlengine.management.create_keyspace_simple(
       name=default_keyspace,
       replication_factor=3
-      )
+    )
 
     cassandra.cqlengine.management.sync_table(
       model=model
     )
-
-
-
 
 
   def cas_sys_query(self, username, password, hosts, deleted_keyspace):
@@ -249,7 +252,10 @@ class Server:
         password=password
       )
 
-      cluster = Cluster(hosts, auth_provider=auth_provider)
+      cluster = Cluster(
+        hosts,
+        auth_provider=auth_provider
+      )
       session = cluster.connect()
 
       print(f'Cassandra release_version: { session.execute("SELECT release_version FROM system.local").one() }')

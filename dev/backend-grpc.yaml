@@ -11,16 +11,22 @@ spec:
     matchLabels:
       app: grpc-backend-containers
       tier: backend
+      version: v1
   template:
     metadata:
       labels:
         app: grpc-backend-containers
         tier: backend
+        version: v1
     spec:
       containers:
       - name: grpc-backend-pod
-        image: grpc_greeter_server:0.1.0
-        imagePullPolicy: Never 
+        image: yuriykrasilnikov/grpc_greeter_server:v.0.1.0
+        env: 
+          - name: cassandra-user
+            value: admin
+          - name: cassandra-password
+            value: password
         ports:
         - name: grpc-port
           containerPort: 9000
@@ -48,9 +54,8 @@ spec:
     app: grpc-backend-containers
   ports:
   - name: grpc-web-port
-    protocol: TCP
     port: 9000
-  - name: metrics
+  - name: http-metrics-port
     port: 9001
 
 

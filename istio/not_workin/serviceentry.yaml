@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-http
+  namespace: cassandra
+spec:
+  hosts:
+  - cassandra-0.cassandra.cassandra.svc.cluster.local
+  ports:
+  - name: http
+    number: 9042
+    protocol: TCP
+  location: MESH_INTERNAL
+  resolution: NONE
