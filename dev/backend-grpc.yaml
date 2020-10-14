@@ -9,13 +9,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grpc-backend-containers
+      app: grpc-backend
       tier: backend
       version: v1
   template:
     metadata:
       labels:
-        app: grpc-backend-containers
+        app: grpc-backend
         tier: backend
         version: v1
     spec:
@@ -46,16 +46,14 @@ metadata:
   name: grpc-backend-service
   namespace: development
   labels:
-    app: grpc-backend-service
+    app: grpc-backend
     tier: backend
 spec:
   type: NodePort
   selector:
-    app: grpc-backend-containers
+    app: grpc-backend
   ports:
   - name: grpc-web-port
     port: 9000
-  - name: http-metrics-port
-    port: 9001
-
+    
 

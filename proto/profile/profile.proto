@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package api.profile;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Profile {
+  rpc Get (ProfileRequest) returns (ProfileResponse);
+  rpc Insert (UpdateProfileRequest) returns (ProfileResponse);
+  rpc Update (UpdateProfileRequest) returns (ProfileResponse);
+  rpc Remove (ProfileRequest) returns (Empty);
+}
+
+message Empty {}
+
+message ProfileData {
+  string id = 1;
+  string createdAt = 2;
+  string nickname = 3;
+  string email = 4;
+}
+
+message ProfileRequest {
+  string nickname = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+message ProfileResponse {
+  ProfileData profile = 1;
+}
+
+message UpdateProfileRequest {
+  ProfileData profile = 1;
+  google.protobuf.FieldMask fields = 2;
+}

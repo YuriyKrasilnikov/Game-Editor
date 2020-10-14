@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_orchestrator:v.0.1.0 -f backend/orchestrator/.docker/Dockerfile backend/orchestrator
+docker push yuriykrasilnikov/backend_orchestrator

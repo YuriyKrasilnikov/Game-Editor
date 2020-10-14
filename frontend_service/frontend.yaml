@@ -3,8 +3,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-deployment
-  namespace: development
+  name: react-frontend
+  namespace: frontend
 spec:
   replicas: 1
   selector:
@@ -21,11 +21,19 @@ spec:
     spec:
       containers:
       - name: react-pod
-        image: yuriykrasilnikov/grpc_react_client:v.0.1.0
+        image: yuriykrasilnikov/frontend_react_client:v.0.1.0
+        imagePullPolicy: Always
         stdin: true
         tty: true
+        env: 
+          - name: protocol
+            value: "https"
+          - name: port
+            value: "443"
+          - name: api
+            value: "/api/v1" 
         ports:
-        - name: frontend-port
+        - name: http-port
           containerPort: 3000
         volumeMounts:
         - name: frontend-src-storage
@@ -35,17 +43,17 @@ spec:
       volumes:
       - name: frontend-src-storage
         hostPath:
-          path: /minikube-host/grpc_react_client/src/
+          path: /minikube-host/frontend_service/src
       - name: frontend-public-storage
         hostPath:
-          path: /minikube-host/grpc_react_client/public/
+          path: /minikube-host/frontend_service/public
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: react-service
-  namespace: development
+  namespace: frontend
   labels:
     app: react-frontend
     tier: frontend

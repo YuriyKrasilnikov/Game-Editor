@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cassandra-config
-  namespace: cassandra
-data:
-  configurations: 
-    'listen_address: 127.0.0.1'

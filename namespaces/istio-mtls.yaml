@@ -1,0 +1,33 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: frontend
+spec:
+  mtls:
+    mode: STRICT
+    #mode: DISABLE 
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: backend
+spec:
+  mtls:
+    mode: STRICT
+    #mode: DISABLE
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: authorization
+spec:
+  mtls:
+    mode: STRICT
+    #mode: DISABLE
+
+
