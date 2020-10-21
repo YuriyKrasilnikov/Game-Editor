@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from proto.web_client import web_client_pb2 as proto_dot_web__client_dot_web__client__pb2
 
 
@@ -17,27 +18,32 @@ class ProfileStub(object):
         self.Get = channel.unary_unary(
                 '/api.web_client.Profile/Get',
                 request_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
                 )
         self.Insert = channel.unary_unary(
                 '/api.web_client.Profile/Insert',
-                request_serializer=proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+                request_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/api.web_client.Profile/Update',
                 request_serializer=proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
                 )
         self.Remove = channel.unary_unary(
                 '/api.web_client.Profile/Remove',
                 request_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_web__client_dot_web__client__pb2.Empty.FromString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.StatusResponse.FromString,
                 )
         self.Registration = channel.unary_unary(
                 '/api.web_client.Profile/Registration',
-                request_serializer=proto_dot_web__client_dot_web__client__pb2.RegistrationRequest.SerializeToString,
-                response_deserializer=proto_dot_web__client_dot_web__client__pb2.Empty.FromString,
+                request_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.StatusResponse.FromString,
+                )
+        self.Identification = channel.unary_unary(
+                '/api.web_client.Profile/Identification',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileData.FromString,
                 )
 
 
@@ -74,33 +80,44 @@ class ProfileServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Identification(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProfileServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
                     request_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.FromString,
-                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.SerializeToString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.SerializeToString,
             ),
             'Insert': grpc.unary_unary_rpc_method_handler(
                     servicer.Insert,
-                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.FromString,
-                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.SerializeToString,
+                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.FromString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
                     request_deserializer=proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.FromString,
-                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileResponse.SerializeToString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileDataList.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
                     request_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.FromString,
-                    response_serializer=proto_dot_web__client_dot_web__client__pb2.Empty.SerializeToString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.StatusResponse.SerializeToString,
             ),
             'Registration': grpc.unary_unary_rpc_method_handler(
                     servicer.Registration,
-                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.RegistrationRequest.FromString,
-                    response_serializer=proto_dot_web__client_dot_web__client__pb2.Empty.SerializeToString,
+                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.ProfileRequest.FromString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.StatusResponse.SerializeToString,
+            ),
+            'Identification': grpc.unary_unary_rpc_method_handler(
+                    servicer.Identification,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.ProfileData.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -125,7 +142,7 @@ class Profile(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Get',
             proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
-            proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -141,8 +158,8 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Insert',
-            proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.SerializeToString,
-            proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -159,7 +176,7 @@ class Profile(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Update',
             proto_dot_web__client_dot_web__client__pb2.UpdateProfileRequest.SerializeToString,
-            proto_dot_web__client_dot_web__client__pb2.ProfileResponse.FromString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -176,7 +193,7 @@ class Profile(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Remove',
             proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
-            proto_dot_web__client_dot_web__client__pb2.Empty.FromString,
+            proto_dot_web__client_dot_web__client__pb2.StatusResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -192,7 +209,118 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Registration',
-            proto_dot_web__client_dot_web__client__pb2.RegistrationRequest.SerializeToString,
-            proto_dot_web__client_dot_web__client__pb2.Empty.FromString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileRequest.SerializeToString,
+            proto_dot_web__client_dot_web__client__pb2.StatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Identification(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.web_client.Profile/Identification',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            proto_dot_web__client_dot_web__client__pb2.ProfileData.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class RecordStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Insert = channel.unary_unary(
+                '/api.web_client.Record/Insert',
+                request_serializer=proto_dot_web__client_dot_web__client__pb2.EditRecordRequest.SerializeToString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.RecordDataList.FromString,
+                )
+        self.Get = channel.unary_unary(
+                '/api.web_client.Record/Get',
+                request_serializer=proto_dot_web__client_dot_web__client__pb2.RecordsPaginationRequest.SerializeToString,
+                response_deserializer=proto_dot_web__client_dot_web__client__pb2.RecordsCursorResponse.FromString,
+                )
+
+
+class RecordServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Insert(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Get(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_RecordServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Insert': grpc.unary_unary_rpc_method_handler(
+                    servicer.Insert,
+                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.EditRecordRequest.FromString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.RecordDataList.SerializeToString,
+            ),
+            'Get': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=proto_dot_web__client_dot_web__client__pb2.RecordsPaginationRequest.FromString,
+                    response_serializer=proto_dot_web__client_dot_web__client__pb2.RecordsCursorResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'api.web_client.Record', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Record(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Insert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.web_client.Record/Insert',
+            proto_dot_web__client_dot_web__client__pb2.EditRecordRequest.SerializeToString,
+            proto_dot_web__client_dot_web__client__pb2.RecordDataList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.web_client.Record/Get',
+            proto_dot_web__client_dot_web__client__pb2.RecordsPaginationRequest.SerializeToString,
+            proto_dot_web__client_dot_web__client__pb2.RecordsCursorResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -16,6 +16,8 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js')
+
 var google_protobuf_field_mask_pb = require('google-protobuf/google/protobuf/field_mask_pb.js')
 const proto = {};
 proto.api = {};
@@ -77,13 +79,13 @@ proto.api.web_client.ProfilePromiseClient =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.api.web_client.ProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodDescriptor_Profile_Get = new grpc.web.MethodDescriptor(
   '/api.web_client.Profile/Get',
   grpc.web.MethodType.UNARY,
   proto.api.web_client.ProfileRequest,
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileDataList,
   /**
    * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
@@ -91,7 +93,7 @@ const methodDescriptor_Profile_Get = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
@@ -99,10 +101,10 @@ const methodDescriptor_Profile_Get = new grpc.web.MethodDescriptor(
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.api.web_client.ProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodInfo_Profile_Get = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileDataList,
   /**
    * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
@@ -110,7 +112,7 @@ const methodInfo_Profile_Get = new grpc.web.AbstractClientBase.MethodInfo(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
@@ -119,9 +121,9 @@ const methodInfo_Profile_Get = new grpc.web.AbstractClientBase.MethodInfo(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileResponse)}
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileDataList)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileDataList>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.web_client.ProfileClient.prototype.get =
@@ -140,7 +142,7 @@ proto.api.web_client.ProfileClient.prototype.get =
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.web_client.ProfileResponse>}
+ * @return {!Promise<!proto.api.web_client.ProfileDataList>}
  *     Promise that resolves to the response
  */
 proto.api.web_client.ProfilePromiseClient.prototype.get =
@@ -156,52 +158,52 @@ proto.api.web_client.ProfilePromiseClient.prototype.get =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.web_client.UpdateProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileRequest,
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodDescriptor_Profile_Insert = new grpc.web.MethodDescriptor(
   '/api.web_client.Profile/Insert',
   grpc.web.MethodType.UNARY,
-  proto.api.web_client.UpdateProfileRequest,
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileRequest,
+  proto.api.web_client.ProfileDataList,
   /**
-   * @param {!proto.api.web_client.UpdateProfileRequest} request
+   * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.web_client.UpdateProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileRequest,
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodInfo_Profile_Insert = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileDataList,
   /**
-   * @param {!proto.api.web_client.UpdateProfileRequest} request
+   * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.web_client.UpdateProfileRequest} request The
+ * @param {!proto.api.web_client.ProfileRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileResponse)}
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileDataList)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileDataList>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.web_client.ProfileClient.prototype.insert =
@@ -216,11 +218,11 @@ proto.api.web_client.ProfileClient.prototype.insert =
 
 
 /**
- * @param {!proto.api.web_client.UpdateProfileRequest} request The
+ * @param {!proto.api.web_client.ProfileRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.web_client.ProfileResponse>}
+ * @return {!Promise<!proto.api.web_client.ProfileDataList>}
  *     Promise that resolves to the response
  */
 proto.api.web_client.ProfilePromiseClient.prototype.insert =
@@ -237,13 +239,13 @@ proto.api.web_client.ProfilePromiseClient.prototype.insert =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.api.web_client.UpdateProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodDescriptor_Profile_Update = new grpc.web.MethodDescriptor(
   '/api.web_client.Profile/Update',
   grpc.web.MethodType.UNARY,
   proto.api.web_client.UpdateProfileRequest,
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileDataList,
   /**
    * @param {!proto.api.web_client.UpdateProfileRequest} request
    * @return {!Uint8Array}
@@ -251,7 +253,7 @@ const methodDescriptor_Profile_Update = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
@@ -259,10 +261,10 @@ const methodDescriptor_Profile_Update = new grpc.web.MethodDescriptor(
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.api.web_client.UpdateProfileRequest,
- *   !proto.api.web_client.ProfileResponse>}
+ *   !proto.api.web_client.ProfileDataList>}
  */
 const methodInfo_Profile_Update = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.web_client.ProfileResponse,
+  proto.api.web_client.ProfileDataList,
   /**
    * @param {!proto.api.web_client.UpdateProfileRequest} request
    * @return {!Uint8Array}
@@ -270,7 +272,7 @@ const methodInfo_Profile_Update = new grpc.web.AbstractClientBase.MethodInfo(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.ProfileResponse.deserializeBinary
+  proto.api.web_client.ProfileDataList.deserializeBinary
 );
 
 
@@ -279,9 +281,9 @@ const methodInfo_Profile_Update = new grpc.web.AbstractClientBase.MethodInfo(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileResponse)}
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileDataList)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileDataList>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.web_client.ProfileClient.prototype.update =
@@ -300,7 +302,7 @@ proto.api.web_client.ProfileClient.prototype.update =
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.web_client.ProfileResponse>}
+ * @return {!Promise<!proto.api.web_client.ProfileDataList>}
  *     Promise that resolves to the response
  */
 proto.api.web_client.ProfilePromiseClient.prototype.update =
@@ -317,13 +319,13 @@ proto.api.web_client.ProfilePromiseClient.prototype.update =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.api.web_client.ProfileRequest,
- *   !proto.api.web_client.Empty>}
+ *   !proto.api.web_client.StatusResponse>}
  */
 const methodDescriptor_Profile_Remove = new grpc.web.MethodDescriptor(
   '/api.web_client.Profile/Remove',
   grpc.web.MethodType.UNARY,
   proto.api.web_client.ProfileRequest,
-  proto.api.web_client.Empty,
+  proto.api.web_client.StatusResponse,
   /**
    * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
@@ -331,7 +333,7 @@ const methodDescriptor_Profile_Remove = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.Empty.deserializeBinary
+  proto.api.web_client.StatusResponse.deserializeBinary
 );
 
 
@@ -339,10 +341,10 @@ const methodDescriptor_Profile_Remove = new grpc.web.MethodDescriptor(
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
  *   !proto.api.web_client.ProfileRequest,
- *   !proto.api.web_client.Empty>}
+ *   !proto.api.web_client.StatusResponse>}
  */
 const methodInfo_Profile_Remove = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.web_client.Empty,
+  proto.api.web_client.StatusResponse,
   /**
    * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
@@ -350,7 +352,7 @@ const methodInfo_Profile_Remove = new grpc.web.AbstractClientBase.MethodInfo(
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.Empty.deserializeBinary
+  proto.api.web_client.StatusResponse.deserializeBinary
 );
 
 
@@ -359,9 +361,9 @@ const methodInfo_Profile_Remove = new grpc.web.AbstractClientBase.MethodInfo(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.web_client.Empty)}
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.StatusResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.Empty>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.StatusResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.web_client.ProfileClient.prototype.remove =
@@ -380,7 +382,7 @@ proto.api.web_client.ProfileClient.prototype.remove =
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.web_client.Empty>}
+ * @return {!Promise<!proto.api.web_client.StatusResponse>}
  *     Promise that resolves to the response
  */
 proto.api.web_client.ProfilePromiseClient.prototype.remove =
@@ -396,52 +398,52 @@ proto.api.web_client.ProfilePromiseClient.prototype.remove =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.web_client.RegistrationRequest,
- *   !proto.api.web_client.Empty>}
+ *   !proto.api.web_client.ProfileRequest,
+ *   !proto.api.web_client.StatusResponse>}
  */
 const methodDescriptor_Profile_Registration = new grpc.web.MethodDescriptor(
   '/api.web_client.Profile/Registration',
   grpc.web.MethodType.UNARY,
-  proto.api.web_client.RegistrationRequest,
-  proto.api.web_client.Empty,
+  proto.api.web_client.ProfileRequest,
+  proto.api.web_client.StatusResponse,
   /**
-   * @param {!proto.api.web_client.RegistrationRequest} request
+   * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.Empty.deserializeBinary
+  proto.api.web_client.StatusResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.web_client.RegistrationRequest,
- *   !proto.api.web_client.Empty>}
+ *   !proto.api.web_client.ProfileRequest,
+ *   !proto.api.web_client.StatusResponse>}
  */
 const methodInfo_Profile_Registration = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.web_client.Empty,
+  proto.api.web_client.StatusResponse,
   /**
-   * @param {!proto.api.web_client.RegistrationRequest} request
+   * @param {!proto.api.web_client.ProfileRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.web_client.Empty.deserializeBinary
+  proto.api.web_client.StatusResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.web_client.RegistrationRequest} request The
+ * @param {!proto.api.web_client.ProfileRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.web_client.Empty)}
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.StatusResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.Empty>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.StatusResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.api.web_client.ProfileClient.prototype.registration =
@@ -456,11 +458,11 @@ proto.api.web_client.ProfileClient.prototype.registration =
 
 
 /**
- * @param {!proto.api.web_client.RegistrationRequest} request The
+ * @param {!proto.api.web_client.ProfileRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.web_client.Empty>}
+ * @return {!Promise<!proto.api.web_client.StatusResponse>}
  *     Promise that resolves to the response
  */
 proto.api.web_client.ProfilePromiseClient.prototype.registration =
@@ -470,6 +472,298 @@ proto.api.web_client.ProfilePromiseClient.prototype.registration =
       request,
       metadata || {},
       methodDescriptor_Profile_Registration);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.web_client.ProfileData>}
+ */
+const methodDescriptor_Profile_Identification = new grpc.web.MethodDescriptor(
+  '/api.web_client.Profile/Identification',
+  grpc.web.MethodType.UNARY,
+  google_protobuf_empty_pb.Empty,
+  proto.api.web_client.ProfileData,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.ProfileData.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.web_client.ProfileData>}
+ */
+const methodInfo_Profile_Identification = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.web_client.ProfileData,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.ProfileData.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.ProfileData)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.ProfileData>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.web_client.ProfileClient.prototype.identification =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.web_client.Profile/Identification',
+      request,
+      metadata || {},
+      methodDescriptor_Profile_Identification,
+      callback);
+};
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.web_client.ProfileData>}
+ *     Promise that resolves to the response
+ */
+proto.api.web_client.ProfilePromiseClient.prototype.identification =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.web_client.Profile/Identification',
+      request,
+      metadata || {},
+      methodDescriptor_Profile_Identification);
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.web_client.RecordClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.web_client.RecordPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.web_client.EditRecordRequest,
+ *   !proto.api.web_client.RecordDataList>}
+ */
+const methodDescriptor_Record_Insert = new grpc.web.MethodDescriptor(
+  '/api.web_client.Record/Insert',
+  grpc.web.MethodType.UNARY,
+  proto.api.web_client.EditRecordRequest,
+  proto.api.web_client.RecordDataList,
+  /**
+   * @param {!proto.api.web_client.EditRecordRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.RecordDataList.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.web_client.EditRecordRequest,
+ *   !proto.api.web_client.RecordDataList>}
+ */
+const methodInfo_Record_Insert = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.web_client.RecordDataList,
+  /**
+   * @param {!proto.api.web_client.EditRecordRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.RecordDataList.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.web_client.EditRecordRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.RecordDataList)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.RecordDataList>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.web_client.RecordClient.prototype.insert =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.web_client.Record/Insert',
+      request,
+      metadata || {},
+      methodDescriptor_Record_Insert,
+      callback);
+};
+
+
+/**
+ * @param {!proto.api.web_client.EditRecordRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.web_client.RecordDataList>}
+ *     Promise that resolves to the response
+ */
+proto.api.web_client.RecordPromiseClient.prototype.insert =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.web_client.Record/Insert',
+      request,
+      metadata || {},
+      methodDescriptor_Record_Insert);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.web_client.RecordsPaginationRequest,
+ *   !proto.api.web_client.RecordsCursorResponse>}
+ */
+const methodDescriptor_Record_Get = new grpc.web.MethodDescriptor(
+  '/api.web_client.Record/Get',
+  grpc.web.MethodType.UNARY,
+  proto.api.web_client.RecordsPaginationRequest,
+  proto.api.web_client.RecordsCursorResponse,
+  /**
+   * @param {!proto.api.web_client.RecordsPaginationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.RecordsCursorResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.web_client.RecordsPaginationRequest,
+ *   !proto.api.web_client.RecordsCursorResponse>}
+ */
+const methodInfo_Record_Get = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.web_client.RecordsCursorResponse,
+  /**
+   * @param {!proto.api.web_client.RecordsPaginationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.web_client.RecordsCursorResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.web_client.RecordsPaginationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.web_client.RecordsCursorResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.web_client.RecordsCursorResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.web_client.RecordClient.prototype.get =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.web_client.Record/Get',
+      request,
+      metadata || {},
+      methodDescriptor_Record_Get,
+      callback);
+};
+
+
+/**
+ * @param {!proto.api.web_client.RecordsPaginationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.web_client.RecordsCursorResponse>}
+ *     Promise that resolves to the response
+ */
+proto.api.web_client.RecordPromiseClient.prototype.get =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.web_client.Record/Get',
+      request,
+      metadata || {},
+      methodDescriptor_Record_Get);
 };
 
 

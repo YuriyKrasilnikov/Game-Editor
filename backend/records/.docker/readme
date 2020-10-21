@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_records:v.0.1.0 -f backend/records/.docker/Dockerfile backend/records
+docker push yuriykrasilnikov/backend_records

@@ -19,4 +19,7 @@ def get_access(data, access):
       else:
         access_key=True
     
+    print(f"Authorization: {authorization}", flush=True)
+    print(f"Access: {access_key}", flush=True)
+    
     return authorization, access_key

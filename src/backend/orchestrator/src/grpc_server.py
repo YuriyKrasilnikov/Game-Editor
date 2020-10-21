@@ -8,7 +8,7 @@ import grpc
 import proto.web_client.web_client_pb2_grpc as web_client_pb2_grpc
 
 from service.profile import ProfileService
-
+from service.record import RecordService
 
 class Server:
   _instance = None
@@ -17,7 +17,7 @@ class Server:
         if not Server._instance:
             Server._instance = super(Server, cls).__new__(cls)
         return Server._instance
-  
+
   def __init__(self, server_port):
     print('-'*30)
     print('#'*30)
@@ -37,9 +37,15 @@ class Server:
 
 
   def start_grpc_server(self, port, hosts='[::]:'):
-    print('GRPC Server starting...')
+    print('Profile GRPC Server starting...')
     web_client_pb2_grpc.add_ProfileServicer_to_server(
       servicer=ProfileService(),
+      server=self.server
+    )
+
+    print('Record GRPC Server starting...')
+    web_client_pb2_grpc.add_RecordServicer_to_server(
+      servicer=RecordService(),
       server=self.server
     )
 

@@ -4,11 +4,14 @@ import './index.css';
 import { App } from './components/index';
 import * as serviceWorker from './serviceWorker';
 
+import { StatusObserver } from './utilities/context'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StatusObserver>
+      <App />
+    </StatusObserver>
   </React.StrictMode>,
   document.getElementById('root')
 );

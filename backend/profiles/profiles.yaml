@@ -22,15 +22,15 @@ spec:
         image: yuriykrasilnikov/backend_profiles:v.0.1.0
         imagePullPolicy: Always
         env: 
-          - name: profiledb-address
+          - name: db-address
             value: "dbprofiles-postgresql"
-          - name: profiledb-db
+          - name: db-name
             value: "profiles"
-          - name: profiledb-port
+          - name: db-port
             value: "5432"
-          - name: profiledb-user
+          - name: db-user
             value: "postgres"
-          - name: profiledb-password
+          - name: db-password
             value: "password"
         ports:
         - name: grpc-port

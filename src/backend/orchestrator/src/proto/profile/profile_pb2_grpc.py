@@ -16,23 +16,28 @@ class ProfileStub(object):
         """
         self.Get = channel.unary_unary(
                 '/api.profile.Profile/Get',
-                request_serializer=proto_dot_profile_dot_profile__pb2.ProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+                request_serializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
+                )
+        self.GetFiltered = channel.unary_unary(
+                '/api.profile.Profile/GetFiltered',
+                request_serializer=proto_dot_profile_dot_profile__pb2.ProfilesFilterRequest.SerializeToString,
+                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
                 )
         self.Insert = channel.unary_unary(
                 '/api.profile.Profile/Insert',
-                request_serializer=proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+                request_serializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/api.profile.Profile/Update',
-                request_serializer=proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+                request_serializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+                response_deserializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
                 )
         self.Remove = channel.unary_unary(
                 '/api.profile.Profile/Remove',
-                request_serializer=proto_dot_profile_dot_profile__pb2.ProfileRequest.SerializeToString,
-                response_deserializer=proto_dot_profile_dot_profile__pb2.Empty.FromString,
+                request_serializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+                response_deserializer=proto_dot_profile_dot_profile__pb2.StatusResponse.FromString,
                 )
 
 
@@ -40,6 +45,12 @@ class ProfileServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Get(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFiltered(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -68,23 +79,28 @@ def add_ProfileServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
-                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfileRequest.FromString,
-                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.SerializeToString,
+                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.FromString,
+                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.SerializeToString,
+            ),
+            'GetFiltered': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFiltered,
+                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfilesFilterRequest.FromString,
+                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.SerializeToString,
             ),
             'Insert': grpc.unary_unary_rpc_method_handler(
                     servicer.Insert,
-                    request_deserializer=proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.FromString,
-                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.SerializeToString,
+                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.FromString,
+                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.FromString,
-                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileResponse.SerializeToString,
+                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.FromString,
+                    response_serializer=proto_dot_profile_dot_profile__pb2.ProfileDataList.SerializeToString,
             ),
             'Remove': grpc.unary_unary_rpc_method_handler(
                     servicer.Remove,
-                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfileRequest.FromString,
-                    response_serializer=proto_dot_profile_dot_profile__pb2.Empty.SerializeToString,
+                    request_deserializer=proto_dot_profile_dot_profile__pb2.ProfilesRequest.FromString,
+                    response_serializer=proto_dot_profile_dot_profile__pb2.StatusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -108,8 +124,25 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.profile.Profile/Get',
-            proto_dot_profile_dot_profile__pb2.ProfileRequest.SerializeToString,
-            proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+            proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+            proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetFiltered(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.profile.Profile/GetFiltered',
+            proto_dot_profile_dot_profile__pb2.ProfilesFilterRequest.SerializeToString,
+            proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -125,8 +158,8 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.profile.Profile/Insert',
-            proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.SerializeToString,
-            proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+            proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+            proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -142,8 +175,8 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.profile.Profile/Update',
-            proto_dot_profile_dot_profile__pb2.UpdateProfileRequest.SerializeToString,
-            proto_dot_profile_dot_profile__pb2.ProfileResponse.FromString,
+            proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+            proto_dot_profile_dot_profile__pb2.ProfileDataList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -159,7 +192,7 @@ class Profile(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.profile.Profile/Remove',
-            proto_dot_profile_dot_profile__pb2.ProfileRequest.SerializeToString,
-            proto_dot_profile_dot_profile__pb2.Empty.FromString,
+            proto_dot_profile_dot_profile__pb2.ProfilesRequest.SerializeToString,
+            proto_dot_profile_dot_profile__pb2.StatusResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

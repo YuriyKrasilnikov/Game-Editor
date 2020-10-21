@@ -22,7 +22,6 @@ profiledb_password   = os.environ['profiledb-password']
  
 @app.route('/')
 def index():
-
     resp = Response()
     resp.headers["x-user-authorization"] = "false"
 
@@ -43,6 +42,8 @@ def index():
 
     userinfo_json = json.loads( userinfo_data )
 
+    print(f'0', flush=True)
+
     for d in userinfo_json:
         resp.headers["x-user-authorization-"+d] = userinfo_json[d]
         if d == "email":
@@ -56,12 +57,15 @@ def index():
         user_profile = get_profile( 
             data={ "email":user_email }
         )
-    
+
+    filters = ['id', 'nickname', 'email']
+
     if user_profile:
         resp.headers["x-user-authorization-registered"] = "true"
         for d in user_profile:
-            resp.headers["x-user-authorization-"+d] = user_profile[d]
-            resp.response.append( f"{d}: {user_profile[d]} <br/>" )
+            if d in filters:
+                resp.headers["x-user-authorization-"+d] = str(user_profile[d]).encode('utf-8')
+                resp.response.append( f"{d}: {user_profile[d]} <br/>" )
 
     return resp
 

@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: records
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: records
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: records
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: records
+        image: yuriykrasilnikov/backend_records:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: db-address
+            value: "dbrecords-postgresql"
+          - name: db-name
+            value: "records"
+          - name: db-port
+            value: "5432"
+          - name: db-user
+            value: "postgres"
+          - name: db-password
+            value: "password"
+        ports:
+        - name: grpc-port
+          containerPort: 9000
+        volumeMounts:
+        - name: records-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: records-storage
+        hostPath:
+          path: /minikube-host/backend/records/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: records-service
+  namespace: backend
+  labels:
+    app: records
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: records
+  ports:
+  - name: grpc-port
+    port: 9000
+    
+

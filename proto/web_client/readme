@@ -6,5 +6,3 @@ python -m grpc_tools.protoc -I. `
 protoc -I=".\proto\web_client\" web_client.proto `
 --js_out=import_style=commonjs,binary:.\frontend_service\src\proto `
 --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.\frontend_service\src\proto
-
-

@@ -26,6 +26,10 @@ spec:
             value: "profiles-service"
           - name: profile-port
             value: "9000"
+          - name: record-address
+            value: "records-service"
+          - name: record-port
+            value: "9000"
         ports:
         - name: grpc-web-port
           containerPort: 9000
