@@ -1,6 +1,7 @@
 import React, {
     useState,
-    useEffect
+    useEffect,
+    useReducer
   } from 'react';
 
 import {
@@ -50,12 +51,13 @@ const Registration = ( ) => {
                               type="submit"
                               value="Insert"
                               onClick={() => {
-                                  RegistrationProfile( { 
-                                    data: {
-                                      nickname: add_nickname,
-                                      description: add_description,
-                                    },
-                                  } )
+                                    RegistrationProfile( { 
+                                      data: {
+                                        nickname: add_nickname,
+                                        description: add_description,
+                                      },
+                                    } )
+                                    window.location.reload();
                                   }
                               }
                               disabled={!regex.test(add_nickname)}
