@@ -197,7 +197,7 @@ const ProfilesListTable = ( { update } ) => {
 
   useEffect( ( ) => {
     update( forceUpdate )
-  },[]);
+  });
 
   useEffect( ( ) => {
     GetProfile( { 
