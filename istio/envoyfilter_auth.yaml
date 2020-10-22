@@ -25,7 +25,7 @@ spec:
           "@type": "type.googleapis.com/envoy.config.filter.http.lua.v2.Lua"
           inlineCode: |
             function version()
-              return "v0.1"
+              return "v0.2"
             end
         
             function log(handle, value)
@@ -48,6 +48,13 @@ spec:
               --log(request_handle, "auth host: "..auth_host..", auth path: "..auth_path..", auth cluster: "..auth_cluster)
 
               local cookie = request_handle:headers():get("Cookie")
+
+              ---log(request_handle, "---")
+              for header, value in pairs(request_handle:headers()) do
+                if header:find("x%-user%-authorization") then
+                  request_handle:headers():remove(header)
+                end
+              end
 
               local auth_headers, auth_body = request_handle:httpCall(
                 auth_cluster,
