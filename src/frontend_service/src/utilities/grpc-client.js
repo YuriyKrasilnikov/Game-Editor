@@ -81,6 +81,9 @@ const GetProfile = ( {data, result=null, error=null, paths=[], metadata={}} ) =>
       } else {
         console.log("GetProfile not error... Get response");
         console.log("GetProfile", response.toObject().profilesList );
+        if (error){
+          error()
+        }
         if (result){
           result(
             response.toObject().profilesList
@@ -119,6 +122,9 @@ const InsertProfile = ( {data, result=null, error=null, paths=[], metadata={}} )
       } else {
         console.log("Insert not error... Get response");
         console.log("Insert", response.toObject() );
+        if (error){
+          error()
+        }
         if (result){
           result(
             response.toObject().profilesList
@@ -161,6 +167,9 @@ const UpdateProfile = ( {data, result=null, error=null, paths=[], metadata={}} )
       } else {
         console.log("Update not error... Get response");
         console.log("Update", response.toObject() );
+        if (error){
+          error()
+        }
         if (result){
           result(
             response.toObject().profilesList
@@ -194,6 +203,9 @@ const RemoveProfile = ( {data, result=null, error=null, metadata={}} ) => {
       } else {
         console.log("Remove not error... Get response");
         console.log("Remove", response.toObject() );
+        if (error){
+          error()
+        }
         if (result){
           result(
             response.toObject().profilesList
@@ -224,6 +236,9 @@ const RegistrationProfile = ( {data, error=null, metadata={}} ) => {
       } else {
         console.log("Registration not error... Get response");
         console.log("Registration", response.toObject() );
+        if (error){
+          error()
+        }
       }
   });
 }
@@ -247,6 +262,9 @@ const InsertRecord = ( {record, result=null, error=null, paths=[], metadata={}} 
       } else {
         console.log("Insert Record not error... Get response");
         console.log("Insert Record", response.toObject() );
+        if (error){
+          error()
+        }
       }
   });
 }
@@ -289,6 +307,9 @@ const GetRecord = ( {filters, orders, cursor, limit=10, result=null, error=null,
       } else {
         console.log("GetRecord not error... Get response");
         console.log("GetRecord", response.toObject() );
+        if (error){
+          error()
+        }
       }
   });
 }

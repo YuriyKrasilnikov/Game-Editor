@@ -15,9 +15,17 @@ import {
   useInput
 } from '../Utilites/useInput'
 
+import { 
+  useError
+} from '../Utilites/useError'
+
 const ProfilesCheats = ( ) => {
 
   const [profile, setProfile] = useState()
+
+  const [ getError, getErrorMsg, setGetError ] = useError();
+  const [ insertError, insertErrorMsg, setInsertError ] = useError();
+  const [ removeError, removeErrorMsg, setRemoveError ] = useError();
 
   const [get_nickname, get_nicknameInput] = useInput({ type: "text", default_value:"yuriy" });
 
@@ -69,6 +77,7 @@ const ProfilesCheats = ( ) => {
                           nickname: get_nickname,
                         },
                         result: setProfile,
+                        error: setGetError,
                         metadata: { "x-cheat": 'true' }
                       } )
                     }
@@ -78,6 +87,7 @@ const ProfilesCheats = ( ) => {
             </tr>
           </tbody>
         </table>
+        {getError && getErrorMsg}
 
         <h3>{'-'.repeat(10)} Result {'-'.repeat(10)}</h3>
         <table align="center" border="1" cellSpacing="0" cellPadding="7">
@@ -95,6 +105,7 @@ const ProfilesCheats = ( ) => {
             }
           </tbody>
         </table>
+        
         <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
         <table align="center" border="1" cellSpacing="0" cellPadding="7">
           <tbody align="left">
@@ -126,6 +137,7 @@ const ProfilesCheats = ( ) => {
                           email: add_email,
                         },
                         result: ()=>{updateProfilesList()},
+                        error: setInsertError,
                         metadata: { "x-cheat": 'true' }
                       } )
                     }
@@ -135,6 +147,7 @@ const ProfilesCheats = ( ) => {
             </tr>
           </tbody>
         </table>
+        {insertError && insertErrorMsg}
         <h2>{'~'.repeat(15)} Update {'~'.repeat(15)}</h2>
         <h2>{'~'.repeat(15)} Remove {'~'.repeat(15)}</h2>
         <table align="center" border="1" cellSpacing="0" cellPadding="7">
@@ -158,6 +171,7 @@ const ProfilesCheats = ( ) => {
                           nickname: del_nickname,
                         },
                         result: ()=>{updateProfilesList()},
+                        error: setRemoveError,
                         metadata: { "x-cheat": 'true' }
                       } )
                     }
@@ -167,6 +181,7 @@ const ProfilesCheats = ( ) => {
             </tr>
           </tbody>
         </table>
+        {removeError && removeErrorMsg}
       </div>
     </>
   )
