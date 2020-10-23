@@ -1,0 +1,23 @@
+
+config:
+  clientID: 01eda78843849c4d106e
+  clientSecret: 2c516e4914de5fa6744df3b4da0636506fe87363
+  cookieSecret: f2ZloaFMgXJeG9h8QTbjEA==
+  configFile: |-
+    provider="github"
+    email_domains=["*"]
+    github-org = ""
+    github-team = ""
+
+    cookie_refresh = "1h"
+    cookie_secure = true
+    pass_access_token = true
+    pass_authorization_header = true
+    request_logging = true
+    set_authorization_header = true
+    silence_ping_logging = true
+    skip_provider_button = true
+    skip_auth_strip_headers = false
+    skip_jwt_bearer_tokens = true
+    standard_logging = true
+    upstreams = ["static://"]

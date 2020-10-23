@@ -1,6 +1,8 @@
 FROM python:slim-buster
 
-MAINTAINER YuriyKrasilnikov
+# Label docker image
+LABEL version="0.1"
+LABEL maintaner="Yuriy Krasilnikov"
 
 # Creating Application Source Code Directory
 # RUN mkdir -p /var/www

@@ -13,15 +13,15 @@ spec:
   - hosts:
     - arch.homework
     port:
+      name: http
       number: 80
       protocol: HTTP
-      name: http
     tls:
       httpsRedirect: true
   - hosts:
     - arch.homework
     port:
-      name: https
+      name: grpc-web-https
       number: 443
       protocol: HTTPS
     tls:
@@ -45,10 +45,28 @@ spec:
   http:
   - match:
     - uri:
+        prefix: /oauth2
+    route:
+    - destination:
+        host: oauth2-proxy.authorization.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /authorization
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: authorization-profiles-service.authorization.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
         prefix: /api/v1/
     route:
     - destination:
-        host: grpc-backend-service.development.svc.cluster.local
+        host: orchestrator-service.backend.svc.cluster.local
         port:
           number: 9000
     rewrite:
@@ -80,17 +98,12 @@ spec:
         - custom-header-1
         - grpc-status
         - grpc-message
-      allowCredentials: true
+      allowCredentials: true 
   - match:
     - uri:
-        prefix: /oauth2
+        prefix: /
     route:
     - destination:
-        host: oauth2-proxy.oauth2.svc.cluster.local
+        host: react-service.frontend.svc.cluster.local
         port:
-          number: 80
-  - route:
-    - destination:
-        host: react-service.development.svc.cluster.local
-        port: 
           number: 3000

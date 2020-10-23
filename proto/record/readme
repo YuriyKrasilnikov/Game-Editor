@@ -1,0 +1,9 @@
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\orchestrator\src `
+--grpc_python_out=.\backend\orchestrator\src `
+.\proto\record\record.proto
+
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\records\src `
+--grpc_python_out=.\backend\records\src `
+.\proto\record\record.proto

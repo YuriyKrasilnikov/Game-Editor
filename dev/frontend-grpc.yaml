@@ -9,13 +9,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: react-frontend-containers
+      app: react-frontend
       tier: frontend
       version: v1
   template:
     metadata:
       labels:
-        app: react-frontend-containers
+        app: react-frontend
         tier: frontend
         version: v1
     spec:
@@ -52,9 +52,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: react-frontend-containers
+    app: react-frontend
   ports:
   - name: http-port
     port: 3000
-  - name: http-metrics-port
-    port: 9002

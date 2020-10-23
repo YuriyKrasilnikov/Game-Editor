@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authorization-profiles
+  namespace: authorization
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorization-profiles
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: authorization-profiles
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: authorization-profiles
+        image: yuriykrasilnikov/authorization_profiles:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: oauth2-address
+            value: "oauth2-proxy"
+          - name: oauth2-port
+            value: "80"
+          - name: oauth2-path-auth
+            value: "/oauth2/auth"
+          - name: oauth2-path-userinfo
+            value: "/oauth2/userinfo"
+          - name: profiledb-address
+            value: "dbprofiles-postgresql.backend.svc.cluster.local"
+          - name: profiledb-db
+            value: "profiles"
+          - name: profiledb-port
+            value: "5432"
+          - name: profiledb-user
+            value: "postgres"
+          - name: profiledb-password
+            value: "password"
+        ports:
+        - name: http-port
+          containerPort: 80
+        volumeMounts:
+        - name: authorization-profiles-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: authorization-profiles-storage
+        hostPath:
+          path: /minikube-host/authorization/profiles/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authorization-profiles-service
+  namespace: authorization
+  labels:
+    app: authorization-profiles
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: authorization-profiles
+  ports:
+  - name: http-port
+    port: 80
+    
+

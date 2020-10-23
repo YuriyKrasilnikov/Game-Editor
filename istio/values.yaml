@@ -45,6 +45,15 @@ spec:
   # Настройки компонентов
   values:
 
+    pilot:
+      autoscaleEnabled: false
+
+    gateways:
+      istio-ingressgateway:
+        autoscaleEnabled: false
+      istio-egressgateway:
+        autoscaleEnabled: false
+
     kiali:
       enabled: true
       dashboard:
@@ -58,6 +67,33 @@ spec:
         enabled: true
         prometheus:
           enabled: true
+          configOverride:
+            inboundSidecar:
+              debug: false
+              stat_prefix: istio
+              metrics:
+                - name: requests_total
+                  dimensions:
+                    destination_port: string(destination.port)
+                    request_host: request.host
+            outboundSidecar:
+              debug: false
+              stat_prefix: istio
+              metrics:
+                - name: requests_total
+                  dimensions:
+                    destination_port: string(destination.port)
+                    request_host: request.host
+            gateway:
+              debug: false
+              stat_prefix: istio
+              disable_host_header_fallback: true
+              metrics:
+                - name: requests_total
+                  dimensions:
+                    destination_port: string(destination.port)
+                    request_host: request.host
+
     
     sidecarInjectorWebhook:
       rewriteAppHTTPProbe: true

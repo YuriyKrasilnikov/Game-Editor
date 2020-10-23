@@ -1,4 +1,3 @@
 grpcio
 protobuf
-prometheus_client
 cassandra-driver

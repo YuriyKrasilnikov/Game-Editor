@@ -1,0 +1,66 @@
+#Frontend react
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend
+  namespace: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-frontend
+      tier: frontend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+        tier: frontend
+        version: v1
+    spec:
+      containers:
+      - name: react-pod
+        image: yuriykrasilnikov/frontend_react_client:v.0.1.0
+        imagePullPolicy: Always
+        stdin: true
+        tty: true
+        env: 
+          - name: protocol
+            value: "https"
+          - name: port
+            value: "443"
+          - name: api
+            value: "/api/v1" 
+        ports:
+        - name: http-port
+          containerPort: 3000
+        volumeMounts:
+        - name: frontend-src-storage
+          mountPath: /usr/frontend/src
+        - name: frontend-public-storage
+          mountPath: /usr/frontend/public
+      volumes:
+      - name: frontend-src-storage
+        hostPath:
+          path: /minikube-host/frontend_service/src
+      - name: frontend-public-storage
+        hostPath:
+          path: /minikube-host/frontend_service/public
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+  namespace: frontend
+  labels:
+    app: react-frontend
+    tier: frontend
+spec:
+  type: NodePort
+  selector:
+    app: react-frontend
+  ports:
+  - name: http-port
+    port: 3000

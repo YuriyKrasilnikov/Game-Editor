@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/authorization_profiles:v.0.1.0 -f authorization/profiles/.docker/Dockerfile authorization/profiles/
+docker push yuriykrasilnikov/authorization_profiles
