@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_query_profiles:v.0.1.0 -f backend/query/profiles/.docker/Dockerfile backend/query/profiles
+docker push yuriykrasilnikov/backend_query_profiles

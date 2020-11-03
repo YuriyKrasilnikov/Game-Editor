@@ -1,9 +1,0 @@
-python -m grpc_tools.protoc -I. `
---python_out=.\backend\orchestrator\src `
---grpc_python_out=.\backend\orchestrator\src `
-.\proto\profile\profile.proto
-
-python -m grpc_tools.protoc -I. `
---python_out=.\backend\profiles\src `
---grpc_python_out=.\backend\profiles\src `
-.\proto\profile\profile.proto

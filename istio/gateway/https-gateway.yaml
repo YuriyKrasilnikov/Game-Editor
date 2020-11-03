@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: https-gateway
+  namespace: istio-system
+  labels:
+    app: istio-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - arch.homework
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - arch.homework
+    port:
+      name: grpc-web-https
+      number: 443
+      protocol: HTTPS
+    tls:
+      credentialName: arch-homework-tsl
+      httpsRedirect: false
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
+  - hosts:
+    - istio-ingressgateway.istio-system.svc.cluster.local
+    port:
+      name: http-local
+      number: 80
+      protocol: HTTP

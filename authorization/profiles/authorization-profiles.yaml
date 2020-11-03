@@ -31,7 +31,7 @@ spec:
           - name: oauth2-path-userinfo
             value: "/oauth2/userinfo"
           - name: profiledb-address
-            value: "dbprofiles-postgresql.backend.svc.cluster.local"
+            value: "dbprofiles-postgresql.database.svc.cluster.local"
           - name: profiledb-db
             value: "profiles"
           - name: profiledb-port
@@ -40,6 +40,14 @@ spec:
             value: "postgres"
           - name: profiledb-password
             value: "password"
+          - name: kafka-consumer-address
+            value: "command-kafka.kafka.svc.cluster.local"
+          - name: kafka-consumer-port
+            value: "9092"
+          - name: kafka-producer-address
+            value: "command-kafka-0.command-kafka-headless.kafka.svc.cluster.local"
+          - name: kafka-producer-port
+            value: "9092"
         ports:
         - name: http-port
           containerPort: 80

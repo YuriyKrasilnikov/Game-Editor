@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.query.profile.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Profile {
+
+  rpc Get (ProfilesRequest) returns (ProfileDataList);
+  rpc GetFiltered (ProfilesFilterRequest) returns (ProfileDataList);
+
+}
+
+message ProfileData {
+  string id = 1;
+  string createdAt = 2;
+  string nickname = 3;
+  string email = 4;
+  string description = 5;
+}
+
+message ProfileDataList {
+  repeated ProfileData profiles = 1;
+}
+
+//--- Request
+
+message ProfilesRequest {
+  ProfileDataList profilesData = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+enum ProfileKey {
+  UNKNOWN = 0;
+  ID = 1;
+  CREATEDAT = 2;
+  NICKNAME = 3;
+  EMAIL = 4;
+}
+
+enum Operand {
+  NONE = 0;
+  IN = 1; // in or ==
+  OUT = 2; // out or !=
+  LESS = 3; // less or <
+  GREATER = 4; // greater or >
+  EQLESS= 5; // not greater or <=
+  EQGREATER = 6; // not less or >=
+}
+
+message Filter {
+  ProfileKey key = 1;
+  Operand operand = 2;
+  repeated string value = 3;
+}
+
+message ProfilesFilterRequest {
+  repeated Filter filters = 2;
+}

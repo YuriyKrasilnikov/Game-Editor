@@ -16,11 +16,72 @@ kubectl apply -f .\namespaces\namespace.yaml
 ###### 5. Confige istio mtls
 kubectl apply -f .\namespaces\istio-mtls.yaml
 
-###### 6. Start Profiles DB
+###### Start web https gateway
+kubectl apply -f .\istio\gateway\https-gateway.yaml
+
+###### Start gateway route
+kubectl apply -f .\istio\gateway\gateway-route.yaml
+
+
+
+###### Config auth on envoyfilter
+kubectl apply -f .\istio\gateway\client-auth-filter.yaml
+
+
+###### Start query-route
+kubectl apply -f .\istio\query\query-route.yaml
+
+###### Start command-route
+kubectl apply -f .\istio\command\command-route.yaml
+
+
+
+###### Start oauth2-proxy
+helm install `
+oauth2-proxy stable/oauth2-proxy `
+-f .\authorization\oauth2-proxy\values.yaml `
+--namespace authorization
+
+###### Start kafka
+helm install `
+command-kafka bitnami/kafka `
+-f .\kafka\values.yaml `
+--namespace kafka
+
+###### Start Profiles DB
 helm install `
 dbprofiles bitnami/postgresql `
--f .\backend\db_profiles\values.yaml `
---namespace backend
+-f .\database\db_profiles\values.yaml `
+--namespace database
+
+
+###### Start authorization-profiles service
+kubectl apply -f .\authorization\profiles\authorization-profiles.yaml
+
+###### Start frontend service
+kubectl apply -f .\frontend\frontend_service\frontend-service.yaml
+
+###### Start query orchestrator service
+kubectl apply -f .\backend\orchestrator\query-webclient-orchestrator.yaml
+
+###### Start query orchestrator service
+kubectl apply -f .\backend\producer\command-webclient-producer.yaml
+
+
+
+###### Start command profiles service
+kubectl apply -f .\backend\command\profiles\command-profiles.yaml
+
+###### Start query profiles service
+kubectl apply -f .\backend\query\profiles\query-profiles.yaml
+
+
+
+
+---
+
+
+
 
 ###### 7. Start Records DB
 helm install `
@@ -28,17 +89,7 @@ dbrecords bitnami/postgresql `
 -f .\backend\db_records\values.yaml `
 --namespace backend
 
-###### 8. Start oauth2-proxy
-helm install `
-oauth2-proxy stable/oauth2-proxy `
--f .\authorization\oauth2-proxy\values.yaml `
---namespace authorization
 
-###### 9. Start authorization-profiles service
-kubectl apply -f .\authorization\profiles\authorization-profiles.yaml
-
-###### 10. Start profiles service
-kubectl apply -f .\backend\profiles\profiles.yaml
 
 ###### 11. Start records service
 kubectl apply -f .\backend\records\records.yaml  

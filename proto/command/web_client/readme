@@ -1,0 +1,8 @@
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\producer\src `
+--grpc_python_out=.\backend\producer\src `
+.\proto\command\web_client\command_webclient.proto
+
+protoc -I=".\proto\command\web_client\" command_webclient.proto `
+--js_out=import_style=commonjs,binary:.\frontend\frontend_service\src\proto `
+--grpc-web_out=import_style=commonjs,mode=grpcwebtext:.\frontend\frontend_service\src\proto

@@ -5,10 +5,9 @@ from base64 import b64decode
 
 import grpc
 
-import proto.web_client.web_client_pb2_grpc as web_client_pb2_grpc
+import proto.query.web_client.query_webclient_pb2_grpc as query_webclient_pb2_grpc
 
 from service.profile import ProfileService
-from service.record import RecordService
 
 class Server:
   _instance = None
@@ -38,14 +37,8 @@ class Server:
 
   def start_grpc_server(self, port, hosts='[::]:'):
     print('Profile GRPC Server starting...')
-    web_client_pb2_grpc.add_ProfileServicer_to_server(
+    query_webclient_pb2_grpc.add_ProfileServicer_to_server(
       servicer=ProfileService(),
-      server=self.server
-    )
-
-    print('Record GRPC Server starting...')
-    web_client_pb2_grpc.add_RecordServicer_to_server(
-      servicer=RecordService(),
       server=self.server
     )
 

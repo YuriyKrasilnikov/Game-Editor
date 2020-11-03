@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.command.webclient.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+//--- Response 
+message StatusResponse {
+  string message = 1;
+}
+
+service Profile {
+  rpc Insert (ProfileData) returns (stream StatusResponse);
+  rpc Update (ProfileData) returns (stream StatusResponse);
+  rpc Remove (ProfileData) returns (stream StatusResponse);
+}
+
+message ProfileData {
+  google.protobuf.FieldMask modified = 1;
+  string createdAt = 2;
+  string nickname = 3;
+  string email = 4;
+  string description = 5;
+}
+
+
+service Record {
+  rpc Insert (RecordData) returns (stream StatusResponse);
+}
+
+message RecordData {
+  google.protobuf.FieldMask modified = 1;
+  string id = 2;
+  string createdAt = 3;
+  string lastUpdate = 4;
+  string nickname = 5;
+  string record = 6;
+}

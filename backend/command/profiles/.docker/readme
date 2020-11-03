@@ -1,0 +1,4 @@
+docker build -t yuriykrasilnikov/backend_command_profiles:v.0.1.0 -f backend/command/profiles/.docker/Dockerfile backend/command/profiles
+docker push yuriykrasilnikov/backend_command_profiles
+
+

@@ -4,6 +4,7 @@ new-item -itemtype symboliclink -path <path to location> -name <the name> -value
 или
 cmd /c mklink /D <path of link> <path of target dir>
 
+
 ## curl
 kubectl exec $pod -c istio-proxy -n development -- curl $host
 
@@ -21,6 +22,7 @@ helm delete cassandra -n cassandra
 
 kubectl delete pod/cassandra-client -n cassandra
 
+kubectl run curl -n backend --image=radial/busyboxplus:curl -i --tty --rm
 
 kubectl run --namespace cassandra cassandra-client --rm --tty -i --restart='Never' `
 --env CASSANDRA_PASSWORD=qDJ6hK6MyN `
