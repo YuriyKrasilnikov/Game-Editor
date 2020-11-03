@@ -29,11 +29,6 @@ class ProfileStub(object):
                 request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.ProfileData.SerializeToString,
                 response_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
                 )
-        self.Registration = channel.unary_stream(
-                '/api.command.webclient.v1.Profile/Registration',
-                request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.ProfileData.SerializeToString,
-                response_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
-                )
 
 
 class ProfileServicer(object):
@@ -57,12 +52,6 @@ class ProfileServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Registration(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_ProfileServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -78,11 +67,6 @@ def add_ProfileServicer_to_server(servicer, server):
             ),
             'Remove': grpc.unary_stream_rpc_method_handler(
                     servicer.Remove,
-                    request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.ProfileData.FromString,
-                    response_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.SerializeToString,
-            ),
-            'Registration': grpc.unary_stream_rpc_method_handler(
-                    servicer.Registration,
                     request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.ProfileData.FromString,
                     response_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.SerializeToString,
             ),
@@ -147,25 +131,8 @@ class Profile(object):
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
-    @staticmethod
-    def Registration(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Profile/Registration',
-            proto_dot_command_dot_web__client_dot_command__webclient__pb2.ProfileData.SerializeToString,
-            proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
-
-class RecordStub(object):
+class BillingStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -175,13 +142,13 @@ class RecordStub(object):
             channel: A grpc.Channel.
         """
         self.Insert = channel.unary_stream(
-                '/api.command.webclient.v1.Record/Insert',
-                request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.RecordData.SerializeToString,
+                '/api.command.webclient.v1.Billing/Insert',
+                request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.SerializeToString,
                 response_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
                 )
 
 
-class RecordServicer(object):
+class BillingServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Insert(self, request, context):
@@ -191,21 +158,21 @@ class RecordServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_RecordServicer_to_server(servicer, server):
+def add_BillingServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Insert': grpc.unary_stream_rpc_method_handler(
                     servicer.Insert,
-                    request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.RecordData.FromString,
+                    request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.FromString,
                     response_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'api.command.webclient.v1.Record', rpc_method_handlers)
+            'api.command.webclient.v1.Billing', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Record(object):
+class Billing(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -219,8 +186,8 @@ class Record(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Record/Insert',
-            proto_dot_command_dot_web__client_dot_command__webclient__pb2.RecordData.SerializeToString,
+        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Billing/Insert',
+            proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.SerializeToString,
             proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

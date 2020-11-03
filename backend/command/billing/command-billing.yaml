@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-billing
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: command-billing
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: command-billing
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: command-billing
+        image: yuriykrasilnikov/backend_command_billing:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: db-address
+            value: "dbbilling-postgresql.database.svc.cluster.local"
+          - name: db-port
+            value: "5432"
+          - name: db-name
+            value: "billing"
+          - name: db-user
+            value: "postgres"
+          - name: db-password
+            value: "password"
+          - name: kafka-consumer-address
+            value: "command-kafka.kafka.svc.cluster.local"
+          - name: kafka-consumer-port
+            value: "9092"
+          - name: kafka-producer-address
+            value: "command-kafka-0.command-kafka-headless.kafka.svc.cluster.local"
+          - name: kafka-producer-port
+            value: "9092"
+        ports:
+        - name: grpc-port
+          containerPort: 9000
+        volumeMounts:
+        - name: command-billing-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: command-billing-storage
+        hostPath:
+          path: /minikube-host/backend/command/billing/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: command-billing
+  namespace: backend
+  labels:
+    app: command-billing
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: command-billing
+  ports:
+  - name: grpc-port
+    port: 9000
+    
+

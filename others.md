@@ -4,7 +4,6 @@ new-item -itemtype symboliclink -path <path to location> -name <the name> -value
 или
 cmd /c mklink /D <path of link> <path of target dir>
 
-
 ## curl
 kubectl exec $pod -c istio-proxy -n development -- curl $host
 
@@ -36,6 +35,8 @@ kubectl apply -f .\cassandra\config.yaml
 kubectl delete configmap cassandra-config -n cassandra 
 
 kubectl describe pod/cassandra-0 -n cassandra
+
+helm delete command-kafka --namespace kafka
 
 
 # ssl в ручную

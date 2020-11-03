@@ -24,10 +24,10 @@ class ProfileClient:
     self.stub = query_profile_pb2_grpc.ProfileStub(self.channel)
 
   def get_profile(self, datas, paths):
-    #print(f'get_profile 1', flush=True)
+    print(f'get_profile 1', flush=True)
     profiles = ProfileClient.__ProfileData(datas=datas)
 
-    #print(f'get_profile 2', flush=True)
+    print(f'get_profile 2', flush=True)
     response = self.stub.Get(
               query_profile_pb2.ProfilesRequest(
                 profilesData=query_profile_pb2.ProfileDataList(
@@ -38,6 +38,6 @@ class ProfileClient:
                 )
               )
             )
-    #print(f'get_profile 3', flush=True)
+    print(f'get_profile 3', flush=True)
     return response
 

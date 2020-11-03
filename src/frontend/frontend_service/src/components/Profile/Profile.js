@@ -4,13 +4,16 @@ import React, {
 } from 'react';
 
 import {
-    useParams
+  useParams
 } from "react-router-dom";
 
-import { 
-    GetProfile,
-    UpdateProfile
-} from '../../utilities/grpc-client'
+import {
+  GetProfile,
+} from '../../grpc/query/ProfileClient'
+
+import {
+  UpdateProfile,
+} from '../../grpc/command/ProfileClient'
 
 import { 
   useInput,
@@ -18,8 +21,8 @@ import {
 } from '../Utilites/useInput'
 
 import { 
-  useError
-} from '../Utilites/useError'
+  useMessage
+} from '../Utilites/useMessage'
 
 const Profile = ( ) => {
 
@@ -29,18 +32,13 @@ const Profile = ( ) => {
   
     const [ profile, setProfile ] = useState()
     
-    const [ error, errorMsg, setError ] = useError();
+    const [ msg, inlineMsg, setMsg ] = useMessage();
 
     const [ toEdit, setToEdit ] = useState()
 
-    const updateProfile = (data) => {
+    const updateProfile = ( updateKey ) => ( updateValue ) => ( ) => {
       let result = { ...profile[0] }
-      Object.entries(data[0]).forEach( ([key, value]) => {
-          if (value) {
-            result[key] = value
-          }
-        }
-      )
+      result[updateKey] = updateValue
       setProfile( [ result ] )
     }
 
@@ -50,7 +48,7 @@ const Profile = ( ) => {
           nickname: nickname,
         },
         result: setProfile,
-        error: setError,
+        error: setMsg
       } )
     },[nickname]);
   
@@ -73,7 +71,8 @@ const Profile = ( ) => {
                         editable={ editable.includes(key) }
                         editing={ toEdit==index }
                         setEdit={ setToEdit }
-                        result={ updateProfile }
+                        result={ setMsg }
+                        callback={ updateProfile(key) }
                       />
                     </td>
                   </tr>
@@ -81,21 +80,16 @@ const Profile = ( ) => {
               }
             </tbody>
           </table>
+          {msg && inlineMsg}
         </>
       );
-    } else {
-      if (error) {
-        return (
-          <h2>Ошибка: {error}</h2>
-        )
-      }
     }
     return (
       <h2>Нет данных...</h2>
     )
   }
 
-const EditableСell = ( { index, data_key, value, editable, editing, setEdit, result} ) => {
+const EditableСell = ( { index, data_key, value, editable, editing, setEdit, result, callback } ) => {
 
   const [textarea, textareaInput, setTextarea] = useTextarea( { default_value: value } );
 
@@ -112,6 +106,7 @@ const EditableСell = ( { index, data_key, value, editable, editing, setEdit, re
               UpdateProfile( { 
                 data: data,
                 result: result,
+                callback: callback(textarea)
               } )
               setEdit();
             }
@@ -139,7 +134,8 @@ const EditableСell = ( { index, data_key, value, editable, editing, setEdit, re
   }else{
     return (
       <>
-        {value}{" "}
+        {value}
+        {" "}
         {editable && <button onClick={()=>{ setEdit(index) }}> Edit </button>}
       </>
     )

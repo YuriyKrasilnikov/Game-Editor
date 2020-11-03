@@ -13,7 +13,8 @@ import { StatusContext } from '../../grpc/context'
 
 import { 
   useInput,
-  useTextarea
+  useTextarea,
+  useSelect
 } from '../Utilites/useInput'
 
 import { 
@@ -21,34 +22,30 @@ import {
 } from '../Utilites/useMessage'
 
 import {
-  GetProfile,
-} from '../../grpc/query/ProfileClient'
+  GetBilling,
+} from '../../grpc/query/BillingClient'
 
 import {
-  CreateProfile,
-  UpdateProfile,
-  RemoveProfile
-} from '../../grpc/command/ProfileClient'
+  CreatePaid,
+} from '../../grpc/command/BillingClient'
 
 const HomeworkApi = ( ) => {
 
+  const key_options = ['value', 'status']
+
   const [ status, _ ] = useContext(StatusContext)
 
-  const [profile, setProfile] = useState()
+  const [ billing, setBilling ] = useState()
 
   const [ msg, inlineMsg, setMsg ] = useMessage();
 
-  const [ get_nickname, get_nicknameInput] = useInput({ type: "text", default_value:"test" });
+  const [ get_key, get_keySelect ] = useSelect({ default_value: key_options[1], options: key_options })
 
-  const [ add_nickname, add_nicknameInput ] = useInput({ type: "text", default_value:"test"});
-  const [ add_email, add_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
+  const [ get_value, get_valueInput] = useInput({ type: "text", default_value:"test" });
 
-  const [ upd_nickname, upd_nicknameInput ] = useInput({ type: "text", default_value:"yuriy"});
-  const [ upd_description, upd_descriptionInput ] = useTextarea({ default_value:"default_description" });
-  const regex = RegExp('^[a-z]{3,}');
+  const [ paid, paidInput] = useInput({ type: "number", default_value:"100" });
 
-  const [ rmv_nickname, rmv_nicknameInput ] = useInput({ type: "text", default_value:"test"});
-  const [ rmv_email, rmv_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
+  const regexPaid = RegExp('^[0-9]{1,}');
 
   const reload = ( ) => {
     window.location.reload()
@@ -56,16 +53,17 @@ const HomeworkApi = ( ) => {
 
   return (
     <>
-      <h1>Home</h1>
-      <h2>{'~'.repeat(15)} Get {'~'.repeat(15)}</h2>
+      <h3>{'-'.repeat(15)} You name: {status ? status.nickname : '(need registered)'} {'-'.repeat(15)}</h3>
+
+      <h2>{'~'.repeat(15)} Get Billing {'~'.repeat(15)}</h2>
       <table align="center" border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
-              Nickname
+              {get_keySelect}
             </td>
             <td>
-              {get_nicknameInput}
+              {get_valueInput}
             </td>
           </tr>
           <tr>
@@ -74,11 +72,11 @@ const HomeworkApi = ( ) => {
                 type="submit"
                 value="Get"
                 onClick={() => {
-                    GetProfile( { 
+                    GetBilling( { 
                       data: {
-                        nickname: get_nickname,
+                        [ get_key ]: get_value,
                       },
-                      result: setProfile,
+                      result: setBilling,
                       error: setMsg,
                       metadata: { "x-cheat": 'true' }
                     } )
@@ -93,7 +91,7 @@ const HomeworkApi = ( ) => {
       <h3>{'-'.repeat(10)} Result {'-'.repeat(10)}</h3>
       <table align="center" border="1" cellSpacing="0" cellPadding="7">
         <tbody>
-          { profile && Object.entries(profile[0]).map( ([key, value]) => 
+          { billing && Object.entries(billing[0]).map( ([key, value]) => 
               <tr key={key} align="left">
                 <td>
                   {key}
@@ -107,23 +105,15 @@ const HomeworkApi = ( ) => {
         </tbody>
       </table>
 
-      <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
+      <h2>{'~'.repeat(15)} Paid {'~'.repeat(15)}</h2>
       <table align="center" border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
-              Nickname
+              Value
             </td>
             <td>
-              {add_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Email
-            </td>
-            <td>
-              {add_emailInput}
+              {paidInput}
             </td>
           </tr>
           <tr>
@@ -132,103 +122,22 @@ const HomeworkApi = ( ) => {
                 type="submit"
                 value="Insert"
                 onClick={() => {
-                  CreateProfile( { 
+                  CreatePaid( { 
                       data: {
-                        nickname: add_nickname,
-                        email: add_email,
+                        value: paid,
                       },
                       result: setMsg,
-                      metadata: { "x-cheat": 'true' }
                     } )
                 }}
+                disabled={ !regexPaid.test(paid) }
               />
             </td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{'~'.repeat(15)} Update {status ? status.nickname : '(need registered)'} {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
-        <tbody align="left">
-          <tr>
-            <td>
-              Nickname
-            </td>
-            <td>
-              {upd_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Description
-            </td>
-            <td>
-              {upd_descriptionInput}
-            </td>
-          </tr>
-          <tr>
-            <td align="right" colSpan="2">
-                <input
-                    type="submit"
-                    value="Update"
-                    onClick={() => {
-                      UpdateProfile( { 
-                          data: {
-                            nickname: upd_nickname,
-                            description: upd_description,
-                          },
-                          result: setMsg
-                        } )
-                    }}
-                    disabled={!regex.test(upd_nickname)}
-                />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h2>{'~'.repeat(15)} Remove {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
-        <tbody align="left">
-          <tr>
-            <td>
-              Nickname
-            </td>
-            <td>
-              {rmv_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Email
-            </td>
-            <td>
-              {rmv_emailInput}
-            </td>
-          </tr>
-          <tr>
-            <td align="right" colSpan="2">
-              <input
-                type="submit"
-                value="Remove"
-                onClick={() => {
-                  RemoveProfile( { 
-                      data: {
-                        nickname: rmv_nickname,
-                        email: rmv_email,
-                      },
-                      result: setMsg,
-                      metadata: { "x-cheat": 'true' }
-                    } )
-                }}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-        
-        <h3>{'-'.repeat(10)} Status {'-'.repeat(10)}</h3>
-        {msg && inlineMsg}
+      <h3>{'-'.repeat(10)} Status {'-'.repeat(10)}</h3>
+      {msg && inlineMsg}
     </>
   );
 }

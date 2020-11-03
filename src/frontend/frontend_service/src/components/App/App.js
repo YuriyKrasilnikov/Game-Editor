@@ -26,8 +26,16 @@ import {
 } from '../Registration/Registration'
 
 import { 
+  Profile
+} from '../Profile/Profile'
+
+import { 
   HomeworkApi
 } from '../Homework/Homework'
+
+import { 
+  ProfilesCheats
+} from './ProfilesCheats'
 
 
 const App = ( ) => {
@@ -38,6 +46,12 @@ const App = ( ) => {
         <Switch>
           <Route path="/registration">
             <Registration/>
+          </Route>
+          <Route path="/profiles_cheats">
+            <ProfilesCheats/>
+          </Route>
+          <Route path="/profile/:nickname">
+            <Profile/>
           </Route>
           <Route exact path="/">
             <HomeworkApi/>

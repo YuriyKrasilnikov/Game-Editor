@@ -8,10 +8,8 @@ package api.query.profile.v1;
 import "google/protobuf/field_mask.proto";
 
 service Profile {
-
   rpc Get (ProfilesRequest) returns (ProfileDataList);
   rpc GetFiltered (ProfilesFilterRequest) returns (ProfileDataList);
-
 }
 
 message ProfileData {
@@ -58,5 +56,6 @@ message Filter {
 }
 
 message ProfilesFilterRequest {
-  repeated Filter filters = 2;
+  repeated Filter filters = 1;
+  google.protobuf.FieldMask fields = 2;
 }

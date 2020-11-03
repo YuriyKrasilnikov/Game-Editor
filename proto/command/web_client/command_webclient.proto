@@ -20,22 +20,16 @@ service Profile {
 
 message ProfileData {
   google.protobuf.FieldMask modified = 1;
-  string createdAt = 2;
-  string nickname = 3;
-  string email = 4;
-  string description = 5;
+  string nickname = 2;
+  string email = 3;
+  string description = 4;
 }
 
 
-service Record {
-  rpc Insert (RecordData) returns (stream StatusResponse);
+service Billing {
+  rpc Insert (PaidData) returns (stream StatusResponse);
 }
 
-message RecordData {
-  google.protobuf.FieldMask modified = 1;
-  string id = 2;
-  string createdAt = 3;
-  string lastUpdate = 4;
-  string nickname = 5;
-  string record = 6;
+message PaidData {
+  string value = 1;
 }

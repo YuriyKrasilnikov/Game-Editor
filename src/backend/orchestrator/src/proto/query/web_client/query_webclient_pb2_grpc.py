@@ -100,7 +100,7 @@ class Profile(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
 
-class RecordStub(object):
+class BillingStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -110,13 +110,13 @@ class RecordStub(object):
             channel: A grpc.Channel.
         """
         self.Get = channel.unary_unary(
-                '/api.query.webclient.v1.Record/Get',
-                request_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsPaginationRequest.SerializeToString,
-                response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsCursorResponse.FromString,
+                '/api.query.webclient.v1.Billing/Get',
+                request_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsRequest.SerializeToString,
+                response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingDataList.FromString,
                 )
 
 
-class RecordServicer(object):
+class BillingServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Get(self, request, context):
@@ -126,21 +126,21 @@ class RecordServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_RecordServicer_to_server(servicer, server):
+def add_BillingServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
-                    request_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsPaginationRequest.FromString,
-                    response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsCursorResponse.SerializeToString,
+                    request_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsRequest.FromString,
+                    response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingDataList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'api.query.webclient.v1.Record', rpc_method_handlers)
+            'api.query.webclient.v1.Billing', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Record(object):
+class Billing(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -154,8 +154,69 @@ class Record(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.Record/Get',
-            proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsPaginationRequest.SerializeToString,
-            proto_dot_query_dot_web__client_dot_query__webclient__pb2.RecordsCursorResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.Billing/Get',
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsRequest.SerializeToString,
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingDataList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class BillingHistoryStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Get = channel.unary_unary(
+                '/api.query.webclient.v1.BillingHistory/Get',
+                request_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsPaginationRequest.SerializeToString,
+                response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsCursorResponse.FromString,
+                )
+
+
+class BillingHistoryServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Get(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_BillingHistoryServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Get': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsPaginationRequest.FromString,
+                    response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsCursorResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'api.query.webclient.v1.BillingHistory', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class BillingHistory(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Get(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.BillingHistory/Get',
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsPaginationRequest.SerializeToString,
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.BillingsCursorResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

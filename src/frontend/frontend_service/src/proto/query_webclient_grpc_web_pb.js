@@ -245,7 +245,7 @@ proto.api.query.webclient.v1.ProfilePromiseClient.prototype.identification =
  * @struct
  * @final
  */
-proto.api.query.webclient.v1.RecordClient =
+proto.api.query.webclient.v1.BillingClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
@@ -271,7 +271,7 @@ proto.api.query.webclient.v1.RecordClient =
  * @struct
  * @final
  */
-proto.api.query.webclient.v1.RecordPromiseClient =
+proto.api.query.webclient.v1.BillingPromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
@@ -292,80 +292,212 @@ proto.api.query.webclient.v1.RecordPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.query.webclient.v1.RecordsPaginationRequest,
- *   !proto.api.query.webclient.v1.RecordsCursorResponse>}
+ *   !proto.api.query.webclient.v1.BillingsRequest,
+ *   !proto.api.query.webclient.v1.BillingDataList>}
  */
-const methodDescriptor_Record_Get = new grpc.web.MethodDescriptor(
-  '/api.query.webclient.v1.Record/Get',
+const methodDescriptor_Billing_Get = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.Billing/Get',
   grpc.web.MethodType.UNARY,
-  proto.api.query.webclient.v1.RecordsPaginationRequest,
-  proto.api.query.webclient.v1.RecordsCursorResponse,
+  proto.api.query.webclient.v1.BillingsRequest,
+  proto.api.query.webclient.v1.BillingDataList,
   /**
-   * @param {!proto.api.query.webclient.v1.RecordsPaginationRequest} request
+   * @param {!proto.api.query.webclient.v1.BillingsRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.query.webclient.v1.RecordsCursorResponse.deserializeBinary
+  proto.api.query.webclient.v1.BillingDataList.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.query.webclient.v1.RecordsPaginationRequest,
- *   !proto.api.query.webclient.v1.RecordsCursorResponse>}
+ *   !proto.api.query.webclient.v1.BillingsRequest,
+ *   !proto.api.query.webclient.v1.BillingDataList>}
  */
-const methodInfo_Record_Get = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.query.webclient.v1.RecordsCursorResponse,
+const methodInfo_Billing_Get = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.BillingDataList,
   /**
-   * @param {!proto.api.query.webclient.v1.RecordsPaginationRequest} request
+   * @param {!proto.api.query.webclient.v1.BillingsRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.api.query.webclient.v1.RecordsCursorResponse.deserializeBinary
+  proto.api.query.webclient.v1.BillingDataList.deserializeBinary
 );
 
 
 /**
- * @param {!proto.api.query.webclient.v1.RecordsPaginationRequest} request The
+ * @param {!proto.api.query.webclient.v1.BillingsRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.RecordsCursorResponse)}
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.BillingDataList)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.RecordsCursorResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.BillingDataList>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.api.query.webclient.v1.RecordClient.prototype.get =
+proto.api.query.webclient.v1.BillingClient.prototype.get =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/api.query.webclient.v1.Record/Get',
+      '/api.query.webclient.v1.Billing/Get',
       request,
       metadata || {},
-      methodDescriptor_Record_Get,
+      methodDescriptor_Billing_Get,
       callback);
 };
 
 
 /**
- * @param {!proto.api.query.webclient.v1.RecordsPaginationRequest} request The
+ * @param {!proto.api.query.webclient.v1.BillingsRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.api.query.webclient.v1.RecordsCursorResponse>}
+ * @return {!Promise<!proto.api.query.webclient.v1.BillingDataList>}
  *     Promise that resolves to the response
  */
-proto.api.query.webclient.v1.RecordPromiseClient.prototype.get =
+proto.api.query.webclient.v1.BillingPromiseClient.prototype.get =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/api.query.webclient.v1.Record/Get',
+      '/api.query.webclient.v1.Billing/Get',
       request,
       metadata || {},
-      methodDescriptor_Record_Get);
+      methodDescriptor_Billing_Get);
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.BillingHistoryClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.BillingHistoryPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.query.webclient.v1.BillingsPaginationRequest,
+ *   !proto.api.query.webclient.v1.BillingsCursorResponse>}
+ */
+const methodDescriptor_BillingHistory_Get = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.BillingHistory/Get',
+  grpc.web.MethodType.UNARY,
+  proto.api.query.webclient.v1.BillingsPaginationRequest,
+  proto.api.query.webclient.v1.BillingsCursorResponse,
+  /**
+   * @param {!proto.api.query.webclient.v1.BillingsPaginationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.BillingsCursorResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.query.webclient.v1.BillingsPaginationRequest,
+ *   !proto.api.query.webclient.v1.BillingsCursorResponse>}
+ */
+const methodInfo_BillingHistory_Get = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.BillingsCursorResponse,
+  /**
+   * @param {!proto.api.query.webclient.v1.BillingsPaginationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.BillingsCursorResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.BillingsPaginationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.BillingsCursorResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.BillingsCursorResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.query.webclient.v1.BillingHistoryClient.prototype.get =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.query.webclient.v1.BillingHistory/Get',
+      request,
+      metadata || {},
+      methodDescriptor_BillingHistory_Get,
+      callback);
+};
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.BillingsPaginationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.query.webclient.v1.BillingsCursorResponse>}
+ *     Promise that resolves to the response
+ */
+proto.api.query.webclient.v1.BillingHistoryPromiseClient.prototype.get =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.query.webclient.v1.BillingHistory/Get',
+      request,
+      metadata || {},
+      methodDescriptor_BillingHistory_Get);
 };
 
 

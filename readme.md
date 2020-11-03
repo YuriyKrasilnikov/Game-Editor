@@ -54,6 +54,12 @@ dbprofiles bitnami/postgresql `
 -f .\database\db_profiles\values.yaml `
 --namespace database
 
+###### Start Billing DB
+helm install `
+dbbilling bitnami/postgresql `
+-f .\database\db_billing\values.yaml `
+--namespace database
+
 
 ###### Start authorization-profiles service
 kubectl apply -f .\authorization\profiles\authorization-profiles.yaml
@@ -68,43 +74,15 @@ kubectl apply -f .\backend\orchestrator\query-webclient-orchestrator.yaml
 kubectl apply -f .\backend\producer\command-webclient-producer.yaml
 
 
-
 ###### Start command profiles service
 kubectl apply -f .\backend\command\profiles\command-profiles.yaml
+
+###### Start command billing service
+kubectl apply -f .\backend\command\billing\command-billing.yaml
 
 ###### Start query profiles service
 kubectl apply -f .\backend\query\profiles\query-profiles.yaml
 
-
-
-
----
-
-
-
-
-###### 7. Start Records DB
-helm install `
-dbrecords bitnami/postgresql `
--f .\backend\db_records\values.yaml `
---namespace backend
-
-
-
-###### 11. Start records service
-kubectl apply -f .\backend\records\records.yaml  
-
-###### 12. start orchestrator service
-kubectl apply -f .\backend\orchestrator\orchestrator.yaml
-
-###### 13. start frontend service
-kubectl apply -f .\frontend_service\frontend.yaml
-
-###### 14. start proxy
-kubectl apply -f .\istio\proxy.yaml
-
-###### 15. config auth on envoyfilter
-kubectl apply -f .\istio\envoyfilter_auth.yaml
 
 
 

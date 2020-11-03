@@ -33,10 +33,6 @@ const Navbar = ( ) => {
               <a href="https://arch.homework/profiles_cheats">
                 Profiles Admin Panel
               </a>
-              {' | '}
-              <a href="https://arch.homework/records_cheats">
-                Records Admin Panel
-              </a>
               {' |~| '}
               <a href="https://arch.homework/oauth2/">
                 Вход

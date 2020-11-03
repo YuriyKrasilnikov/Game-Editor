@@ -301,81 +301,6 @@ proto.api.command.webclient.v1.ProfilePromiseClient.prototype.remove =
 
 
 /**
- * @const
- * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.command.webclient.v1.ProfileData,
- *   !proto.api.command.webclient.v1.StatusResponse>}
- */
-const methodDescriptor_Profile_Registration = new grpc.web.MethodDescriptor(
-  '/api.command.webclient.v1.Profile/Registration',
-  grpc.web.MethodType.SERVER_STREAMING,
-  proto.api.command.webclient.v1.ProfileData,
-  proto.api.command.webclient.v1.StatusResponse,
-  /**
-   * @param {!proto.api.command.webclient.v1.ProfileData} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.api.command.webclient.v1.StatusResponse.deserializeBinary
-);
-
-
-/**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.command.webclient.v1.ProfileData,
- *   !proto.api.command.webclient.v1.StatusResponse>}
- */
-const methodInfo_Profile_Registration = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.api.command.webclient.v1.StatusResponse,
-  /**
-   * @param {!proto.api.command.webclient.v1.ProfileData} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.api.command.webclient.v1.StatusResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.api.command.webclient.v1.ProfileData} request The request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
- *     The XHR Node Readable Stream
- */
-proto.api.command.webclient.v1.ProfileClient.prototype.registration =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Profile/Registration',
-      request,
-      metadata || {},
-      methodDescriptor_Profile_Registration);
-};
-
-
-/**
- * @param {!proto.api.command.webclient.v1.ProfileData} request The request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
- *     The XHR Node Readable Stream
- */
-proto.api.command.webclient.v1.ProfilePromiseClient.prototype.registration =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Profile/Registration',
-      request,
-      metadata || {},
-      methodDescriptor_Profile_Registration);
-};
-
-
-/**
  * @param {string} hostname
  * @param {?Object} credentials
  * @param {?Object} options
@@ -383,7 +308,7 @@ proto.api.command.webclient.v1.ProfilePromiseClient.prototype.registration =
  * @struct
  * @final
  */
-proto.api.command.webclient.v1.RecordClient =
+proto.api.command.webclient.v1.BillingClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
@@ -409,7 +334,7 @@ proto.api.command.webclient.v1.RecordClient =
  * @struct
  * @final
  */
-proto.api.command.webclient.v1.RecordPromiseClient =
+proto.api.command.webclient.v1.BillingPromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
@@ -430,16 +355,16 @@ proto.api.command.webclient.v1.RecordPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.api.command.webclient.v1.RecordData,
+ *   !proto.api.command.webclient.v1.PaidData,
  *   !proto.api.command.webclient.v1.StatusResponse>}
  */
-const methodDescriptor_Record_Insert = new grpc.web.MethodDescriptor(
-  '/api.command.webclient.v1.Record/Insert',
+const methodDescriptor_Billing_Insert = new grpc.web.MethodDescriptor(
+  '/api.command.webclient.v1.Billing/Insert',
   grpc.web.MethodType.SERVER_STREAMING,
-  proto.api.command.webclient.v1.RecordData,
+  proto.api.command.webclient.v1.PaidData,
   proto.api.command.webclient.v1.StatusResponse,
   /**
-   * @param {!proto.api.command.webclient.v1.RecordData} request
+   * @param {!proto.api.command.webclient.v1.PaidData} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -452,13 +377,13 @@ const methodDescriptor_Record_Insert = new grpc.web.MethodDescriptor(
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.api.command.webclient.v1.RecordData,
+ *   !proto.api.command.webclient.v1.PaidData,
  *   !proto.api.command.webclient.v1.StatusResponse>}
  */
-const methodInfo_Record_Insert = new grpc.web.AbstractClientBase.MethodInfo(
+const methodInfo_Billing_Insert = new grpc.web.AbstractClientBase.MethodInfo(
   proto.api.command.webclient.v1.StatusResponse,
   /**
-   * @param {!proto.api.command.webclient.v1.RecordData} request
+   * @param {!proto.api.command.webclient.v1.PaidData} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -469,36 +394,36 @@ const methodInfo_Record_Insert = new grpc.web.AbstractClientBase.MethodInfo(
 
 
 /**
- * @param {!proto.api.command.webclient.v1.RecordData} request The request proto
+ * @param {!proto.api.command.webclient.v1.PaidData} request The request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
  *     The XHR Node Readable Stream
  */
-proto.api.command.webclient.v1.RecordClient.prototype.insert =
+proto.api.command.webclient.v1.BillingClient.prototype.insert =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Record/Insert',
+      '/api.command.webclient.v1.Billing/Insert',
       request,
       metadata || {},
-      methodDescriptor_Record_Insert);
+      methodDescriptor_Billing_Insert);
 };
 
 
 /**
- * @param {!proto.api.command.webclient.v1.RecordData} request The request proto
+ * @param {!proto.api.command.webclient.v1.PaidData} request The request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
  * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
  *     The XHR Node Readable Stream
  */
-proto.api.command.webclient.v1.RecordPromiseClient.prototype.insert =
+proto.api.command.webclient.v1.BillingPromiseClient.prototype.insert =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Record/Insert',
+      '/api.command.webclient.v1.Billing/Insert',
       request,
       metadata || {},
-      methodDescriptor_Record_Insert);
+      methodDescriptor_Billing_Insert);
 };
 
 

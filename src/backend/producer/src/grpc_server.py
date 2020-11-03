@@ -8,6 +8,7 @@ import grpc
 import proto.command.web_client.command_webclient_pb2_grpc as command_webclient_pb2_grpc
 
 from service.profile import ProfileService
+from service.billing import BillingService
 
 class Server:
   _instance = None
@@ -39,6 +40,12 @@ class Server:
     print('Profile GRPC Server starting...')
     command_webclient_pb2_grpc.add_ProfileServicer_to_server(
       servicer=ProfileService(),
+      server=self.server
+    )
+    
+    print('Billing GRPC Server starting...')
+    command_webclient_pb2_grpc.add_BillingServicer_to_server(
+      servicer=BillingService(),
       server=self.server
     )
 
