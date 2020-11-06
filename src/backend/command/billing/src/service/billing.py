@@ -1,14 +1,17 @@
 import uuid
+from datetime import datetime
+
 from sqlalchemy.exc import SQLAlchemyError
 
 from database.sessions import db_session
 from database.model import Billing
 
-def insert( paid ):
+def insert( profile ):
   print(f'--- start insert', flush=True)
   try:
     with db_session() as session:
-      billing = Billing( **paid )
+      profile['profileid'] = uuid.UUID( profile['profileid'] )
+      billing = Billing( **profile )
       session.add( billing )
       session.commit()
     print(f'--- end insert', flush=True)
@@ -20,6 +23,42 @@ def insert( paid ):
     print("Unexpected error")
     return 'unexpected error'
 
+def update( profile ):
+  print(f'--- start update', flush=True)
+  try:
+    with db_session() as session:
+      uuid_profileid = uuid.UUID( profile.pop('profileid', None) )
+      profile['updateAt'] = datetime.now()
+      #session.query( Billing ).filter_by( id=uuid_id ).update( profile, synchronize_session='fetch')
+      session.query( Billing ).filter_by( profileid=uuid_profileid ).update( profile )
+      session.commit()
+    print(f'--- end update', flush=True)
+    return 'done'
+  except SQLAlchemyError as e:
+    error = str(e.__dict__['orig'])
+    return error
+  except:
+    print("Unexpected error")
+    return 'unexpected error'
+
+def remove( profile ):
+  print(f'--- start remove', flush=True)
+  try:
+    with db_session() as session:
+      uuid_profileid = uuid.UUID( profile.pop('profileid', None) )
+      session.query( Billing ).filter_by( profileid=uuid_profileid ).delete( synchronize_session='fetch' )
+      session.commit()
+    print(f'--- end remove', flush=True)
+    return 'done'
+  except SQLAlchemyError as e:
+    error = str(e.__dict__['orig'])
+    return error
+  except:
+    print("Unexpected error")
+    return 'unexpected error'
+
 commands = {
-  'insert': insert
+  'insert': insert,
+  'update': update,
+  'remove': remove
 }

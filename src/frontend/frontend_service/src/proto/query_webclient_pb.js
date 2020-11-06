@@ -853,7 +853,7 @@ proto.api.query.webclient.v1.BillingData.prototype.toObject = function(opt_inclu
  */
 proto.api.query.webclient.v1.BillingData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    createdat: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    updateat: jspb.Message.getFieldWithDefault(msg, 1, ""),
     nickname: jspb.Message.getFieldWithDefault(msg, 2, ""),
     value: jspb.Message.getFieldWithDefault(msg, 3, ""),
     status: jspb.Message.getFieldWithDefault(msg, 4, "")
@@ -895,7 +895,7 @@ proto.api.query.webclient.v1.BillingData.deserializeBinaryFromReader = function(
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedat(value);
+      msg.setUpdateat(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -938,7 +938,7 @@ proto.api.query.webclient.v1.BillingData.prototype.serializeBinary = function() 
  */
 proto.api.query.webclient.v1.BillingData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCreatedat();
+  f = message.getUpdateat();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -970,10 +970,10 @@ proto.api.query.webclient.v1.BillingData.serializeBinaryToWriter = function(mess
 
 
 /**
- * optional string createdAt = 1;
+ * optional string updateAt = 1;
  * @return {string}
  */
-proto.api.query.webclient.v1.BillingData.prototype.getCreatedat = function() {
+proto.api.query.webclient.v1.BillingData.prototype.getUpdateat = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -982,7 +982,7 @@ proto.api.query.webclient.v1.BillingData.prototype.getCreatedat = function() {
  * @param {string} value
  * @return {!proto.api.query.webclient.v1.BillingData} returns this
  */
-proto.api.query.webclient.v1.BillingData.prototype.setCreatedat = function(value) {
+proto.api.query.webclient.v1.BillingData.prototype.setUpdateat = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

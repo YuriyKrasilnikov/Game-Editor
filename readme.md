@@ -1,19 +1,19 @@
 
 # How to Install
 
-###### 1. Start minikube (Windows)
-minikube start --cpus=4 --memory=16g --network-plugin=cni --cni=flannel --mount-string=$PWD\src:/minikube-host --mount --v=5
+###### * Start minikube (Windows)
+minikube start --cpus=4 --memory=16g --cni=flannel --mount-string=$PWD\src:/minikube-host --mount --v=5
 
-###### 2. Start istio
+###### Start istio
 istioctl install -f .\istio\values.yaml
 
-###### 3. Create certificate secret for https
+###### Create certificate secret for https
 kubectl create -n istio-system secret tls arch-homework-tsl --key=./openssl/arch.homework.key --cert=./openssl/arch.homework.crt
 
-###### 4. Create namespaces
+###### Create namespaces
 kubectl apply -f .\namespaces\namespace.yaml
 
-###### 5. Confige istio mtls
+###### Confige istio mtls
 kubectl apply -f .\namespaces\istio-mtls.yaml
 
 ###### Start web https gateway
@@ -70,9 +70,11 @@ kubectl apply -f .\frontend\frontend_service\frontend-service.yaml
 ###### Start query orchestrator service
 kubectl apply -f .\backend\orchestrator\query-webclient-orchestrator.yaml
 
-###### Start query orchestrator service
+###### Start command producer service
 kubectl apply -f .\backend\producer\command-webclient-producer.yaml
 
+###### Start command saga service
+kubectl apply -f .\backend\saga\saga.yaml
 
 ###### Start command profiles service
 kubectl apply -f .\backend\command\profiles\command-profiles.yaml
@@ -82,6 +84,9 @@ kubectl apply -f .\backend\command\billing\command-billing.yaml
 
 ###### Start query profiles service
 kubectl apply -f .\backend\query\profiles\query-profiles.yaml
+
+###### Start query billings service
+kubectl apply -f .\backend\query\billing\query-billing.yaml
 
 
 

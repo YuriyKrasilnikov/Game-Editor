@@ -1,28 +1,28 @@
 import uuid
 
 from database.sessions import db_session
-from database.model import Users
+from database.model import Billing
 
-import proto.query.profile.query_profile_pb2 as query_profile_pb2
-import proto.query.profile.query_profile_pb2_grpc as query_profile_pb2_grpc
+import proto.query.billing.query_billing_pb2 as query_billing_pb2
+import proto.query.billing.query_billing_pb2_grpc as query_billing_pb2_grpc
 
 from google.protobuf import field_mask_pb2
 
 from google.protobuf.json_format import MessageToDict
 
-class ProfileService(query_profile_pb2_grpc.ProfileServicer):
+class BillingService(query_billing_pb2_grpc.BillingServicer):
 
-    def _profilesResponse(users, paths):
+    def _billingsResponse(billings, paths):
 
-      response = query_profile_pb2.ProfileDataList()
+      response = query_billing_pb2.BillingDataList()
 
-      for user in users:
-        profile = ProfileService._fields_mask(
-          cls=query_profile_pb2.ProfileData,
-          data=user.to_dict(),
+      for billing in billings:
+        billing = BillingService._fields_mask(
+          cls=query_billing_pb2.BillingData,
+          data=billing.to_dict(),
           paths=paths
         )
-        response.profiles.append( profile )
+        response.billings.append( billing )
 
       print(f'response {response}', flush=True)
 
@@ -43,7 +43,7 @@ class ProfileService(query_profile_pb2_grpc.ProfileServicer):
       else:
         return source
 
-    def _profiles2filter(cls, datas):
+    def _billings2filter(cls, datas):
 
       d = {}
       for data in datas:
@@ -62,22 +62,24 @@ class ProfileService(query_profile_pb2_grpc.ProfileServicer):
     #---
     def Get(self, request, context):
       print(f'--- start Get', flush=True)
-      print(f'Get profiles: {request.profilesData}', flush=True)
+      print(f'Get billings: {request.billingsData}', flush=True)
       print(f'Get fields: {request.fields} ', flush=True)
     
       paths=request.fields.paths
 
-      if request.profilesData.profiles:
-        request_dict = MessageToDict(request.profilesData)  
-        query_filter = ProfileService._profiles2filter( cls=Users, datas=request_dict['profiles'] )
+      if request.billingsData.billings:
+        print(f'1', flush=True)
+        request_dict = MessageToDict(request.billingsData)
+        print(f'2', flush=True)
+        query_filter = BillingService._billings2filter( cls=Billing, datas=request_dict['billings'] )
       else:
         query_filter=[]
 
-      #print(f'Get query_filter: {query_filter} ', flush=True)
+      print(f'Get query_filter: {query_filter} ', flush=True)
       with db_session() as session:
-        users = session.query(Users).filter( *query_filter ).all()
+        billings = session.query( Billing ).filter( *query_filter ).all()
 
-      response = ProfileService._profilesResponse( users=users, paths=paths )
+      response = BillingService._billingsResponse( billings=billings, paths=paths )
       print(f'--- end Get', flush=True)
       return response
       

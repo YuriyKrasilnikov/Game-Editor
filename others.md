@@ -4,6 +4,8 @@ new-item -itemtype symboliclink -path <path to location> -name <the name> -value
 или
 cmd /c mklink /D <path of link> <path of target dir>
 
+cmd /c mklink /D .\backend\saga\src ..\..\src\backend\saga\src
+
 ## curl
 kubectl exec $pod -c istio-proxy -n development -- curl $host
 

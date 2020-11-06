@@ -45,11 +45,6 @@ spec:
   # Настройки компонентов
   values:
 
-    global:
-      jwtPolicy: third-party-jwt
-      meshExpansion:
-        enabled: true
-
     pilot:
       autoscaleEnabled: false
       env:

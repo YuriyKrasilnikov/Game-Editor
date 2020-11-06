@@ -38,7 +38,7 @@ def drop_table(table_name):
        print(f'Deleting {table_name} table', flush=True)
        Base.metadata.drop_all(engine, [table], checkfirst=True)
 
-#drop_table("users")
+drop_table("users")
 
 Base.metadata.create_all(bind=engine)
 

@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import uuid
 
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition, OffsetAndMetadata
 

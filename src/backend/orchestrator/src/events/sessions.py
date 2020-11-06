@@ -27,6 +27,8 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
 
   request_json = json.dumps( request ).encode('utf-8')
 
+  yield f"{command} proceccing..."
+
   consumer = KafkaConsumer(
     response_topic,
     group_id=response_group,
@@ -64,10 +66,9 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
 
       value = message.value.decode('utf-8')
 
-      msg = value
-      status = headers_dict['command'].decode('utf-8')
-
-      if status == 'close':
+      if headers_dict['command'].decode('utf-8') == 'close':
         consumer.close()
 
-      yield msg, status
+      msg = f"Command: { command }. Status: {value}"
+      print (f"msg: {msg}", flush=True)
+      yield msg

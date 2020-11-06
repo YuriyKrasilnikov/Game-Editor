@@ -13,8 +13,8 @@ service Billing {
 
 message BillingData {
   string id = 1;
-  string createdAt = 2;
-  string idprofile = 3;
+  string updateAt = 2;
+  string profileid = 3;
   string value = 4;
   string status = 5;
 }

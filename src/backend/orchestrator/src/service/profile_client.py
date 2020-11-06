@@ -23,6 +23,10 @@ class ProfileClient:
     # bind the client and the server
     self.stub = query_profile_pb2_grpc.ProfileStub(self.channel)
 
+  def get_profile_by_id(self, id, paths):
+    datas=[{'id': id}]
+    return self.get_profile( datas=datas, paths=paths )
+
   def get_profile(self, datas, paths):
     #print(f'get_profile 1', flush=True)
     profiles = ProfileClient.__ProfileData(datas=datas)

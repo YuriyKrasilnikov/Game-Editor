@@ -7,8 +7,7 @@ import http.client
 from flask import Flask, request, Response
 import psycopg2
 import psycopg2.extras
-from kafka import KafkaConsumer
-from kafka import KafkaProducer
+from kafka import KafkaConsumer, KafkaProducer, OffsetAndMetadata, TopicPartition
 
 app = Flask(__name__)
 
@@ -30,10 +29,22 @@ kafka_producer_port      =os.environ['kafka-producer-port']
 
 Producer = KafkaProducer(
   bootstrap_servers=[
-    f'{kafka_producer_address}:{kafka_consumer_port}'
+    f'{kafka_producer_address}:{kafka_producer_port}'
   ],
   acks='all'
 )
+
+email_registration = []
+
+def _on_send_success(record_metadata):
+  print(f'record_metadata.topic:{record_metadata.topic}', flush=True)
+  print(f'record_metadata.partition:{record_metadata.partition}', flush=True)
+  print(f'record_metadata.offset:{record_metadata.offset}', flush=True)
+
+def _on_send_error(excp):
+  print(f'I am an errback {excp}', flush=True)
+  # log.error('I am an errback', exc_info=excp)
+  # handle exception
  
 @app.route('/')
 def index():
@@ -66,9 +77,13 @@ def index():
       user_profile = get_profile( 
           data = data
       )
-      if not user_profile:
-        user_profile = sign_up( data )
-        
+      if not user_profile and not ( user_email in email_registration):
+        email_registration.append( user_email )
+        for msg in sign_up( data ):
+          if msg:
+            user_profile = msg
+            email_registration.remove( user_email )
+
 
   filters = ['id', 'nickname', 'email']
 
@@ -116,25 +131,44 @@ def get_profile(data):
 
   profile_dict = { key:value for key, value in ( dict(profile) if profile else {} ).items() if value }
 
-  #print( f"profile_dict: {profile_dict}", flush=True )
+  print( f"profile_dict: {profile_dict}", flush=True )
 
   return profile_dict
 
 def sign_up(data):
-
+  print( f"sign_up", flush=True )
   consumer_timeout_ms = 1000
 
-  command = 'insert'
+  command = 'registered'
   dialog_id = str( uuid.uuid4() )
 
-  responce_topic = 'registered'
-  responce_group = 'answer-group-'+dialog_id
+  response_topic = 'sign_up'
+  #response_group = 'answer-group-'+dialog_id
+  response_group = 'answer-group'
 
-  request_json = json.dumps( data ).encode('utf-8')
+  registration = eventrequest(
+        data = json.dumps( data ).encode('utf-8'),
+        command = command,
+        dialog_id = dialog_id,
+        response_topic = response_topic,
+        response_group = response_group,
+        consumer_timeout_ms=consumer_timeout_ms
+      )
+
+  for msg in registration:
+    if msg:
+      yield get_profile( data = data )
+    else:
+      yield False
+      
+
+def eventrequest(data, command, dialog_id, response_topic, response_group, consumer_timeout_ms=1000):
+
+  print( f"eventrequest {command}", flush=True )
 
   consumer = KafkaConsumer(
-    responce_topic,
-    group_id=responce_group,
+    response_topic,
+    group_id=response_group,
     bootstrap_servers=[
       f'{kafka_consumer_address}:{kafka_consumer_port}'
     ],
@@ -144,28 +178,38 @@ def sign_up(data):
   )
 
   Producer.send(
-    topic='command-profile',
-    value=request_json,
+    topic='saga',
+    value=data,
     headers=[
       ('command', command.encode('utf-8')),
       ('dialog-id', dialog_id.encode('utf-8')),
-      ('responce-topic', responce_topic.encode('utf-8'))
+      ('response-topic', response_topic.encode('utf-8'))
     ],
-  )
+  ).add_callback(_on_send_success).add_errback(_on_send_error)
 
   for message in consumer:
       print (f"{message.topic}:{message.partition}:{message.offset}: key={message.key} headers={message.headers} value={message.value.decode('utf-8')}", flush=True)
-      consumer.commit()
 
-      value = message.value.decode('utf-8')
+      consumer.commit(
+          offsets={ 
+            TopicPartition( topic=message.topic, partition=message.partition ): OffsetAndMetadata( message.offset+1, '' ) 
+          }
+       )
+
       headers_dict = dict(message.headers)
 
-      if value=='done':
-        consumer.close()
-  
-  return get_profile( 
-          data = data
+      if headers_dict['dialog-id'].decode('utf-8') == dialog_id:
+        consumer.commit(
+          offsets={ 
+            TopicPartition( topic=message.topic, partition=message.partition ): OffsetAndMetadata( message.offset+1, '' ) 
+          }
         )
+
+        value = message.value.decode('utf-8')
+
+        if headers_dict['command'].decode('utf-8') == 'close':
+          yield True
+          consumer.close()
 
 
 if __name__ == '__main__':

@@ -42,7 +42,7 @@ def remove( profile ):
   try:
     with db_session() as session:
       uuid_id = uuid.UUID(profile.pop('id', None))
-      session.query( Users ).filter_by( **profile ).delete( synchronize_session='fetch' )
+      session.query( Users ).filter_by( id=uuid_id ).delete( synchronize_session='fetch' )
       session.commit()
     print(f'--- end remove', flush=True)
     return 'done'

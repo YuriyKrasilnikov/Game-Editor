@@ -5,10 +5,10 @@ from base64 import b64decode
 
 import grpc
 
-import proto.command.web_client.command_webclient_pb2_grpc as command_webclient_pb2_grpc
+import proto.query.billing.query_billing_pb2_grpc as query_billing_pb2_grpc
 
-from service.profile import ProfileService
 from service.billing import BillingService
+
 
 class Server:
   _instance = None
@@ -17,7 +17,7 @@ class Server:
         if not Server._instance:
             Server._instance = super(Server, cls).__new__(cls)
         return Server._instance
-
+  
   def __init__(self, server_port):
     print('-'*30)
     print('#'*30)
@@ -27,7 +27,7 @@ class Server:
     self.server = grpc.server(
       thread_pool=futures.ThreadPoolExecutor()
     )
-
+    
     self.start_grpc_server(
       port=server_port
     )
@@ -37,14 +37,8 @@ class Server:
 
 
   def start_grpc_server(self, port, hosts='[::]:'):
-    print('Profile GRPC Server starting...')
-    command_webclient_pb2_grpc.add_ProfileServicer_to_server(
-      servicer=ProfileService(),
-      server=self.server
-    )
-    
-    print('Billing GRPC Server starting...')
-    command_webclient_pb2_grpc.add_BillingServicer_to_server(
+    print('GRPC Server starting...')
+    query_billing_pb2_grpc.add_BillingServicer_to_server(
       servicer=BillingService(),
       server=self.server
     )

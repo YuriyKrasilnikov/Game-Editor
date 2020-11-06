@@ -10,13 +10,13 @@ import proto.query.web_client.query_webclient_pb2_grpc as query_webclient_pb2_gr
 from service.profile import ProfileService
 from service.billing import BillingService
 
-class Server:
+class GRPC_Server:
   _instance = None
   
   def __new__(cls, *args, **kwargs):
-        if not Server._instance:
-            Server._instance = super(Server, cls).__new__(cls)
-        return Server._instance
+        if not GRPC_Server._instance:
+            GRPC_Server._instance = super(GRPC_Server, cls).__new__(cls)
+        return GRPC_Server._instance
 
   def __init__(self, server_port):
     print('-'*30)
@@ -32,7 +32,7 @@ class Server:
       port=server_port
     )
 
-    print('Server now wait for termination...', flush=True)
+    print('GRPC Server now wait for termination...', flush=True)
     self.server.wait_for_termination()
 
 

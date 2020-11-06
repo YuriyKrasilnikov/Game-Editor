@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_saga:v.0.1.0 -f backend/saga/.docker/Dockerfile backend/saga
+docker push yuriykrasilnikov/backend_saga

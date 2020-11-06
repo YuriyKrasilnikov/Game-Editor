@@ -31,16 +31,5 @@ class Billing(Base):
             'status':str(self.status)
         }
 
-def drop_table(table_name):
-   metadata = MetaData(engine, reflect=True)
-   table = metadata.tables.get(table_name)
-   if table is not None:
-       print(f'Deleting {table_name} table', flush=True)
-       Base.metadata.drop_all(engine, [table], checkfirst=True)
-
-drop_table("billing")
-
-Base.metadata.create_all(bind=engine)
-
 
 

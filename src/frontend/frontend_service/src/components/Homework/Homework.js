@@ -31,7 +31,7 @@ import {
 
 const HomeworkApi = ( ) => {
 
-  const key_options = ['value', 'status']
+  const key_options = ['nickname', 'value', 'status']
 
   const [ status, _ ] = useContext(StatusContext)
 
@@ -39,11 +39,11 @@ const HomeworkApi = ( ) => {
 
   const [ msg, inlineMsg, setMsg ] = useMessage();
 
-  const [ get_key, get_keySelect ] = useSelect({ default_value: key_options[1], options: key_options })
+  const [ get_key, get_keySelect ] = useSelect({ default_value: key_options[0], options: key_options })
 
-  const [ get_value, get_valueInput] = useInput({ type: "text", default_value:"test" });
+  const [ get_value, get_valueInput] = useInput({ type: "text", default_value: "test" });
 
-  const [ paid, paidInput] = useInput({ type: "number", default_value:"100" });
+  const [ paid, paidInput] = useInput({ type: "number", default_value: "100" });
 
   const regexPaid = RegExp('^[0-9]{1,}');
 

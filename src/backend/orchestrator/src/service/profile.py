@@ -60,25 +60,25 @@ class ProfileService(query_webclient_pb2_grpc.ProfileServicer):
 
     print(f'Get ProfileClient request... ', flush=True)
     client = ProfileClient()
-    client_responce = client.get_profile(
+    client_response = client.get_profile(
       datas = profilesData['profiles'],
       paths = query_path
     )
 
-    print(f'Get ProfileClient responce... ', flush=True)
+    print(f'Get ProfileClient response... ', flush=True)
 
-    responce_dict = json_format.MessageToDict( client_responce )
+    response_dict = json_format.MessageToDict( client_response )
 
-    print(f'Get responce_dict: {responce_dict} ', flush=True)
+    print(f'Get response_dict: {response_dict} ', flush=True)
 
-    if responce_dict.get( 'profiles' ):
-      responce = ProfileService._profilesResponse( responce_dict['profiles'], paths=paths)
+    if response_dict.get( 'profiles' ):
+      response = ProfileService._profilesResponse( response_dict['profiles'], paths=paths)
     else:
       context.set_code(grpc.StatusCode.NOT_FOUND)
       context.set_details(f'Requested profiles not found')
-      responce = query_webclient_pb2.ProfileDataList()
+      response = query_webclient_pb2.ProfileDataList()
     print(f'--- end Get', flush=True)
-    return responce
+    return response
 
   #rpc Get (ProfileRequest) returns (ProfileResponse);
   def Identification(self, request, context):

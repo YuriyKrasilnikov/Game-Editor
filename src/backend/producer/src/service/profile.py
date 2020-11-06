@@ -1,7 +1,6 @@
 import grpc
-import json
-import datetime
 import uuid
+import json
 
 from kafka.errors import KafkaError
 
@@ -15,83 +14,32 @@ import proto.command.web_client.command_webclient_pb2_grpc as command_webclient_
 
 from security.access import get_access
 
-from events.sessions import Producer, initConsumer
-
+from events.sessions import send_event
 
 class ProfileService(command_webclient_pb2_grpc.ProfileServicer):
 
-  def _on_send_success(record_metadata):
-    print(f'record_metadata.topic:{record_metadata.topic}', flush=True)
-    print(f'record_metadata.partition:{record_metadata.partition}', flush=True)
-    print(f'record_metadata.offset:{record_metadata.offset}', flush=True)
-
-  def _on_send_error(excp):
-    print(f'I am an errback {excp}', flush=True)
-    # log.error('I am an errback', exc_info=excp)
-    # handle exception
-
-  def _send_event(command, user_id, dialog_id, request):
-
-    responce_topic = 'answer-profile-'+user_id
-    responce_group = 'answer-group-'+dialog_id
-
-    request_json = json.dumps( request ).encode('utf-8')
-
-    consumer = initConsumer(
-      topic=responce_topic,
-      group_id=responce_group,
-      enable_auto_commit=False
-    )
-
-    Producer.send(
-      topic='command-profile',
-      value=request_json,
-      headers=[
-        ('command', command.encode('utf-8')),
-        ('dialog-id', dialog_id.encode('utf-8')),
-        ('responce-topic', responce_topic.encode('utf-8'))
-      ],
-    ).add_callback(ProfileService._on_send_success).add_errback(ProfileService._on_send_error)
-
-    yield command_webclient_pb2.StatusResponse(
-      message = f"{command} proceccing..."
-    )
-
-    for message in consumer:
-      # message value and key are raw bytes -- decode if necessary!
-      # e.g., for unicode: `message.value.decode('utf-8')`
-      print (f"{message.topic}:{message.partition}:{message.offset}: key={message.key} headers={message.headers} value={message.value.decode('utf-8')}", flush=True)
-      headers_dict = dict(message.headers)
-
-      if headers_dict['dialog-id'].decode('utf-8') == dialog_id:
-        consumer.commit()
-
-        value = message.value.decode('utf-8')
-
-        msg = f"Command: { headers_dict['command'].decode('utf-8') }. Status: {value}"
-
-        print (f"msg: {msg}", flush=True)
-
-        yield command_webclient_pb2.StatusResponse(
-          message = msg,
-        )
-
-        if value=='done':
-          consumer.close()
+  def __init__(self, service_id, producer, *args, **kwargs):
+    self.service_id=service_id
+    self.producer=producer
+    super(command_webclient_pb2_grpc.ProfileServicer, self).__init__(*args, **kwargs)
 
   #rpc Insert (ProfileData) returns (stream StatusResponse);
   def Insert(self, request, context):
     print(f'--- start Insert', flush=True)
+    
+    topic = 'saga'
+    command = 'registered'
+    dialog_id = str( uuid.uuid4() )
+    user_id = 'anonymous' #change to id in analytics tools
 
     request_dict = MessageToDict(request)
     metadata = dict( context.invocation_metadata() )
 
-    command = 'insert'
-    user_id = metadata['x-user-authorization-id']
-    dialog_id = str( uuid.uuid4() )
-
-    for responce in ProfileService._send_event( command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict):
-       yield responce
+    #send_event( command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict)
+    for msg, status in send_event( producer=self.producer, service_id=self.service_id, topic=topic, command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict) :
+       yield command_webclient_pb2.StatusResponse(
+              message = msg
+             )
 
     print(f'--- end Insert', flush=True)
 
@@ -109,14 +57,18 @@ class ProfileService(command_webclient_pb2_grpc.ProfileServicer):
     print(f"metadata email {metadata['x-user-authorization-email']}", flush=True)
     print(f"metadata id {metadata['x-user-authorization-id']}", flush=True)
 
+    topic = 'command-profile'
+
     command = 'update'
     user_id = metadata['x-user-authorization-id']
     dialog_id = str( uuid.uuid4() )
 
     request_dict['id'] = user_id
 
-    for responce in ProfileService._send_event( command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict):
-       yield responce
+    for msg, status  in send_event( producer=self.producer, service_id=self.service_id, topic=topic, command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict) :
+       yield command_webclient_pb2.StatusResponse(
+              message = msg
+             )
 
     print(f'--- end Update', flush=True)
   
@@ -134,14 +86,47 @@ class ProfileService(command_webclient_pb2_grpc.ProfileServicer):
     print(f"metadata email {metadata['x-user-authorization-email']}", flush=True)
     print(f"metadata id {metadata['x-user-authorization-id']}", flush=True)
 
-    command = 'remove'
-    user_id = metadata['x-user-authorization-id']
-    dialog_id = str( uuid.uuid4() )
+    removing_event={
+      'service_id': self.service_id,
+      'producer': self.producer,
+      'topic': 'saga',
+      'command': 'delete_profile',
+      'dialog_id': str( uuid.uuid4() ),
+      'user_id': metadata['x-user-authorization-id']
+    } 
 
-    request_dict['id'] = user_id
+    if metadata['x-user-authorization-email'] == request_dict.get('email') or metadata['x-user-authorization-nickname'] == request_dict.get('nickname'):
+      removing_event['request'] = { 'id': removing_event['user_id'] }
+      for response in send_event( **removing_event) :
+        yield command_webclient_pb2.StatusResponse(
+                message = response
+              )
+    else:
+      get_request={
+        'service_id': self.service_id,
+        'producer': self.producer,
+        'topic': 'query_orchestrator',
+        'command': 'get_profile',
+        'dialog_id': str( uuid.uuid4() ),
+        'user_id': metadata['x-user-authorization-id'], 
+        'request': {
+          'datas': [ request_dict ],
+          'paths': [ 'id' ]
+        }
+      }
+      for msg, status in send_event( **get_request ):
+        if status == 'close':
+          profile_id = json.loads( msg )['profiles'][0]['id']
+          removing_event['request'] = { 'id': profile_id }
+          for msg, status in send_event( **removing_event) :
+            yield command_webclient_pb2.StatusResponse(
+                    message = msg
+                  )
+        else:
+          yield command_webclient_pb2.StatusResponse(
+                  message = msg
+                )
 
-    for responce in ProfileService._send_event( command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict):
-       yield responce
 
     print(f'--- end Remove', flush=True)
       

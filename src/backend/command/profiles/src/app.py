@@ -3,8 +3,7 @@ import json
 from datetime import datetime
 import uuid
 
-from kafka import KafkaConsumer
-from kafka import KafkaProducer
+from kafka import KafkaConsumer, KafkaProducer, TopicPartition, OffsetAndMetadata
 
 from service.profile import commands
  
@@ -54,19 +53,27 @@ if __name__ == '__main__':
       # e.g., for unicode: `message.value.decode('utf-8')`
       print (f"{message.topic}:{message.partition}:{message.offset}: key={message.key} headers={message.headers} value={message.value.decode('utf-8')}", flush=True)
 
+      consumer.commit(
+          offsets={ 
+            TopicPartition( topic=message.topic, partition=message.partition ): OffsetAndMetadata( message.offset+1, '' ) 
+          }
+        )
+
       headers_dict = dict( message.headers )
 
       command = headers_dict['command'].decode('utf-8')
-      responce_topic = headers_dict['responce-topic'].decode('utf-8')
+      response_topic = headers_dict['response-topic'].decode('utf-8')
 
       value = json.loads( message.value.decode('utf-8') )
       response = commands.get(command, lambda: "invalid commands")( value )
 
+      headers_dict['command'] = 'close'.encode('utf-8')
+
       # Asynchronous by default
       producer.send(
-        topic=responce_topic,
+        topic=response_topic,
         value=response.encode('utf-8'),
-        headers=message.headers
+        headers=list( headers_dict.items() )
       ).add_callback(_on_send_success).add_errback(_on_send_error)
 
       print("next...", flush=True)

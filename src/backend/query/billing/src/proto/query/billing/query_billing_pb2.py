@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\'proto/query/billing/query_billing.proto\x12\x14\x61pi.query.billing.v1\x1a google/protobuf/field_mask.proto\"^\n\x0b\x42illingData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tcreatedAt\x18\x02 \x01(\t\x12\x11\n\tidprofile\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12\x0e\n\x06status\x18\x05 \x01(\t\"F\n\x0f\x42illingDataList\x12\x33\n\x08\x62illings\x18\x01 \x03(\x0b\x32!.api.query.billing.v1.BillingData\"z\n\x0f\x42illingsRequest\x12;\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32%.api.query.billing.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask2^\n\x07\x42illing\x12S\n\x03Get\x12%.api.query.billing.v1.BillingsRequest\x1a%.api.query.billing.v1.BillingDataListb\x06proto3'
+  serialized_pb=b'\n\'proto/query/billing/query_billing.proto\x12\x14\x61pi.query.billing.v1\x1a google/protobuf/field_mask.proto\"]\n\x0b\x42illingData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08updateAt\x18\x02 \x01(\t\x12\x11\n\tprofileid\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12\x0e\n\x06status\x18\x05 \x01(\t\"F\n\x0f\x42illingDataList\x12\x33\n\x08\x62illings\x18\x01 \x03(\x0b\x32!.api.query.billing.v1.BillingData\"z\n\x0f\x42illingsRequest\x12;\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32%.api.query.billing.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask2^\n\x07\x42illing\x12S\n\x03Get\x12%.api.query.billing.v1.BillingsRequest\x1a%.api.query.billing.v1.BillingDataListb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
 
@@ -43,14 +43,14 @@ _BILLINGDATA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='createdAt', full_name='api.query.billing.v1.BillingData.createdAt', index=1,
+      name='updateAt', full_name='api.query.billing.v1.BillingData.updateAt', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='idprofile', full_name='api.query.billing.v1.BillingData.idprofile', index=2,
+      name='profileid', full_name='api.query.billing.v1.BillingData.profileid', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -83,7 +83,7 @@ _BILLINGDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=99,
-  serialized_end=193,
+  serialized_end=192,
 )
 
 
@@ -114,8 +114,8 @@ _BILLINGDATALIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=195,
-  serialized_end=265,
+  serialized_start=194,
+  serialized_end=264,
 )
 
 
@@ -153,8 +153,8 @@ _BILLINGSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=267,
-  serialized_end=389,
+  serialized_start=266,
+  serialized_end=388,
 )
 
 _BILLINGDATALIST.fields_by_name['billings'].message_type = _BILLINGDATA
@@ -195,8 +195,8 @@ _BILLING = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=391,
-  serialized_end=485,
+  serialized_start=390,
+  serialized_end=484,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
