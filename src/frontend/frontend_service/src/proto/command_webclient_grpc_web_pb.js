@@ -358,8 +358,8 @@ proto.api.command.webclient.v1.BillingPromiseClient =
  *   !proto.api.command.webclient.v1.PaidData,
  *   !proto.api.command.webclient.v1.StatusResponse>}
  */
-const methodDescriptor_Billing_Insert = new grpc.web.MethodDescriptor(
-  '/api.command.webclient.v1.Billing/Insert',
+const methodDescriptor_Billing_Paid = new grpc.web.MethodDescriptor(
+  '/api.command.webclient.v1.Billing/Paid',
   grpc.web.MethodType.SERVER_STREAMING,
   proto.api.command.webclient.v1.PaidData,
   proto.api.command.webclient.v1.StatusResponse,
@@ -380,7 +380,7 @@ const methodDescriptor_Billing_Insert = new grpc.web.MethodDescriptor(
  *   !proto.api.command.webclient.v1.PaidData,
  *   !proto.api.command.webclient.v1.StatusResponse>}
  */
-const methodInfo_Billing_Insert = new grpc.web.AbstractClientBase.MethodInfo(
+const methodInfo_Billing_Paid = new grpc.web.AbstractClientBase.MethodInfo(
   proto.api.command.webclient.v1.StatusResponse,
   /**
    * @param {!proto.api.command.webclient.v1.PaidData} request
@@ -400,13 +400,13 @@ const methodInfo_Billing_Insert = new grpc.web.AbstractClientBase.MethodInfo(
  * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
  *     The XHR Node Readable Stream
  */
-proto.api.command.webclient.v1.BillingClient.prototype.insert =
+proto.api.command.webclient.v1.BillingClient.prototype.paid =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Billing/Insert',
+      '/api.command.webclient.v1.Billing/Paid',
       request,
       metadata || {},
-      methodDescriptor_Billing_Insert);
+      methodDescriptor_Billing_Paid);
 };
 
 
@@ -417,13 +417,88 @@ proto.api.command.webclient.v1.BillingClient.prototype.insert =
  * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
  *     The XHR Node Readable Stream
  */
-proto.api.command.webclient.v1.BillingPromiseClient.prototype.insert =
+proto.api.command.webclient.v1.BillingPromiseClient.prototype.paid =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/api.command.webclient.v1.Billing/Insert',
+      '/api.command.webclient.v1.Billing/Paid',
       request,
       metadata || {},
-      methodDescriptor_Billing_Insert);
+      methodDescriptor_Billing_Paid);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.command.webclient.v1.BuyData,
+ *   !proto.api.command.webclient.v1.StatusResponse>}
+ */
+const methodDescriptor_Billing_Buy = new grpc.web.MethodDescriptor(
+  '/api.command.webclient.v1.Billing/Buy',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.api.command.webclient.v1.BuyData,
+  proto.api.command.webclient.v1.StatusResponse,
+  /**
+   * @param {!proto.api.command.webclient.v1.BuyData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.command.webclient.v1.StatusResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.command.webclient.v1.BuyData,
+ *   !proto.api.command.webclient.v1.StatusResponse>}
+ */
+const methodInfo_Billing_Buy = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.command.webclient.v1.StatusResponse,
+  /**
+   * @param {!proto.api.command.webclient.v1.BuyData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.command.webclient.v1.StatusResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.command.webclient.v1.BuyData} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.api.command.webclient.v1.BillingClient.prototype.buy =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/api.command.webclient.v1.Billing/Buy',
+      request,
+      metadata || {},
+      methodDescriptor_Billing_Buy);
+};
+
+
+/**
+ * @param {!proto.api.command.webclient.v1.BuyData} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.api.command.webclient.v1.StatusResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.api.command.webclient.v1.BillingPromiseClient.prototype.buy =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/api.command.webclient.v1.Billing/Buy',
+      request,
+      metadata || {},
+      methodDescriptor_Billing_Buy);
 };
 
 

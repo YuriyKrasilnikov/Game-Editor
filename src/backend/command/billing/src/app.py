@@ -65,9 +65,9 @@ if __name__ == '__main__':
       response_topic = headers_dict['response-topic'].decode('utf-8')
 
       value = json.loads( message.value.decode('utf-8') )
-      response = commands.get(command, lambda: "invalid commands")( value )
+      response, status = commands.get(command, lambda: "invalid commands")( value )
 
-      headers_dict['command'] = 'close'.encode('utf-8')
+      headers_dict["command"] = status.encode('utf-8')
 
       # Asynchronous by default
       producer.send(

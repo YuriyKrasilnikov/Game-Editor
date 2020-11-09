@@ -27,9 +27,16 @@ message ProfileData {
 
 
 service Billing {
-  rpc Insert (PaidData) returns (stream StatusResponse);
+  rpc Paid (PaidData) returns (stream StatusResponse);
+  rpc Buy (BuyData) returns (stream StatusResponse);
 }
 
 message PaidData {
-  string value = 1;
+  string nickname = 1;
+  string value = 2;
+}
+
+message BuyData {
+  string nickname = 1;
+  string value = 2;
 }

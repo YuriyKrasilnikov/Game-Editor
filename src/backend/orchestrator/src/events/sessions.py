@@ -65,8 +65,9 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
     if headers_dict['dialog-id'].decode('utf-8') == dialog_id:
 
       value = message.value.decode('utf-8')
+      status = headers_dict['command'].decode('utf-8')
 
-      if headers_dict['command'].decode('utf-8') == 'close':
+      if status == 'close' or status == 'error':
         consumer.close()
 
       msg = f"Command: { command }. Status: {value}"

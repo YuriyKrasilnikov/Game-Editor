@@ -21,6 +21,9 @@ def __on_send_error(excp):
 
 def send_event(producer, service_id, topic, command, user_id, dialog_id, request):
 
+  print(f'topic {topic}', flush=True)
+  print(f'request {request}', flush=True)
+
   response_topic = 'answer-'+topic+'-'+user_id
   #response_group = 'answer-group-'+dialog_id
   response_group = 'answer-group-'+service_id
@@ -67,7 +70,7 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
       msg = value
       status = headers_dict['command'].decode('utf-8')
 
-      if status == 'close':
+      if status == 'close' or status == 'error':
         consumer.close()
 
       yield msg, status

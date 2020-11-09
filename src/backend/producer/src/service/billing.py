@@ -24,22 +24,134 @@ class BillingService(command_webclient_pb2_grpc.BillingServicer):
     self.producer=producer
     super(command_webclient_pb2_grpc.BillingServicer, self).__init__(*args, **kwargs)
 
-  #rpc Insert (PaidData) returns (stream StatusResponse);
-  def Insert(self, request, context):
-    print(f'--- start Billing Insert', flush=True)
+  #rpc Paid (PaidData) returns (stream StatusResponse);
+  def Paid(self, request, context):
+    print(f'--- start Billing Paid', flush=True)
 
     request_dict = MessageToDict(request)
     metadata = dict( context.invocation_metadata() )
 
-    command = 'insert'
-    user_id = metadata['x-user-authorization-id']
-    dialog_id = str( uuid.uuid4() )
+    paid_event={
+      'service_id': self.service_id,
+      'producer': self.producer,
+      'topic': 'command-billing',
+      'command': 'paid',
+      'dialog_id': str( uuid.uuid4() ),
+      'user_id': metadata['x-user-authorization-id'],
+      'request': request_dict
+    } 
 
-    request_dict['profileid'] = user_id
+    nickname = request_dict.pop('nickname')
 
-    for response in send_event( command=command, user_id=user_id, dialog_id=dialog_id, request=request_dict):
-      yield command_webclient_pb2.StatusResponse(
-              message = response
-            )
+    if metadata['x-user-authorization-nickname'] == nickname:
+      paid_event['request']['profileid'] = paid_event['user_id']
+      for msg, status in send_event( **paid_event) :
+        yield command_webclient_pb2.StatusResponse(
+                message = msg
+              )
+    else:
+      get_request={
+        'service_id': self.service_id,
+        'producer': self.producer,
+        'topic': 'query_orchestrator',
+        'command': 'get_profile',
+        'dialog_id': str( uuid.uuid4() ),
+        'user_id': metadata['x-user-authorization-id'], 
+        'request': {
+          'datas': [
+            { 'nickname': nickname }
+          ],
+          'paths': [ 'id' ]
+        }
+      }
 
-    print(f'--- end Billing Insert', flush=True)
+      print(f'request_dict {request_dict}', flush=True)
+
+      for msg, status in send_event( **get_request ):
+        if status == 'close':
+          profile_id = json.loads( msg )['profiles'][0]['id']
+          paid_event['request']['profileid'] = profile_id
+
+          print(f'profileid {profile_id}', flush=True)
+
+          for msg, status in send_event( **paid_event) :
+            yield command_webclient_pb2.StatusResponse(
+                    message = msg
+                  )
+        else:
+          yield command_webclient_pb2.StatusResponse(
+                  message = msg
+                )
+
+    
+  #rpc Buy (BuyData) returns (stream StatusResponse);
+  def Buy(self, request, context):
+    print(f'--- start Billing Buy', flush=True)
+
+    request_dict = MessageToDict(request)
+    metadata = dict( context.invocation_metadata() )
+
+    buy_event={
+      'service_id': self.service_id,
+      'producer': self.producer,
+      'topic': 'command-billing',
+      'command': 'buy',
+      'dialog_id': str( uuid.uuid4() ),
+      'user_id': metadata['x-user-authorization-id'],
+      'request': request_dict
+    } 
+
+    nickname = request_dict.pop('nickname')
+
+    if metadata['x-user-authorization-nickname'] == nickname:
+      buy_event['request']['profileid'] = buy_event['user_id']
+      for msg, status in send_event( **buy_event) :
+        yield command_webclient_pb2.StatusResponse(
+                message = msg
+              )
+    else:
+      get_request={
+        'service_id': self.service_id,
+        'producer': self.producer,
+        'topic': 'query_orchestrator',
+        'command': 'get_profile',
+        'dialog_id': str( uuid.uuid4() ),
+        'user_id': metadata['x-user-authorization-id'], 
+        'request': {
+          'datas': [
+            { 'nickname': nickname }
+          ],
+          'paths': [ 'id' ]
+        }
+      }
+
+      print(f'request_dict {request_dict}', flush=True)
+
+      for msg, status in send_event( **get_request ):
+        if status == 'close':
+          profile_id = json.loads( msg )['profiles'][0]['id']
+          buy_event['request']['profileid'] = profile_id
+
+          print(f'profileid {profile_id}', flush=True)
+
+          for msg, status in send_event( **buy_event) :
+            print(f'msg {msg}', flush=True)
+            yield command_webclient_pb2.StatusResponse(
+                    message = msg
+                  )
+        elif status == 'error':
+          print(f'error {msg}', flush=True)
+          yield command_webclient_pb2.StatusResponse(
+            message = msg
+          )
+        else:
+          yield command_webclient_pb2.StatusResponse(
+                  message = msg
+                )
+
+
+    
+
+
+
+    print(f'--- end Billing Buy', flush=True)

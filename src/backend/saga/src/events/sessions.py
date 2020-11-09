@@ -68,7 +68,7 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
       msg = value
       status = headers_dict['command'].decode('utf-8')
 
-      if status == 'close':
+      if status == 'close' or status == 'error':
         consumer.close()
 
       yield msg, status

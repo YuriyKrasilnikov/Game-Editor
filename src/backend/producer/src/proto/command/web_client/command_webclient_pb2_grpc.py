@@ -141,9 +141,14 @@ class BillingStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Insert = channel.unary_stream(
-                '/api.command.webclient.v1.Billing/Insert',
+        self.Paid = channel.unary_stream(
+                '/api.command.webclient.v1.Billing/Paid',
                 request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.SerializeToString,
+                response_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
+                )
+        self.Buy = channel.unary_stream(
+                '/api.command.webclient.v1.Billing/Buy',
+                request_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.BuyData.SerializeToString,
                 response_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
                 )
 
@@ -151,7 +156,13 @@ class BillingStub(object):
 class BillingServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Insert(self, request, context):
+    def Paid(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Buy(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -160,9 +171,14 @@ class BillingServicer(object):
 
 def add_BillingServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Insert': grpc.unary_stream_rpc_method_handler(
-                    servicer.Insert,
+            'Paid': grpc.unary_stream_rpc_method_handler(
+                    servicer.Paid,
                     request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.FromString,
+                    response_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.SerializeToString,
+            ),
+            'Buy': grpc.unary_stream_rpc_method_handler(
+                    servicer.Buy,
+                    request_deserializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.BuyData.FromString,
                     response_serializer=proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.SerializeToString,
             ),
     }
@@ -176,7 +192,7 @@ class Billing(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Insert(request,
+    def Paid(request,
             target,
             options=(),
             channel_credentials=None,
@@ -186,8 +202,25 @@ class Billing(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Billing/Insert',
+        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Billing/Paid',
             proto_dot_command_dot_web__client_dot_command__webclient__pb2.PaidData.SerializeToString,
+            proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Buy(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/api.command.webclient.v1.Billing/Buy',
+            proto_dot_command_dot_web__client_dot_command__webclient__pb2.BuyData.SerializeToString,
             proto_dot_command_dot_web__client_dot_command__webclient__pb2.StatusResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

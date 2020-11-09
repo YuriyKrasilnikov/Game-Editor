@@ -122,6 +122,11 @@ class ProfileService(command_webclient_pb2_grpc.ProfileServicer):
             yield command_webclient_pb2.StatusResponse(
                     message = msg
                   )
+        elif status == 'error':
+          print(f'error {msg}', flush=True)
+          yield command_webclient_pb2.StatusResponse(
+            message = msg
+          )
         else:
           yield command_webclient_pb2.StatusResponse(
                   message = msg

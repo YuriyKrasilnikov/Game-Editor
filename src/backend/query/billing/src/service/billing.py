@@ -68,9 +68,9 @@ class BillingService(query_billing_pb2_grpc.BillingServicer):
       paths=request.fields.paths
 
       if request.billingsData.billings:
-        print(f'1', flush=True)
+        #print(f'1', flush=True)
         request_dict = MessageToDict(request.billingsData)
-        print(f'2', flush=True)
+        #print(f'2', flush=True)
         query_filter = BillingService._billings2filter( cls=Billing, datas=request_dict['billings'] )
       else:
         query_filter=[]
@@ -78,6 +78,8 @@ class BillingService(query_billing_pb2_grpc.BillingServicer):
       print(f'Get query_filter: {query_filter} ', flush=True)
       with db_session() as session:
         billings = session.query( Billing ).filter( *query_filter ).all()
+
+      print(f'Get billings: { billings } ', flush=True)
 
       response = BillingService._billingsResponse( billings=billings, paths=paths )
       print(f'--- end Get', flush=True)
