@@ -11,8 +11,6 @@ import {
   useParams
 } from "react-router-dom";
 
-import './App.css';
-
 import { 
   NotFound
 } from '../Utilites/NotFound'
@@ -37,31 +35,49 @@ import {
   ProfilesCheats
 } from './ProfilesCheats'
 
+import { 
+  Flow
+} from '../Flow/Flow'
+
+import {
+  CssBaseline,
+  Toolbar,
+  Grid,
+} from '@material-ui/core';
 
 const App = ( ) => {
   return (
-    <div className="App">
+    <>
+      <CssBaseline />
       <Router>
         <Navbar />
-        <Switch>
-          <Route path="/registration">
-            <Registration/>
-          </Route>
-          <Route path="/profiles_cheats">
-            <ProfilesCheats/>
-          </Route>
-          <Route path="/profile/:nickname">
-            <Profile/>
-          </Route>
-          <Route exact path="/">
-            <HomeworkApi/>
-          </Route>
-          <Route>
-            <NotFound/>
-          </Route>
-        </Switch>
+        <Grid container component='main' direction='column' wrap='nowrap'>
+          <Toolbar />
+          <Grid item xs={12}>
+            <Switch>
+              <Route path="/registration">
+                <Registration/>
+              </Route>
+              <Route path="/profiles_cheats">
+                <ProfilesCheats/>
+              </Route>
+              <Route path="/profile/:nickname">
+                <Profile/>
+              </Route>
+              <Route path="/homeworkapi">
+                <HomeworkApi/>
+              </Route>
+              <Route exact path="/">
+                <Flow/>
+              </Route>
+              <Route>
+                <NotFound/>
+              </Route>
+            </Switch>
+          </Grid>
+        </Grid>
       </Router>
-    </div>
+    </>
   );
 }
 

@@ -58,7 +58,7 @@ const ProfilesCheats = ( ) => {
     <>
       <h1>ProfilesCheats</h1>
       <h2>{'~'.repeat(15)} Get {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
@@ -91,7 +91,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h3>{'-'.repeat(10)} Result {'-'.repeat(10)}</h3>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           { profile && Object.entries(profile[0]).map( ([key, value]) => 
               <tr key={key} align="left">
@@ -108,7 +108,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -148,7 +148,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Update {status ? status.nickname : '(need registered)'} {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -188,7 +188,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Remove {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>

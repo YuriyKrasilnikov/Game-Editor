@@ -74,14 +74,14 @@ const Json2table = ( { json_obj } ) => {
     if (json_obj) {
       setLogs( unnormalize( json_obj ) )
     } else {
-      setLogs([])
+      setLogs( [] )
     }
 
     console.log(logs.length)
 
   }, [json_obj]);
 
-  return <table align="center" border="1" cellSpacing="0" cellPadding="7">
+  return <table border="1" cellSpacing="0" cellPadding="7">
             <caption>Результат запроса:</caption>
             <thead>
               <tr>
@@ -198,7 +198,7 @@ const HomeworkApi = ( ) => {
       }
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Запросы {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
@@ -233,7 +233,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
       <p>Создание пользователя и создание аккаунт в биллинге при помощи саги.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -276,7 +276,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Paid {'~'.repeat(15)}</h2>
       <p>Положить деньги на счет пользователя.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -318,7 +318,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Buy {'~'.repeat(15)}</h2>
       <p>Снять деньги со счета пользователя.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>

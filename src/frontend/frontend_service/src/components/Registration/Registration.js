@@ -33,7 +33,7 @@ const Registration = ( ) => {
   return (
       <>
           <h2>{'~'.repeat(15)} Registration {'~'.repeat(15)}</h2>
-          <table align="center" border="1" cellSpacing="0" cellPadding="7">
+          <table border="1" cellSpacing="0" cellPadding="7">
               <tbody align="left">
                   <tr>
                     <td>
