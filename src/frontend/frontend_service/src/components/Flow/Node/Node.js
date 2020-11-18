@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     transition: 'all .2s ease-in-out',
   },
   nodeContainerSelected: {
-    transform: 'scale( 1.3, 1.3 )'
+    //transform: 'scale( 1.3, 1.3 )'
   },
   edgeStyle: {
     fill: 'none',
@@ -96,13 +96,13 @@ const PaperNodeComponent = ( props ) => {
       <Handle
           type="target"
           position="top"
-          id="t"
+          id="target"
           className={classNames({[classes.nodeHandle]: true, [classes.nodeHandleTop]: true})}
       />
       <Handle
         type="source"
         position="bottom"
-        id="s"
+        id="source"
         className={classNames({[classes.nodeHandle]: true, [classes.nodeHandleBottom]: true})}
       />
       <Paper 

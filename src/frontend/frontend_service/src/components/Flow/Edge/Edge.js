@@ -78,7 +78,7 @@ const CustomEdge = ({
         height: textBbox.height,
       });
     }
-  }, []);
+  }, [ data, data.label ]);
 
   return (
     <>
@@ -90,7 +90,7 @@ const CustomEdge = ({
         markerEnd={markerEnd}
       />
       <g transform={`translate(${centerX - edgeTextBbox.width / 2} ${centerY - edgeTextBbox.height / 2})`}>
-        {data.text && <>
+        {data && data.label && <>
           <rect
               width={edgeTextBbox.width + 2 * labelBgPadding[0]}
               x={-labelBgPadding[0]}

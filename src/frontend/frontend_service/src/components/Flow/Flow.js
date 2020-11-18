@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import React, {
   useRef,
   useState,
@@ -26,7 +28,10 @@ import ReactFlow, {
   MiniMap,
   Controls,
   Background,
+  ReactFlowProvider,
+
   useStoreState,
+  useStoreActions
 } from 'react-flow-renderer';
 
 import {
@@ -35,18 +40,16 @@ import {
   Button,
   Popover,
   Typography,
-  Backdrop
+  Backdrop,
+  List,
+  ListItem,
+  ListItemText,
 } from '@material-ui/core';
 
 import {
   ToggleButton,
   ToggleButtonGroup, 
 }from '@material-ui/lab';
-
-import {
-  NoteAdd,
-  Delete
-}from '@material-ui/icons';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -58,23 +61,14 @@ import nodeTypes from './Node/Node.js';
 
 import edgeTypes from './Edge/Edge.js';
 
+import {
+  ControlsMenu
+} from './ControlsMenu/ControlsMenu.js';
+
 import './flow.css';
 
 import initialElements from './initial-elements';
 
-const useStyles = makeStyles((theme) => ({
-  controlsMenu: {
-    position: 'absolute',
-    zIndex: '20',
-    left: '24px',
-    top: '24px'
-  }
-}));
-
-const onLoad = (reactFlowInstance) => {
-  console.log('flow loaded:', reactFlowInstance);
-  reactFlowInstance.fitView();
-};
 
 const NodesDebugger = () => {
   const nodes = useStoreState(state => state.nodes);
@@ -82,69 +76,113 @@ const NodesDebugger = () => {
   return null;
 }
 
-const ControlsMenu = ( {callback} ) => {
+const EditMenu = ( { anchorEl, element, callback } ) => {
 
-  const classes = useStyles();
+  const resetSelectedElements = useStoreActions(
+    (actions) => actions.resetSelectedElements
+  );
 
-  const [control, setControl] = React.useState();
+  const [ data, dataInput, setData ] = useInput({ 
+    type: "text",
+    fullWidth: true
+  });
 
-  const handleChange = (event, nextControl) => {
-    setControl(nextControl);
-    if (nextControl){
-      callback(nextControl)
+  useEffect( ( ) => {
+    if(element && element.data && element.data.label){
+      setData(element.data.label)
+    }else{
+      setData('')
     }
+  },[element]);
+
+  const close = () => {
+    element.data['label'] = data
+    callback(null);
+    resetSelectedElements()
   };
 
-  return  <>
-            <Paper
-              elevation={3}
-              className={
-                classNames({
-                  [classes.controlsMenu]: true,
-                })
-              } 
-            >
-                <ToggleButtonGroup
-                  orientation="vertical"
-                  exclusive
-                  aria-label="Controls menu"
-                  value={control}
-                  onChange={handleChange}
-                >
-                  <ToggleButton value="addNode" aria-label="Add node">
-                    <NoteAdd />
-                  </ToggleButton>
-                  <ToggleButton value="deleteNode" aria-label="Delete Node">
-                    <Delete />
-                  </ToggleButton>
-                </ToggleButtonGroup>
-            </Paper>
-          </>
+  return <Popover 
+          anchorEl={ anchorEl }
+          keepMounted
+          open={ 
+            Boolean( anchorEl )
+          }
+          onClose={ close }
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'center',
+            horizontal: 'center',
+          }}
+        >
+          { dataInput }
+      </Popover >
 }
+
 
 
 const Flow = ( ) => {
 
   const [ status, _ ] = useContext(StatusContext)
-
+  const [ flowInstance, setFlowInstance] = useState();
   const [ elements, setElements ] = useState(initialElements);
+  const [ nodesDraggable, setNodesDraggable ] = useState( true );
 
-  const [ nodesDraggable, setNodesDraggable ] = useState(true);
+  const [ anchorEdgeMenu, setAnchorEdgeMenu ] = useState(null);
+  const [ editionElement, setEditionElement ] = useState(null);
+
+  const getEditionElement = (element) => elements.find(el=>el.id==element.id)
+
+
+  const onLoad = (reactFlowInstance) => {
+    console.log('flow loaded:', reactFlowInstance);
+    setFlowInstance( reactFlowInstance )
+    reactFlowInstance.fitView();
+  };
   
-  const onConnect = ( params ) => setElements((els) => addEdge(params, els));
+  const onConnect = ( params ) => {
+    console.log('params', params)
+    params['id']=uuidv4()
+    params['type']='custom'
+    params['data']={}
+    return  setElements( 
+              (els) => addEdge(
+                params,
+                els
+              )
+            );
+  }
+
+  const onElementsRemove = ( elementsToRemove ) => setElements(
+              (els) => removeElements(elementsToRemove, els)
+            );
 
   const onElementClick = (event, element) => {
-    console.log( 'click', element );   
+    if ( isEdge(element) ){
+      console.log( 'click on Edge', element );   
+      setAnchorEdgeMenu( event.currentTarget );
+      setEditionElement( 
+        getEditionElement( element )
+      )
+    } else {
+      console.log( 'click', element );   
+    }
   }
 
   const onSelectionChange = (element) => {
-    if (element) {
-      setNodesDraggable(false)
+    if (element && element.length) {
+      console.log( 'setNodesDraggable', false );  
+      setNodesDraggable( false )
     } else {
-      setNodesDraggable(true)
+      console.log( 'setNodesDraggable', true );  
+      setNodesDraggable( true )
     }
     console.log( 'onSelectionChange', element );   
   }
+
+  //---
   
   const onNodeContextMenu = (event, element) => {
     event.preventDefault();
@@ -166,15 +204,57 @@ const Flow = ( ) => {
     console.log('onContextMenu', event);
   }
 
-  const onElementsRemove = ( elementsToRemove ) =>
-    setElements((els) => removeElements(elementsToRemove, els));
+  //---
 
   const onControlsMenu = ( value ) => {
     console.log( value )
   }
 
+
+  //---
+
+  const addNode = ({x, y}) => {
+    const nodeId = uuidv4();
+    const position = flowInstance.project({ x: x, y: y });
+    const newNode = {
+      id: nodeId,
+      type: 'paper',
+      data: {
+        label: 'DropTest',
+        text: 'DropTest'
+      },
+      position: position,
+    };
+    setElements((els) => els.concat(newNode));
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    console.log('handleDrop', event);
+
+    const flowRef = document.getElementsByClassName('react-flow')[0].getBoundingClientRect()
+
+    addNode(
+      {
+        x: event.clientX-flowRef.x - 24,
+        y: event.clientY-flowRef.y - 24
+      }
+    )
+  }
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    //console.log('handleDragOver', e);
+  }
+
+  const handleDragEnter = (event) => {
+    console.log('handleDragEnter', event);
+  }
+
   return (
-    <>
+    <ReactFlowProvider>
+      <ControlsMenu
+      />
       <ReactFlow
         elements={elements}
         nodeTypes={nodeTypes}
@@ -186,13 +266,17 @@ const Flow = ( ) => {
         //onNodeContextMenu={onNodeContextMenu}
         //onSelectionContextMenu={onSelectionContextMenu}
         //onPaneContextMenu={onPaneContextMenu}
-        onContextMenu={onContextMenu}
+        //onContextMenu={onContextMenu}
         onLoad={onLoad}
         selectNodesOnDrag={false}
         nodesDraggable={nodesDraggable}
         snapToGrid={true}
         snapGrid={ [ 10, 10 ] }
         deleteKeyCode={46}
+
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        //onDragEnter={handleDragEnter}
       >
         <MiniMap
           nodeColor={(n) => {
@@ -215,12 +299,14 @@ const Flow = ( ) => {
           size={1}
           color="#ccc" 
         />
-        <ControlsMenu
-          callback={ onControlsMenu }
-        />
         <NodesDebugger />
       </ReactFlow>
-    </>
+    <EditMenu
+      anchorEl={anchorEdgeMenu}
+      callback={setAnchorEdgeMenu}
+      element={editionElement}
+    />
+    </ReactFlowProvider>
   );
 }
 
