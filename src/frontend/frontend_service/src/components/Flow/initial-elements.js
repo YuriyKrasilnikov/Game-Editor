@@ -50,7 +50,7 @@ export default [
     type: 'paper',
     data: {
       label: 'This is a default node label',
-      text: 'This is a default node text'
+      text: 'text'
     },
     position: { x: 0, y: 600 },
   },
@@ -59,7 +59,7 @@ export default [
     type: 'paper',
     data: {
       label: 'This is a default node label',
-      text: 'This is a default node text'
+      text: 'text'
     },
     position: { x: 700, y: 600 },
   },
@@ -72,7 +72,6 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
   {
     id: 'e1-3',
@@ -83,7 +82,6 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
   {
     id: 'e3-4',
@@ -94,7 +92,6 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
   {
     id: 'e4-5',
@@ -105,7 +102,6 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
   {
     id: 'e5-6',
@@ -116,7 +112,6 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
   {
     id: 'e5-7',
@@ -127,6 +122,5 @@ export default [
       label: 'custom edge label',
       text: 'custom edge text',
     },
-    arrowHeadType: 'arrowclosed',
   },
 ];

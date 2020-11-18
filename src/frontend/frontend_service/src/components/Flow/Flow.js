@@ -5,22 +5,14 @@ import React, {
   useContext
 } from 'react';
 
+import classNames from 'classnames';
+
 import {
   BrowserRouter as Router,
   Link,
 } from "react-router-dom";
 
 import { StatusContext } from '../../grpc/context'
-
-import { 
-  useInput,
-  useTextarea,
-  useSelect
-} from '../Utilites/useInput'
-
-import { 
-  useMessage
-} from '../Utilites/useMessage'
 
 import ReactFlow, {
   Handle,
@@ -46,17 +38,36 @@ import {
   Backdrop
 } from '@material-ui/core';
 
+import {
+  ToggleButton,
+  ToggleButtonGroup, 
+}from '@material-ui/lab';
+
+import {
+  NoteAdd,
+  Delete
+}from '@material-ui/icons';
+
 import { makeStyles } from '@material-ui/core/styles';
+
+import { 
+  useInput
+} from '../Utilites/useInput';
+
+import nodeTypes from './Node/Node.js';
+
+import edgeTypes from './Edge/Edge.js';
+
+import './flow.css';
 
 import initialElements from './initial-elements';
 
 const useStyles = makeStyles((theme) => ({
-  nodeContainer: {
-    padding: theme.spacing(1)
-  },
-  edgeText: {
-    pointerEvents: 'none',
-    userSelect: 'none',
+  controlsMenu: {
+    position: 'absolute',
+    zIndex: '20',
+    left: '24px',
+    top: '24px'
   }
 }));
 
@@ -71,167 +82,68 @@ const NodesDebugger = () => {
   return null;
 }
 
-const NodeEditableText = ( {selected, text} ) => {
-  if (selected) {
-    return <Typography variant="body2">
-      selected
-    </Typography>
-  }else{
-    return  <Typography variant="body2">
-              {text}
-            </Typography>
-  }
-}
-
-const PaperNodeComponent = ( props ) => {
-  const classes = useStyles();
-
-  const editable = props.selected && !props.isDragging
-
-  return (
-    <>
-      <Handle
-        type="target"
-        position="top"
-        id="t"
-      />
-      <Paper className={classes.nodeContainer} elevation={ (props.selected)? 16: 3 }>  
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
-            <Typography variant="caption">
-              id: {props.id}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">
-              type: {props.type}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <NodeEditableText selected={ editable } text={props.data.label} />
-          </Grid>
-          <Grid item xs={12}>
-            <NodeEditableText selected={ editable } text={props.data.text} />
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">
-              x: {props.xPos}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="caption">
-              y: {props.yPos}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Handle
-          type="source"
-          position="bottom"
-          id="s"
-      />
-    </>
-  );
-};
-
-const CustomEdge = ({
-  id,
-  sourceX,
-  sourceY,
-  targetX,
-  targetY,
-  sourcePosition,
-  targetPosition,
-  data,
-  arrowHeadType,
-  markerEndId,
-
-  style = {},
-  labelBgPadding = [2, 4],
-  labelBgBorderRadius = 2,
-}) => {
+const ControlsMenu = ( {callback} ) => {
 
   const classes = useStyles();
 
-  const edgePath = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
-  const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
+  const [control, setControl] = React.useState();
 
-  const yOffset = Math.abs(targetY - sourceY) / 2;
-  const centerY = targetY < sourceY ? targetY + yOffset : targetY - yOffset;
-
-  const xOffset = Math.abs(targetX - sourceX) / 2;
-  const centerX = targetX < sourceX ? targetX + xOffset : targetX - xOffset;
-
-  const edgeRef = useRef(null);
-  const [edgeTextBbox, setEdgeTextBbox] = useState({ x: 0, y: 0, width: 0, height: 0 });
-
-  useEffect(() => {
-    if (edgeRef.current) {
-      const textBbox = edgeRef.current.getBBox();
-
-      setEdgeTextBbox({
-        x: textBbox.x,
-        y: textBbox.y,
-        width: textBbox.width,
-        height: textBbox.height,
-      });
+  const handleChange = (event, nextControl) => {
+    setControl(nextControl);
+    if (nextControl){
+      callback(nextControl)
     }
-  }, []);
+  };
 
-  return (
-    <>
-      <path 
-        id={id}
-        style={style}
-        className="react-flow__edge-path"
-        d={edgePath}
-        markerEnd={markerEnd}
-      />
-      <g transform={`translate(${centerX - edgeTextBbox.width / 2} ${centerY - edgeTextBbox.height / 2})`}>
-        {data.text && <>
-          <rect
-              width={edgeTextBbox.width + 2 * labelBgPadding[0]}
-              x={-labelBgPadding[0]}
-              y={-labelBgPadding[1]}
-              height={edgeTextBbox.height + 2 * labelBgPadding[1]}
-              className="react-flow__edge-textbg"
-              rx={labelBgBorderRadius}
-              ry={labelBgBorderRadius}
-              fill='purple'
-            />
-          <g className={classes.edgeText} ref={edgeRef} >
-            <Typography component="text" variant="body2" y={edgeTextBbox.height/2} dy="0.3em" >
-              {data.label}
-            </Typography>
-          </g>
-        </>
-        }
-      </g>
-    </>
-  );
+  return  <>
+            <Paper
+              elevation={3}
+              className={
+                classNames({
+                  [classes.controlsMenu]: true,
+                })
+              } 
+            >
+                <ToggleButtonGroup
+                  orientation="vertical"
+                  exclusive
+                  aria-label="Controls menu"
+                  value={control}
+                  onChange={handleChange}
+                >
+                  <ToggleButton value="addNode" aria-label="Add node">
+                    <NoteAdd />
+                  </ToggleButton>
+                  <ToggleButton value="deleteNode" aria-label="Delete Node">
+                    <Delete />
+                  </ToggleButton>
+                </ToggleButtonGroup>
+            </Paper>
+          </>
 }
-
 
 
 const Flow = ( ) => {
 
   const [ status, _ ] = useContext(StatusContext)
 
-  //---
-  const nodeTypes = {
-    paper: PaperNodeComponent,
-  };
-
-  const edgeTypes = {
-    custom: CustomEdge,
-  };
-
   const [ elements, setElements ] = useState(initialElements);
+
+  const [ nodesDraggable, setNodesDraggable ] = useState(true);
   
   const onConnect = ( params ) => setElements((els) => addEdge(params, els));
 
   const onElementClick = (event, element) => {
     console.log( 'click', element );   
+  }
+
+  const onSelectionChange = (element) => {
+    if (element) {
+      setNodesDraggable(false)
+    } else {
+      setNodesDraggable(true)
+    }
+    console.log( 'onSelectionChange', element );   
   }
   
   const onNodeContextMenu = (event, element) => {
@@ -257,6 +169,10 @@ const Flow = ( ) => {
   const onElementsRemove = ( elementsToRemove ) =>
     setElements((els) => removeElements(elementsToRemove, els));
 
+  const onControlsMenu = ( value ) => {
+    console.log( value )
+  }
+
   return (
     <>
       <ReactFlow
@@ -266,11 +182,14 @@ const Flow = ( ) => {
         onElementsRemove={onElementsRemove}
         onConnect={onConnect}
         onElementClick={onElementClick}
+        onSelectionChange={onSelectionChange}
         //onNodeContextMenu={onNodeContextMenu}
         //onSelectionContextMenu={onSelectionContextMenu}
         //onPaneContextMenu={onPaneContextMenu}
         onContextMenu={onContextMenu}
         onLoad={onLoad}
+        selectNodesOnDrag={false}
+        nodesDraggable={nodesDraggable}
         snapToGrid={true}
         snapGrid={ [ 10, 10 ] }
         deleteKeyCode={46}
@@ -295,6 +214,9 @@ const Flow = ( ) => {
           gap={12}
           size={1}
           color="#ccc" 
+        />
+        <ControlsMenu
+          callback={ onControlsMenu }
         />
         <NodesDebugger />
       </ReactFlow>

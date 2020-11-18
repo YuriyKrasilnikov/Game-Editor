@@ -2,13 +2,18 @@ import React, {
     useState
 } from 'react';
 
+import {
+  TextField
+} from '@material-ui/core';
+
+
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-const useInput = ({ type, default_value="" }) => {
+const useInput = ({ type, default_value="", ...props}) => {
     const [value, setValue] = useState(default_value);
-    const input = <input value={value} onChange={e => setValue(e.target.value)} type={type} />;
+    const input = <TextField value={value} onChange={e => setValue(e.target.value)} type={type} {...props} />;
     return [value, input, setValue];
   }
 

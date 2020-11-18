@@ -13,7 +13,7 @@ db_user=os.environ['db-user']
 db_password=os.environ['db-password']
 
 db_string = f"postgresql://{db_user}:{db_password}@{db_address}:{db_port}/{db_name}"
-engine = create_engine(db_string)  
+engine = create_engine(db_string, pool_pre_ping=True)  
 connection = engine.connect()
 
 @contextmanager
