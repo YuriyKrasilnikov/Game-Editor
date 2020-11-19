@@ -501,5 +501,137 @@ proto.api.query.webclient.v1.BillingHistoryPromiseClient.prototype.get =
 };
 
 
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.ChartsClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.ChartsPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.query.webclient.v1.ChartData,
+ *   !proto.api.query.webclient.v1.ChartData>}
+ */
+const methodDescriptor_Charts_GetChartId = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.Charts/GetChartId',
+  grpc.web.MethodType.UNARY,
+  proto.api.query.webclient.v1.ChartData,
+  proto.api.query.webclient.v1.ChartData,
+  /**
+   * @param {!proto.api.query.webclient.v1.ChartData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartData.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.query.webclient.v1.ChartData,
+ *   !proto.api.query.webclient.v1.ChartData>}
+ */
+const methodInfo_Charts_GetChartId = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.ChartData,
+  /**
+   * @param {!proto.api.query.webclient.v1.ChartData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartData.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.ChartData} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.ChartData)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.ChartData>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.query.webclient.v1.ChartsClient.prototype.getChartId =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartId',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartId,
+      callback);
+};
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.ChartData} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.query.webclient.v1.ChartData>}
+ *     Promise that resolves to the response
+ */
+proto.api.query.webclient.v1.ChartsPromiseClient.prototype.getChartId =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartId',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartId);
+};
+
+
 module.exports = proto.api.query.webclient.v1;
 

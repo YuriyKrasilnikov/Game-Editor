@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.query.charts.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Charts {
+  rpc Get ( ChartsRequest ) returns ( ChartDataList );
+  rpc GetChartId ( ChartData ) returns ( ChartData );
+}
+
+message ChartData {
+  string id = 1;
+  string profileid = 2;
+}
+
+message ChartDataList {
+  repeated ChartData charts = 1;
+}
+
+message ChartsRequest {
+  ChartDataList chartsData = 1;
+  google.protobuf.FieldMask fields = 2;
+}

@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n,proto/query/web_client/query_webclient.proto\x12\x16\x61pi.query.webclient.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\"V\n\x0bProfileData\x12\x11\n\tcreatedAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"H\n\x0fProfileDataList\x12\x35\n\x08profiles\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.ProfileData\"|\n\x0fProfilesRequest\x12=\n\x0cprofilesData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.ProfileDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"P\n\x0b\x42illingData\x12\x10\n\x08updateAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x01(\t\"H\n\x0f\x42illingDataList\x12\x35\n\x08\x62illings\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.BillingData\"|\n\x0f\x42illingsRequest\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"g\n\x16\x42illingsCursorResponse\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12\x0e\n\x06\x63ursor\x18\x02 \x01(\t\"{\n\x06\x46ilter\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x30\n\x07operand\x18\x02 \x01(\x0e\x32\x1f.api.query.webclient.v1.Operand\x12\x0e\n\x06values\x18\x03 \x03(\t\"q\n\x08Ordering\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x34\n\tdirection\x18\x02 \x01(\x0e\x32!.api.query.webclient.v1.Direction\"\x9d\x01\n\x19\x42illingsPaginationRequest\x12\x0e\n\x06\x63ursor\x18\x01 \x01(\t\x12/\n\x07\x66ilters\x18\x02 \x03(\x0b\x32\x1e.api.query.webclient.v1.Filter\x12\x30\n\x06orders\x18\x03 \x03(\x0b\x32 .api.query.webclient.v1.Ordering\x12\r\n\x05limit\x18\x04 \x01(\x05*M\n\nBillingKey\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tCREATEDAT\x10\x01\x12\x0c\n\x08NICKNAME\x10\x02\x12\t\n\x05VALUE\x10\x03\x12\n\n\x06STATUS\x10\x04*V\n\x07Operand\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02IN\x10\x01\x12\x07\n\x03OUT\x10\x02\x12\x08\n\x04LESS\x10\x03\x12\x0b\n\x07GREATER\x10\x04\x12\n\n\x06\x45QLESS\x10\x05\x12\r\n\tEQGREATER\x10\x06*&\n\tDirection\x12\x07\n\x03NOT\x10\x00\x12\x07\n\x03MIN\x10\x01\x12\x07\n\x03MAX\x10\x02\x32\xb1\x01\n\x07Profile\x12W\n\x03Get\x12\'.api.query.webclient.v1.ProfilesRequest\x1a\'.api.query.webclient.v1.ProfileDataList\x12M\n\x0eIdentification\x12\x16.google.protobuf.Empty\x1a#.api.query.webclient.v1.ProfileData2b\n\x07\x42illing\x12W\n\x03Get\x12\'.api.query.webclient.v1.BillingsRequest\x1a\'.api.query.webclient.v1.BillingDataList2z\n\x0e\x42illingHistory\x12h\n\x03Get\x12\x31.api.query.webclient.v1.BillingsPaginationRequest\x1a..api.query.webclient.v1.BillingsCursorResponseb\x06proto3'
+  serialized_pb=b'\n,proto/query/web_client/query_webclient.proto\x12\x16\x61pi.query.webclient.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\"V\n\x0bProfileData\x12\x11\n\tcreatedAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"H\n\x0fProfileDataList\x12\x35\n\x08profiles\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.ProfileData\"|\n\x0fProfilesRequest\x12=\n\x0cprofilesData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.ProfileDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"P\n\x0b\x42illingData\x12\x10\n\x08updateAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x01(\t\"H\n\x0f\x42illingDataList\x12\x35\n\x08\x62illings\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.BillingData\"|\n\x0f\x42illingsRequest\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"g\n\x16\x42illingsCursorResponse\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12\x0e\n\x06\x63ursor\x18\x02 \x01(\t\"{\n\x06\x46ilter\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x30\n\x07operand\x18\x02 \x01(\x0e\x32\x1f.api.query.webclient.v1.Operand\x12\x0e\n\x06values\x18\x03 \x03(\t\"q\n\x08Ordering\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x34\n\tdirection\x18\x02 \x01(\x0e\x32!.api.query.webclient.v1.Direction\"\x9d\x01\n\x19\x42illingsPaginationRequest\x12\x0e\n\x06\x63ursor\x18\x01 \x01(\t\x12/\n\x07\x66ilters\x18\x02 \x03(\x0b\x32\x1e.api.query.webclient.v1.Filter\x12\x30\n\x06orders\x18\x03 \x03(\x0b\x32 .api.query.webclient.v1.Ordering\x12\r\n\x05limit\x18\x04 \x01(\x05\")\n\tChartData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t*M\n\nBillingKey\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tCREATEDAT\x10\x01\x12\x0c\n\x08NICKNAME\x10\x02\x12\t\n\x05VALUE\x10\x03\x12\n\n\x06STATUS\x10\x04*V\n\x07Operand\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02IN\x10\x01\x12\x07\n\x03OUT\x10\x02\x12\x08\n\x04LESS\x10\x03\x12\x0b\n\x07GREATER\x10\x04\x12\n\n\x06\x45QLESS\x10\x05\x12\r\n\tEQGREATER\x10\x06*&\n\tDirection\x12\x07\n\x03NOT\x10\x00\x12\x07\n\x03MIN\x10\x01\x12\x07\n\x03MAX\x10\x02\x32\xb1\x01\n\x07Profile\x12W\n\x03Get\x12\'.api.query.webclient.v1.ProfilesRequest\x1a\'.api.query.webclient.v1.ProfileDataList\x12M\n\x0eIdentification\x12\x16.google.protobuf.Empty\x1a#.api.query.webclient.v1.ProfileData2b\n\x07\x42illing\x12W\n\x03Get\x12\'.api.query.webclient.v1.BillingsRequest\x1a\'.api.query.webclient.v1.BillingDataList2z\n\x0e\x42illingHistory\x12h\n\x03Get\x12\x31.api.query.webclient.v1.BillingsPaginationRequest\x1a..api.query.webclient.v1.BillingsCursorResponse2\\\n\x06\x43harts\x12R\n\nGetChartId\x12!.api.query.webclient.v1.ChartData\x1a!.api.query.webclient.v1.ChartDatab\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
 
@@ -61,8 +61,8 @@ _BILLINGKEY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1210,
-  serialized_end=1287,
+  serialized_start=1253,
+  serialized_end=1330,
 )
 _sym_db.RegisterEnumDescriptor(_BILLINGKEY)
 
@@ -112,8 +112,8 @@ _OPERAND = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1289,
-  serialized_end=1375,
+  serialized_start=1332,
+  serialized_end=1418,
 )
 _sym_db.RegisterEnumDescriptor(_OPERAND)
 
@@ -143,8 +143,8 @@ _DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1377,
-  serialized_end=1415,
+  serialized_start=1420,
+  serialized_end=1458,
 )
 _sym_db.RegisterEnumDescriptor(_DIRECTION)
 
@@ -591,6 +591,45 @@ _BILLINGSPAGINATIONREQUEST = _descriptor.Descriptor(
   serialized_end=1208,
 )
 
+
+_CHARTDATA = _descriptor.Descriptor(
+  name='ChartData',
+  full_name='api.query.webclient.v1.ChartData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.query.webclient.v1.ChartData.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='nickname', full_name='api.query.webclient.v1.ChartData.nickname', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1210,
+  serialized_end=1251,
+)
+
 _PROFILEDATALIST.fields_by_name['profiles'].message_type = _PROFILEDATA
 _PROFILESREQUEST.fields_by_name['profilesData'].message_type = _PROFILEDATALIST
 _PROFILESREQUEST.fields_by_name['fields'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
@@ -614,6 +653,7 @@ DESCRIPTOR.message_types_by_name['BillingsCursorResponse'] = _BILLINGSCURSORRESP
 DESCRIPTOR.message_types_by_name['Filter'] = _FILTER
 DESCRIPTOR.message_types_by_name['Ordering'] = _ORDERING
 DESCRIPTOR.message_types_by_name['BillingsPaginationRequest'] = _BILLINGSPAGINATIONREQUEST
+DESCRIPTOR.message_types_by_name['ChartData'] = _CHARTDATA
 DESCRIPTOR.enum_types_by_name['BillingKey'] = _BILLINGKEY
 DESCRIPTOR.enum_types_by_name['Operand'] = _OPERAND
 DESCRIPTOR.enum_types_by_name['Direction'] = _DIRECTION
@@ -689,6 +729,13 @@ BillingsPaginationRequest = _reflection.GeneratedProtocolMessageType('BillingsPa
   })
 _sym_db.RegisterMessage(BillingsPaginationRequest)
 
+ChartData = _reflection.GeneratedProtocolMessageType('ChartData', (_message.Message,), {
+  'DESCRIPTOR' : _CHARTDATA,
+  '__module__' : 'proto.query.web_client.query_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartData)
+  })
+_sym_db.RegisterMessage(ChartData)
+
 
 
 _PROFILE = _descriptor.ServiceDescriptor(
@@ -698,8 +745,8 @@ _PROFILE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1418,
-  serialized_end=1595,
+  serialized_start=1461,
+  serialized_end=1638,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -734,8 +781,8 @@ _BILLING = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1597,
-  serialized_end=1695,
+  serialized_start=1640,
+  serialized_end=1738,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -760,8 +807,8 @@ _BILLINGHISTORY = _descriptor.ServiceDescriptor(
   index=2,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1697,
-  serialized_end=1819,
+  serialized_start=1740,
+  serialized_end=1862,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -777,5 +824,31 @@ _BILLINGHISTORY = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_BILLINGHISTORY)
 
 DESCRIPTOR.services_by_name['BillingHistory'] = _BILLINGHISTORY
+
+
+_CHARTS = _descriptor.ServiceDescriptor(
+  name='Charts',
+  full_name='api.query.webclient.v1.Charts',
+  file=DESCRIPTOR,
+  index=3,
+  serialized_options=None,
+  create_key=_descriptor._internal_create_key,
+  serialized_start=1864,
+  serialized_end=1956,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='GetChartId',
+    full_name='api.query.webclient.v1.Charts.GetChartId',
+    index=0,
+    containing_service=None,
+    input_type=_CHARTDATA,
+    output_type=_CHARTDATA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_CHARTS)
+
+DESCRIPTOR.services_by_name['Charts'] = _CHARTS
 
 # @@protoc_insertion_point(module_scope)

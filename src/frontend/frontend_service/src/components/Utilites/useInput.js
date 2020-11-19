@@ -23,14 +23,16 @@ const useTextarea = ({ default_value=""}) => {
   return [value, textarea, setValue];
 }
 
-const useSelect = ({ default_value="", options=[]}) => {
+const useSelect = ({ default_value="", default_options=[]}) => {
   const [value, setValue] = useState(default_value);
+  const [options, setOptions] = useState(default_options);
+
   const select = <select value={value} onChange={ e => setValue( e.target.value ) }>
                     { 
                       options.map( (value, index) => <option key={index} value={value}> { value.capitalize() } </option> )
                     }
                   </select>
-  return [value, select, setValue];
+  return [value, select, setValue, setOptions];
 }
 
 

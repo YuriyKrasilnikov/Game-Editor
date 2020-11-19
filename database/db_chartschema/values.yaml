@@ -1,0 +1,5 @@
+auth:
+  database: charts
+  username: mongo
+  password: password
+  rootPassword: secretpassword

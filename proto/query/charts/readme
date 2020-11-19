@@ -1,0 +1,9 @@
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\orchestrator\src `
+--grpc_python_out=.\backend\orchestrator\src `
+.\proto\query\charts\query_charts.proto
+
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\query\charts\src `
+--grpc_python_out=.\backend\query\charts\src `
+.\proto\query\charts\query_charts.proto

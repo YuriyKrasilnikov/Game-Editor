@@ -107,3 +107,14 @@ message BillingsPaginationRequest {
   repeated Ordering orders = 3;
   int32 limit = 4;
 }
+
+service Charts {
+  rpc GetChartId ( ChartData ) returns ( ChartData );
+}
+
+message ChartData {
+  string id = 1;
+  string nickname = 2;
+}
+
+

@@ -8,25 +8,25 @@ from google.protobuf import json_format
 
 import security.access as access
 
-from service.billing_client import BillingClient
+from service.charts_client import ChartsClient
 from service.profile_client import ProfileClient
 
-class BillingService(query_webclient_pb2_grpc.BillingServicer):
+class ChartsService(query_webclient_pb2_grpc.ChartsServicer):
 
-  def _BillingsResponse( billings, paths ):
+  def _ChartsResponse( charts, paths ):
     
-    print(f'Get billing: {billings} ', flush=True)
+    print(f'Get _ChartsResponse: {charts} ', flush=True)
 
-    response = query_webclient_pb2.BillingDataList()
+    response = query_webclient_pb2.ChartDataList()
 
-    for billing in billings:
-      #print(f'Get billing_filtered: {billing} ', flush=True)
-      billing = BillingService._fields_mask(
-        cls=query_webclient_pb2.BillingData,
-        data=billing,
+    for chart in charts:
+      #print(f'Get charts_filtered: {chart} ', flush=True)
+      chart = ChartsService._fields_mask(
+        cls=query_webclient_pb2.ChartData,
+        data=chart,
         paths=paths
       )
-      response.billings.append( billing )
+      response.charts.append( chart )
     
     print(f'Get response: {response} ', flush=True)
 
@@ -42,7 +42,6 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
       )
       mask.MergeMessage(source, result)
       return result
-
     else:
       return source
 
@@ -67,28 +66,27 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
 
     return datas
 
-  #rpc Get(BillingsRequest) returns (BillingDataList);
-  def Get(self, request, context):
-    print(f'--- start Billing Get', flush=True)
-    print(f'Get billing: {request.billingsData} ', flush=True)
-    print(f'Get fields: {request.fields} ', flush=True)
+  #rpc GetChartId ( ChartData ) returns ( ChartData );
+  def GetChartId(self, request, context):
+    print(f'--- start Chart Get', flush=True)
+    print(f'Get chart: { request } ', flush=True)
 
     metadata = dict(context.invocation_metadata())
-    request_billings = self.profilesConvert(
-        datas = json_format.MessageToDict( request.billingsData )['billings'],
-        replaced = 'nickname',
-        replaced_to = 'profileid',
-        source = 'nickname',
-        source_to = 'id'
-      )
-    query_path = ['updateAt', 'profileid', 'value', 'status']
-    request_paths = request.fields.paths
+    request_charts = self.profilesConvert(
+      datas = [ json_format.MessageToDict( request ) ],
+      replaced = 'nickname',
+      replaced_to = 'profileid',
+      source = 'nickname',
+      source_to = 'id'
+    )
+    query_path = ['id', 'profileid']
+    request_paths = ['id', 'nickname']
 
 
-    print(f'Get BillingClient request... ', flush=True)
-    client = BillingClient()
-    client_response = client.get_billing(
-      datas = request_billings,
+    print(f'Get ChartsClient request... ', flush=True)
+    client = ChartsClient()
+    client_response = client.get_charts(
+      datas = request_charts,
       paths = query_path
     )
 
@@ -96,18 +94,23 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
 
     print(f'Get response_dict: {response_dict} ', flush=True)
 
-    if response_dict.get( 'billings' ):
-      response_billings = self.profilesConvert(
-        datas = response_dict['billings'],
+    if response_dict.get( 'charts' ):
+      response_charts = self.profilesConvert(
+        datas = response_dict['charts'],
         replaced = 'profileid',
         replaced_to = 'nickname',
         source = 'id',
         source_to = 'nickname'
       )
-      response = BillingService._BillingsResponse( response_billings, paths=request_paths)
+      print(f'Get response_charts: {response_charts} ', flush=True)
+      #response = ChartsService._ChartsResponse( response_charts, paths=request_paths)
+      response = query_webclient_pb2.ChartData(
+        **response_charts[0]
+      )
     else:
       context.set_code(grpc.StatusCode.NOT_FOUND)
-      context.set_details(f'Requested billings not found')
-      response = query_webclient_pb2.BillingDataList()
-    print(f'--- end Billing Get', flush=True)
+      context.set_details(f'Requested chart not found')
+      response = query_webclient_pb2.ChartData()
+
+    print(f'--- end Chart Get', flush=True)
     return response
