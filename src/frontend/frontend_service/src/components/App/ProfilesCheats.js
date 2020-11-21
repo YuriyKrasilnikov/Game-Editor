@@ -12,8 +12,7 @@ import {
 import { StatusContext } from '../../grpc/context'
 
 import { 
-  useInput,
-  useTextarea
+  useInput
 } from '../Utilites/useInput'
 
 import { 
@@ -44,7 +43,7 @@ const ProfilesCheats = ( ) => {
   const [ add_email, add_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
 
   const [ upd_nickname, upd_nicknameInput ] = useInput({ type: "text", default_value:"yuriy"});
-  const [ upd_description, upd_descriptionInput ] = useTextarea({ default_value:"default_description" });
+  const [ upd_description, upd_descriptionInput ] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
   const regex = RegExp('^[a-z]{3,}');
 
   const [ rmv_nickname, rmv_nicknameInput ] = useInput({ type: "text", default_value:"test"});

@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n,proto/query/web_client/query_webclient.proto\x12\x16\x61pi.query.webclient.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\"V\n\x0bProfileData\x12\x11\n\tcreatedAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"H\n\x0fProfileDataList\x12\x35\n\x08profiles\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.ProfileData\"|\n\x0fProfilesRequest\x12=\n\x0cprofilesData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.ProfileDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"P\n\x0b\x42illingData\x12\x10\n\x08updateAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x01(\t\"H\n\x0f\x42illingDataList\x12\x35\n\x08\x62illings\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.BillingData\"|\n\x0f\x42illingsRequest\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"g\n\x16\x42illingsCursorResponse\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12\x0e\n\x06\x63ursor\x18\x02 \x01(\t\"{\n\x06\x46ilter\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x30\n\x07operand\x18\x02 \x01(\x0e\x32\x1f.api.query.webclient.v1.Operand\x12\x0e\n\x06values\x18\x03 \x03(\t\"q\n\x08Ordering\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x34\n\tdirection\x18\x02 \x01(\x0e\x32!.api.query.webclient.v1.Direction\"\x9d\x01\n\x19\x42illingsPaginationRequest\x12\x0e\n\x06\x63ursor\x18\x01 \x01(\t\x12/\n\x07\x66ilters\x18\x02 \x03(\x0b\x32\x1e.api.query.webclient.v1.Filter\x12\x30\n\x06orders\x18\x03 \x03(\x0b\x32 .api.query.webclient.v1.Ordering\x12\r\n\x05limit\x18\x04 \x01(\x05\")\n\tChartData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t*M\n\nBillingKey\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tCREATEDAT\x10\x01\x12\x0c\n\x08NICKNAME\x10\x02\x12\t\n\x05VALUE\x10\x03\x12\n\n\x06STATUS\x10\x04*V\n\x07Operand\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02IN\x10\x01\x12\x07\n\x03OUT\x10\x02\x12\x08\n\x04LESS\x10\x03\x12\x0b\n\x07GREATER\x10\x04\x12\n\n\x06\x45QLESS\x10\x05\x12\r\n\tEQGREATER\x10\x06*&\n\tDirection\x12\x07\n\x03NOT\x10\x00\x12\x07\n\x03MIN\x10\x01\x12\x07\n\x03MAX\x10\x02\x32\xb1\x01\n\x07Profile\x12W\n\x03Get\x12\'.api.query.webclient.v1.ProfilesRequest\x1a\'.api.query.webclient.v1.ProfileDataList\x12M\n\x0eIdentification\x12\x16.google.protobuf.Empty\x1a#.api.query.webclient.v1.ProfileData2b\n\x07\x42illing\x12W\n\x03Get\x12\'.api.query.webclient.v1.BillingsRequest\x1a\'.api.query.webclient.v1.BillingDataList2z\n\x0e\x42illingHistory\x12h\n\x03Get\x12\x31.api.query.webclient.v1.BillingsPaginationRequest\x1a..api.query.webclient.v1.BillingsCursorResponse2\\\n\x06\x43harts\x12R\n\nGetChartId\x12!.api.query.webclient.v1.ChartData\x1a!.api.query.webclient.v1.ChartDatab\x06proto3'
+  serialized_pb=b'\n,proto/query/web_client/query_webclient.proto\x12\x16\x61pi.query.webclient.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\"!\n\x0eStatusResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"V\n\x0bProfileData\x12\x11\n\tcreatedAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"H\n\x0fProfileDataList\x12\x35\n\x08profiles\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.ProfileData\"|\n\x0fProfilesRequest\x12=\n\x0cprofilesData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.ProfileDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"P\n\x0b\x42illingData\x12\x10\n\x08updateAt\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x01(\t\"H\n\x0f\x42illingDataList\x12\x35\n\x08\x62illings\x18\x01 \x03(\x0b\x32#.api.query.webclient.v1.BillingData\"|\n\x0f\x42illingsRequest\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"g\n\x16\x42illingsCursorResponse\x12=\n\x0c\x62illingsData\x18\x01 \x01(\x0b\x32\'.api.query.webclient.v1.BillingDataList\x12\x0e\n\x06\x63ursor\x18\x02 \x01(\t\"{\n\x06\x46ilter\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x30\n\x07operand\x18\x02 \x01(\x0e\x32\x1f.api.query.webclient.v1.Operand\x12\x0e\n\x06values\x18\x03 \x03(\t\"q\n\x08Ordering\x12/\n\x03key\x18\x01 \x01(\x0e\x32\".api.query.webclient.v1.BillingKey\x12\x34\n\tdirection\x18\x02 \x01(\x0e\x32!.api.query.webclient.v1.Direction\"\x9d\x01\n\x19\x42illingsPaginationRequest\x12\x0e\n\x06\x63ursor\x18\x01 \x01(\t\x12/\n\x07\x66ilters\x18\x02 \x03(\x0b\x32\x1e.api.query.webclient.v1.Filter\x12\x30\n\x06orders\x18\x03 \x03(\x0b\x32 .api.query.webclient.v1.Ordering\x12\r\n\x05limit\x18\x04 \x01(\x05\")\n\tChartData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\"\xe7\x06\n\x11\x43hartDataResponse\x12I\n\tnodesData\x18\x01 \x01(\x0b\x32\x36.api.query.webclient.v1.ChartDataResponse.NodeDataList\x12I\n\tedgesData\x18\x02 \x01(\x0b\x32\x36.api.query.webclient.v1.ChartDataResponse.EdgeDataList\x1a\xfc\x02\n\x0cNodeDataList\x12N\n\x05nodes\x18\x01 \x03(\x0b\x32?.api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData\x1a\x9b\x02\n\x08NodeData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12R\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x44.api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Data\x12Z\n\x08position\x18\x04 \x01(\x0b\x32H.api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Position\x1a#\n\x04\x44\x61ta\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x1a \n\x08Position\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x1a\xbc\x02\n\x0c\x45\x64geDataList\x12N\n\x05\x65\x64ges\x18\x01 \x03(\x0b\x32?.api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData\x1a\xdb\x01\n\x08\x45\x64geData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0e\n\x06source\x18\x03 \x01(\t\x12\x14\n\x0csourceHandle\x18\x04 \x01(\t\x12\x0e\n\x06target\x18\x05 \x01(\t\x12\x14\n\x0ctargetHandle\x18\x06 \x01(\t\x12R\n\x04\x64\x61ta\x18\x07 \x01(\x0b\x32\x44.api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.Data\x1a\x15\n\x04\x44\x61ta\x12\r\n\x05label\x18\x01 \x01(\t*M\n\nBillingKey\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tCREATEDAT\x10\x01\x12\x0c\n\x08NICKNAME\x10\x02\x12\t\n\x05VALUE\x10\x03\x12\n\n\x06STATUS\x10\x04*V\n\x07Operand\x12\x08\n\x04NONE\x10\x00\x12\x06\n\x02IN\x10\x01\x12\x07\n\x03OUT\x10\x02\x12\x08\n\x04LESS\x10\x03\x12\x0b\n\x07GREATER\x10\x04\x12\n\n\x06\x45QLESS\x10\x05\x12\r\n\tEQGREATER\x10\x06*&\n\tDirection\x12\x07\n\x03NOT\x10\x00\x12\x07\n\x03MIN\x10\x01\x12\x07\n\x03MAX\x10\x02\x32S\n\x06Status\x12I\n\x06listen\x12\x16.google.protobuf.Empty\x1a\'.api.query.webclient.v1.ProfileDataList2\xb1\x01\n\x07Profile\x12W\n\x03Get\x12\'.api.query.webclient.v1.ProfilesRequest\x1a\'.api.query.webclient.v1.ProfileDataList\x12M\n\x0eIdentification\x12\x16.google.protobuf.Empty\x1a#.api.query.webclient.v1.ProfileData2b\n\x07\x42illing\x12W\n\x03Get\x12\'.api.query.webclient.v1.BillingsRequest\x1a\'.api.query.webclient.v1.BillingDataList2z\n\x0e\x42illingHistory\x12h\n\x03Get\x12\x31.api.query.webclient.v1.BillingsPaginationRequest\x1a..api.query.webclient.v1.BillingsCursorResponse2\xaf\x01\n\x06\x43harts\x12R\n\nGetChartId\x12!.api.query.webclient.v1.ChartData\x1a!.api.query.webclient.v1.ChartData\x12Q\n\x0cGetChartData\x12\x16.google.protobuf.Empty\x1a).api.query.webclient.v1.ChartDataResponseb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
 
@@ -61,8 +61,8 @@ _BILLINGKEY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1253,
-  serialized_end=1330,
+  serialized_start=2162,
+  serialized_end=2239,
 )
 _sym_db.RegisterEnumDescriptor(_BILLINGKEY)
 
@@ -112,8 +112,8 @@ _OPERAND = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1332,
-  serialized_end=1418,
+  serialized_start=2241,
+  serialized_end=2327,
 )
 _sym_db.RegisterEnumDescriptor(_OPERAND)
 
@@ -143,8 +143,8 @@ _DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1420,
-  serialized_end=1458,
+  serialized_start=2329,
+  serialized_end=2367,
 )
 _sym_db.RegisterEnumDescriptor(_DIRECTION)
 
@@ -165,6 +165,38 @@ NOT = 0
 MIN = 1
 MAX = 2
 
+
+
+_STATUSRESPONSE = _descriptor.Descriptor(
+  name='StatusResponse',
+  full_name='api.query.webclient.v1.StatusResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message', full_name='api.query.webclient.v1.StatusResponse.message', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=135,
+  serialized_end=168,
+)
 
 
 _PROFILEDATA = _descriptor.Descriptor(
@@ -215,8 +247,8 @@ _PROFILEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=135,
-  serialized_end=221,
+  serialized_start=170,
+  serialized_end=256,
 )
 
 
@@ -247,8 +279,8 @@ _PROFILEDATALIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=295,
+  serialized_start=258,
+  serialized_end=330,
 )
 
 
@@ -286,8 +318,8 @@ _PROFILESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=297,
-  serialized_end=421,
+  serialized_start=332,
+  serialized_end=456,
 )
 
 
@@ -339,8 +371,8 @@ _BILLINGDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=423,
-  serialized_end=503,
+  serialized_start=458,
+  serialized_end=538,
 )
 
 
@@ -371,8 +403,8 @@ _BILLINGDATALIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=505,
-  serialized_end=577,
+  serialized_start=540,
+  serialized_end=612,
 )
 
 
@@ -410,8 +442,8 @@ _BILLINGSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=579,
-  serialized_end=703,
+  serialized_start=614,
+  serialized_end=738,
 )
 
 
@@ -449,8 +481,8 @@ _BILLINGSCURSORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=705,
-  serialized_end=808,
+  serialized_start=740,
+  serialized_end=843,
 )
 
 
@@ -495,8 +527,8 @@ _FILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=810,
-  serialized_end=933,
+  serialized_start=845,
+  serialized_end=968,
 )
 
 
@@ -534,8 +566,8 @@ _ORDERING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=935,
-  serialized_end=1048,
+  serialized_start=970,
+  serialized_end=1083,
 )
 
 
@@ -587,8 +619,8 @@ _BILLINGSPAGINATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1051,
-  serialized_end=1208,
+  serialized_start=1086,
+  serialized_end=1243,
 )
 
 
@@ -626,8 +658,341 @@ _CHARTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1210,
-  serialized_end=1251,
+  serialized_start=1245,
+  serialized_end=1286,
+)
+
+
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA_DATA = _descriptor.Descriptor(
+  name='Data',
+  full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Data',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='label', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Data.label', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='text', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Data.text', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1772,
+  serialized_end=1807,
+)
+
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA_POSITION = _descriptor.Descriptor(
+  name='Position',
+  full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Position',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Position.x', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Position.y', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1809,
+  serialized_end=1841,
+)
+
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA = _descriptor.Descriptor(
+  name='NodeData',
+  full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.data', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='position', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.position', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CHARTDATARESPONSE_NODEDATALIST_NODEDATA_DATA, _CHARTDATARESPONSE_NODEDATALIST_NODEDATA_POSITION, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1558,
+  serialized_end=1841,
+)
+
+_CHARTDATARESPONSE_NODEDATALIST = _descriptor.Descriptor(
+  name='NodeDataList',
+  full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='nodes', full_name='api.query.webclient.v1.ChartDataResponse.NodeDataList.nodes', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CHARTDATARESPONSE_NODEDATALIST_NODEDATA, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1461,
+  serialized_end=1841,
+)
+
+_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA_DATA = _descriptor.Descriptor(
+  name='Data',
+  full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.Data',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='label', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.Data.label', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1772,
+  serialized_end=1793,
+)
+
+_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA = _descriptor.Descriptor(
+  name='EdgeData',
+  full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.source', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sourceHandle', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.sourceHandle', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='target', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.target', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='targetHandle', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.targetHandle', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.data', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA_DATA, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1941,
+  serialized_end=2160,
+)
+
+_CHARTDATARESPONSE_EDGEDATALIST = _descriptor.Descriptor(
+  name='EdgeDataList',
+  full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='edges', full_name='api.query.webclient.v1.ChartDataResponse.EdgeDataList.edges', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1844,
+  serialized_end=2160,
+)
+
+_CHARTDATARESPONSE = _descriptor.Descriptor(
+  name='ChartDataResponse',
+  full_name='api.query.webclient.v1.ChartDataResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='nodesData', full_name='api.query.webclient.v1.ChartDataResponse.nodesData', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='edgesData', full_name='api.query.webclient.v1.ChartDataResponse.edgesData', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CHARTDATARESPONSE_NODEDATALIST, _CHARTDATARESPONSE_EDGEDATALIST, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1289,
+  serialized_end=2160,
 )
 
 _PROFILEDATALIST.fields_by_name['profiles'].message_type = _PROFILEDATA
@@ -643,6 +1008,21 @@ _ORDERING.fields_by_name['key'].enum_type = _BILLINGKEY
 _ORDERING.fields_by_name['direction'].enum_type = _DIRECTION
 _BILLINGSPAGINATIONREQUEST.fields_by_name['filters'].message_type = _FILTER
 _BILLINGSPAGINATIONREQUEST.fields_by_name['orders'].message_type = _ORDERING
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA_DATA.containing_type = _CHARTDATARESPONSE_NODEDATALIST_NODEDATA
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA_POSITION.containing_type = _CHARTDATARESPONSE_NODEDATALIST_NODEDATA
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA.fields_by_name['data'].message_type = _CHARTDATARESPONSE_NODEDATALIST_NODEDATA_DATA
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA.fields_by_name['position'].message_type = _CHARTDATARESPONSE_NODEDATALIST_NODEDATA_POSITION
+_CHARTDATARESPONSE_NODEDATALIST_NODEDATA.containing_type = _CHARTDATARESPONSE_NODEDATALIST
+_CHARTDATARESPONSE_NODEDATALIST.fields_by_name['nodes'].message_type = _CHARTDATARESPONSE_NODEDATALIST_NODEDATA
+_CHARTDATARESPONSE_NODEDATALIST.containing_type = _CHARTDATARESPONSE
+_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA_DATA.containing_type = _CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA
+_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA.fields_by_name['data'].message_type = _CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA_DATA
+_CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA.containing_type = _CHARTDATARESPONSE_EDGEDATALIST
+_CHARTDATARESPONSE_EDGEDATALIST.fields_by_name['edges'].message_type = _CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA
+_CHARTDATARESPONSE_EDGEDATALIST.containing_type = _CHARTDATARESPONSE
+_CHARTDATARESPONSE.fields_by_name['nodesData'].message_type = _CHARTDATARESPONSE_NODEDATALIST
+_CHARTDATARESPONSE.fields_by_name['edgesData'].message_type = _CHARTDATARESPONSE_EDGEDATALIST
+DESCRIPTOR.message_types_by_name['StatusResponse'] = _STATUSRESPONSE
 DESCRIPTOR.message_types_by_name['ProfileData'] = _PROFILEDATA
 DESCRIPTOR.message_types_by_name['ProfileDataList'] = _PROFILEDATALIST
 DESCRIPTOR.message_types_by_name['ProfilesRequest'] = _PROFILESREQUEST
@@ -654,10 +1034,18 @@ DESCRIPTOR.message_types_by_name['Filter'] = _FILTER
 DESCRIPTOR.message_types_by_name['Ordering'] = _ORDERING
 DESCRIPTOR.message_types_by_name['BillingsPaginationRequest'] = _BILLINGSPAGINATIONREQUEST
 DESCRIPTOR.message_types_by_name['ChartData'] = _CHARTDATA
+DESCRIPTOR.message_types_by_name['ChartDataResponse'] = _CHARTDATARESPONSE
 DESCRIPTOR.enum_types_by_name['BillingKey'] = _BILLINGKEY
 DESCRIPTOR.enum_types_by_name['Operand'] = _OPERAND
 DESCRIPTOR.enum_types_by_name['Direction'] = _DIRECTION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+StatusResponse = _reflection.GeneratedProtocolMessageType('StatusResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STATUSRESPONSE,
+  '__module__' : 'proto.query.web_client.query_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.query.webclient.v1.StatusResponse)
+  })
+_sym_db.RegisterMessage(StatusResponse)
 
 ProfileData = _reflection.GeneratedProtocolMessageType('ProfileData', (_message.Message,), {
   'DESCRIPTOR' : _PROFILEDATA,
@@ -736,17 +1124,106 @@ ChartData = _reflection.GeneratedProtocolMessageType('ChartData', (_message.Mess
   })
 _sym_db.RegisterMessage(ChartData)
 
+ChartDataResponse = _reflection.GeneratedProtocolMessageType('ChartDataResponse', (_message.Message,), {
+
+  'NodeDataList' : _reflection.GeneratedProtocolMessageType('NodeDataList', (_message.Message,), {
+
+    'NodeData' : _reflection.GeneratedProtocolMessageType('NodeData', (_message.Message,), {
+
+      'Data' : _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
+        'DESCRIPTOR' : _CHARTDATARESPONSE_NODEDATALIST_NODEDATA_DATA,
+        '__module__' : 'proto.query.web_client.query_webclient_pb2'
+        # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Data)
+        })
+      ,
+
+      'Position' : _reflection.GeneratedProtocolMessageType('Position', (_message.Message,), {
+        'DESCRIPTOR' : _CHARTDATARESPONSE_NODEDATALIST_NODEDATA_POSITION,
+        '__module__' : 'proto.query.web_client.query_webclient_pb2'
+        # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData.Position)
+        })
+      ,
+      'DESCRIPTOR' : _CHARTDATARESPONSE_NODEDATALIST_NODEDATA,
+      '__module__' : 'proto.query.web_client.query_webclient_pb2'
+      # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.NodeDataList.NodeData)
+      })
+    ,
+    'DESCRIPTOR' : _CHARTDATARESPONSE_NODEDATALIST,
+    '__module__' : 'proto.query.web_client.query_webclient_pb2'
+    # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.NodeDataList)
+    })
+  ,
+
+  'EdgeDataList' : _reflection.GeneratedProtocolMessageType('EdgeDataList', (_message.Message,), {
+
+    'EdgeData' : _reflection.GeneratedProtocolMessageType('EdgeData', (_message.Message,), {
+
+      'Data' : _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
+        'DESCRIPTOR' : _CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA_DATA,
+        '__module__' : 'proto.query.web_client.query_webclient_pb2'
+        # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData.Data)
+        })
+      ,
+      'DESCRIPTOR' : _CHARTDATARESPONSE_EDGEDATALIST_EDGEDATA,
+      '__module__' : 'proto.query.web_client.query_webclient_pb2'
+      # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.EdgeDataList.EdgeData)
+      })
+    ,
+    'DESCRIPTOR' : _CHARTDATARESPONSE_EDGEDATALIST,
+    '__module__' : 'proto.query.web_client.query_webclient_pb2'
+    # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse.EdgeDataList)
+    })
+  ,
+  'DESCRIPTOR' : _CHARTDATARESPONSE,
+  '__module__' : 'proto.query.web_client.query_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.query.webclient.v1.ChartDataResponse)
+  })
+_sym_db.RegisterMessage(ChartDataResponse)
+_sym_db.RegisterMessage(ChartDataResponse.NodeDataList)
+_sym_db.RegisterMessage(ChartDataResponse.NodeDataList.NodeData)
+_sym_db.RegisterMessage(ChartDataResponse.NodeDataList.NodeData.Data)
+_sym_db.RegisterMessage(ChartDataResponse.NodeDataList.NodeData.Position)
+_sym_db.RegisterMessage(ChartDataResponse.EdgeDataList)
+_sym_db.RegisterMessage(ChartDataResponse.EdgeDataList.EdgeData)
+_sym_db.RegisterMessage(ChartDataResponse.EdgeDataList.EdgeData.Data)
+
+
+
+_STATUS = _descriptor.ServiceDescriptor(
+  name='Status',
+  full_name='api.query.webclient.v1.Status',
+  file=DESCRIPTOR,
+  index=0,
+  serialized_options=None,
+  create_key=_descriptor._internal_create_key,
+  serialized_start=2369,
+  serialized_end=2452,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='listen',
+    full_name='api.query.webclient.v1.Status.listen',
+    index=0,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_PROFILEDATALIST,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_STATUS)
+
+DESCRIPTOR.services_by_name['Status'] = _STATUS
 
 
 _PROFILE = _descriptor.ServiceDescriptor(
   name='Profile',
   full_name='api.query.webclient.v1.Profile',
   file=DESCRIPTOR,
-  index=0,
+  index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1461,
-  serialized_end=1638,
+  serialized_start=2455,
+  serialized_end=2632,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -778,11 +1255,11 @@ _BILLING = _descriptor.ServiceDescriptor(
   name='Billing',
   full_name='api.query.webclient.v1.Billing',
   file=DESCRIPTOR,
-  index=1,
+  index=2,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1640,
-  serialized_end=1738,
+  serialized_start=2634,
+  serialized_end=2732,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -804,11 +1281,11 @@ _BILLINGHISTORY = _descriptor.ServiceDescriptor(
   name='BillingHistory',
   full_name='api.query.webclient.v1.BillingHistory',
   file=DESCRIPTOR,
-  index=2,
+  index=3,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1740,
-  serialized_end=1862,
+  serialized_start=2734,
+  serialized_end=2856,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -830,11 +1307,11 @@ _CHARTS = _descriptor.ServiceDescriptor(
   name='Charts',
   full_name='api.query.webclient.v1.Charts',
   file=DESCRIPTOR,
-  index=3,
+  index=4,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1864,
-  serialized_end=1956,
+  serialized_start=2859,
+  serialized_end=3034,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetChartId',
@@ -843,6 +1320,16 @@ _CHARTS = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CHARTDATA,
     output_type=_CHARTDATA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetChartData',
+    full_name='api.query.webclient.v1.Charts.GetChartData',
+    index=1,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_CHARTDATARESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

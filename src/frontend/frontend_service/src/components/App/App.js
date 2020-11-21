@@ -36,8 +36,8 @@ import {
 } from './ProfilesCheats'
 
 import { 
-  Flow
-} from '../Flow/Flow'
+  FlowBase
+} from '../Flow/FlowBase'
 
 import {
   CssBaseline,
@@ -53,7 +53,7 @@ const App = ( ) => {
         <Navbar />
         <Grid container component='main' direction='column' wrap='nowrap'>
           <Toolbar />
-          <Grid item xs={12}>
+          <Grid container item xs={12} direction='column' wrap='nowrap'>
             <Switch>
               <Route path="/registration">
                 <Registration/>
@@ -68,7 +68,7 @@ const App = ( ) => {
                 <HomeworkApi/>
               </Route>
               <Route exact path="/">
-                <Flow/>
+                <FlowBase />
               </Route>
               <Route>
                 <NotFound/>

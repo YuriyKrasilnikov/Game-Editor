@@ -5,7 +5,7 @@ import proto.query.charts.query_charts_pb2_grpc as query_charts_pb2_grpc
 
 from google.protobuf import field_mask_pb2
 
-from google.protobuf.json_format import MessageToDict
+from google.protobuf.json_format import MessageToDict, ParseDict
 
 from database.sessions import db
 
@@ -26,7 +26,6 @@ class ChartsService(query_charts_pb2_grpc.ChartsServicer):
           data=chart,
           paths=paths
         )
-        print(f'3', flush=True)
         response.charts.append( chart )
 
       print(f'response {response}', flush=True)
@@ -78,4 +77,48 @@ class ChartsService(query_charts_pb2_grpc.ChartsServicer):
       
       print(f'--- end Get', flush=True)
       return response
+
+    def GetChartData(self, request, context):
+      print(f'--- start GetChartData', flush=True)
+      print(f'GetChartData profileid: {request.profileid}', flush=True)
+   
+      profileid = MessageToDict( request )['profileid']
+
+      #print(f'profileid: { profileid }', flush=True)
+
+      #profile = collections['charts'].find_one( request_dict['charts'][0] )
+
+      chartsid = collections['charts'].find_one( { 'profileid': profileid } )['_id']
+
+      print(f'chartsid: { chartsid }', flush=True)
+
+      nodes = collections['nodes'].find( filter={'boardsid': chartsid}, projection={'boardsid': False} )
+      edges = collections['edges'].find( filter={'boardsid': chartsid}, projection={'boardsid': False} )
+
+
+      response_dict = {
+        'nodesData':{
+          'nodes':[
+            {'id': node.pop('_id'), **node} for node in nodes 
+          ]
+        },
+        'edgesData':{
+          'edges':[
+            {'id': edge.pop('_id'), **edge} for edge in edges 
+          ]
+        }
+      }
+
+      print(f'response_dict: { response_dict }', flush=True)
+
+      response = query_charts_pb2.ChartDataResponse()
+
+      ParseDict(
+        response_dict, 
+        response
+      )
+
+      print(f'--- end GetChartData', flush=True)
+      return response
+      
       

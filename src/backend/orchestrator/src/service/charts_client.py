@@ -26,10 +26,10 @@ class ChartsClient:
   
 
   def get_charts(self, datas, paths):
-    print(f'get_charts 1', flush=True)
+    #print(f'get_charts 1', flush=True)
     charts = ChartsClient.__ChartsData(datas=datas)
 
-    print(f'get_charts  2', flush=True)
+    #print(f'get_charts  2', flush=True)
     response = self.stub.Get(
               query_charts_pb2.ChartsRequest(
                 chartsData=query_charts_pb2.ChartDataList(
@@ -41,6 +41,17 @@ class ChartsClient:
               )
             )
             
-    print(f'get_charts 3', flush=True)
+    #print(f'get_charts 3', flush=True)
+    return response
+
+  def get_chart_data(self, profileid):
+    print(f'get_chart_data 1', flush=True)
+    response = self.stub.GetChartData(
+              query_charts_pb2.ProfileId(
+                profileid=profileid
+              )
+            )
+            
+    print(f'get_chart_data 2', flush=True)
     return response
 

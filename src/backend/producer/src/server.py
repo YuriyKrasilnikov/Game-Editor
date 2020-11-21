@@ -13,6 +13,7 @@ import proto.command.web_client.command_webclient_pb2_grpc as command_webclient_
 
 from service.profile import ProfileService
 from service.billing import BillingService
+from service.charts import ChartsService
 
 kafka_producer_address=os.environ['kafka-producer-address']
 kafka_producer_port=os.environ['kafka-producer-port']
@@ -62,6 +63,12 @@ class Server:
     print('Billing GRPC Server starting...')
     command_webclient_pb2_grpc.add_BillingServicer_to_server(
       servicer=BillingService( service_id=Server._service_id, producer=Server._producer ),
+      server=self.server
+    )
+
+    print('Charts GRPC Server starting...')
+    command_webclient_pb2_grpc.add_ChartsServicer_to_server(
+      servicer=ChartsService( service_id=Server._service_id, producer=Server._producer ),
       server=self.server
     )
 

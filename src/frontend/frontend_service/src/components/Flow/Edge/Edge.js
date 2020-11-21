@@ -8,17 +8,34 @@ import React, {
 import classNames from 'classnames';
 
 import ReactFlow, {
-
   getBezierPath,
   getMarkerEnd,
 
+  useStoreState,
+  useStoreActions,
 } from 'react-flow-renderer';
 
 import {
   Typography,
+  Box,
+  Paper
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+import {
+  useDoubleClick
+} from '../../../utilites/useDoubleClick';
+
+import {
+  EditableInput
+} from '../../Utilites/EditableInput';
+
+import {
+  deepCopy
+} from '../../../utilites/deepCopy';
+
+import { ElementsContext } from '../initialElements'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +48,15 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   edgeText: {
-    pointerEvents: 'none',
-    userSelect: 'none',
-  }
+    position: 'absolute',
+    minWidth: '100px',
+    padding: '4px'
+  },
+  edgeTextBox: {
+    position: 'relative',
+    overflow: 'visible'
+  },
+  
 }));
 
 const CustomEdge = ({
@@ -47,13 +70,54 @@ const CustomEdge = ({
   data,
   arrowHeadType,
   markerEndId,
-
+  selected,
   style = {},
-  labelBgPadding = [2, 4],
-  labelBgBorderRadius = 2,
 }) => {
 
+  const { 
+    elements,
+    setElements,
+    updateElement,
+  } = useContext(ElementsContext)
   const classes = useStyles();
+
+  //const elements = useStoreState((state) => state.elements);
+
+  const getElementDataById = (id) => deepCopy( elements.find( el => el.id==id ).data )
+  const updateDataElement = (id, data) => updateElement( 
+      { ...elements.find( el => el.id==id ), data: data }
+    )
+
+  const [editedElData, setEditedElData] = useState( null );
+
+  const [edited, setEdited] = useState( false );
+
+  const doubleClickHandler = () => {
+    //console.log('doubleClick')
+    setEditedElData(
+      getElementDataById(id)
+    )
+    setEdited(true)
+  }
+
+  const [refCallback, elem] = useDoubleClick( doubleClickHandler );
+
+  useEffect(()=>{
+    if(selected){
+      //console.log('selected', getElementDataById(props.id) )
+    }else{
+      if (editedElData){
+        //console.log('unselected', editedElData )
+        updateDataElement(id, editedElData)
+        setEditedElData(null)
+      }
+      setEdited(false)
+    }
+  },[selected])
+
+  const editElData = ( key ) => ( value ) => {
+    setEditedElData( { ...editedElData, [ key ]: value } )
+  }
 
   const edgePath = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
   const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
@@ -69,11 +133,9 @@ const CustomEdge = ({
 
   useEffect(() => {
     if (edgeRef.current) {
-      const textBbox = edgeRef.current.getBBox();
+      const textBbox = edgeRef.current.getBoundingClientRect()
 
       setEdgeTextBbox({
-        x: textBbox.x,
-        y: textBbox.y,
         width: textBbox.width,
         height: textBbox.height,
       });
@@ -81,7 +143,7 @@ const CustomEdge = ({
   }, [ data, data.label ]);
 
   return (
-    <>
+    <g ref={refCallback} >
       <path 
         id={id}
         style={style}
@@ -90,25 +152,22 @@ const CustomEdge = ({
         markerEnd={markerEnd}
       />
       <g transform={`translate(${centerX - edgeTextBbox.width / 2} ${centerY - edgeTextBbox.height / 2})`}>
-        {data && data.label && <>
-          <rect
-              width={edgeTextBbox.width + 2 * labelBgPadding[0]}
-              x={-labelBgPadding[0]}
-              y={-labelBgPadding[1]}
-              height={edgeTextBbox.height + 2 * labelBgPadding[1]}
-              className="react-flow__edge-textbg"
-              rx={labelBgBorderRadius}
-              ry={labelBgBorderRadius}
+        <foreignObject
+          width={edgeTextBbox.width }
+          height={edgeTextBbox.height }
+          className={classes.edgeTextBox}
+        >
+          <Paper className={classes.edgeText}>
+            <EditableInput
+              ref={edgeRef}
+              data={ data.label }
+              edited={ edited }
+              callback={ editElData('label') }
             />
-          <g className={classes.edgeText} ref={edgeRef} >
-            <Typography component="text" variant="body2" y={edgeTextBbox.height/2} dy="0.3em" >
-              {data.label}
-            </Typography>
-          </g>
-        </>
-        }
+          </Paper>
+        </foreignObject>
       </g>
-    </>
+    </g>
   );
 }
 

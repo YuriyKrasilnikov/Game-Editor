@@ -22,8 +22,8 @@ const Registration = ( ) => {
 
   const [ msg, inlineMsg, setMsg ] = useMessage();
 
-  const [upd_nickname, upd_nicknameInput] = useInput({ type: "text", default_value:"yuriy"});
-  const [upd_description, upd_descriptionInput] = useTextarea({ default_value:"default_description" });
+  const [upd_nickname, upd_nicknameInput] = useInput({ type: "text", default_value:"yuriy", variant:"outlined"});
+  const [upd_description, upd_descriptionInput] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
   const regex = RegExp('^[a-z]{3,}');
 
   const reload = ( ) => {

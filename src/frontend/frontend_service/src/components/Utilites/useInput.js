@@ -3,7 +3,9 @@ import React, {
 } from 'react';
 
 import {
-  TextField
+  Typography,
+  TextField,
+  Box,
 } from '@material-ui/core';
 
 
@@ -17,12 +19,6 @@ const useInput = ({ type, default_value="", ...props}) => {
     return [value, input, setValue];
   }
 
-const useTextarea = ({ default_value=""}) => {
-  const [value, setValue] = useState(default_value);
-  const textarea = <textarea value={value} onChange={e => setValue(e.target.value)}/>
-  return [value, textarea, setValue];
-}
-
 const useSelect = ({ default_value="", default_options=[]}) => {
   const [value, setValue] = useState(default_value);
   const [options, setOptions] = useState(default_options);
@@ -35,5 +31,7 @@ const useSelect = ({ default_value="", default_options=[]}) => {
   return [value, select, setValue, setOptions];
 }
 
-
-export { useInput, useTextarea, useSelect };
+export { 
+  useInput,
+  useSelect
+};

@@ -6,8 +6,71 @@ from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from proto.query.web_client import query_webclient_pb2 as proto_dot_query_dot_web__client_dot_query__webclient__pb2
 
 
-class ProfileStub(object):
+class StatusStub(object):
     """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.listen = channel.unary_unary(
+                '/api.query.webclient.v1.Status/listen',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ProfileDataList.FromString,
+                )
+
+
+class StatusServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def listen(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_StatusServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'listen': grpc.unary_unary_rpc_method_handler(
+                    servicer.listen,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ProfileDataList.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'api.query.webclient.v1.Status', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Status(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def listen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.Status/listen',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.ProfileDataList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class ProfileStub(object):
+    """---
+
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -28,7 +91,9 @@ class ProfileStub(object):
 
 
 class ProfileServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """---
+
+    """
 
     def Get(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -63,7 +128,9 @@ def add_ProfileServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Profile(object):
-    """Missing associated documentation comment in .proto file."""
+    """---
+
+    """
 
     @staticmethod
     def Get(request,
@@ -236,12 +303,23 @@ class ChartsStub(object):
                 request_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.SerializeToString,
                 response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.FromString,
                 )
+        self.GetChartData = channel.unary_unary(
+                '/api.query.webclient.v1.Charts/GetChartData',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartDataResponse.FromString,
+                )
 
 
 class ChartsServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetChartId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetChartData(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -254,6 +332,11 @@ def add_ChartsServicer_to_server(servicer, server):
                     servicer.GetChartId,
                     request_deserializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.FromString,
                     response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.SerializeToString,
+            ),
+            'GetChartData': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChartData,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartDataResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -279,5 +362,22 @@ class Charts(object):
         return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.Charts/GetChartId',
             proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.SerializeToString,
             proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartData.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetChartData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.query.webclient.v1.Charts/GetChartData',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            proto_dot_query_dot_web__client_dot_query__webclient__pb2.ChartDataResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

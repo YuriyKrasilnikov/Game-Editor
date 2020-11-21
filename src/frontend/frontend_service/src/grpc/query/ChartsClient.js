@@ -48,6 +48,37 @@ const GetChartId = ( {data, result, error=null, paths=[], metadata={}} ) => {
   });
 }
 
+//rpc GetChartData ( google.protobuf.Empty ) returns ( ChartDataResponse );
+const GetChartData = ( { result, error=null, metadata={}} ) => {
+
+  const request = new Empty();
+
+  const call = ChartsService.getChartData(
+    request, metadata, 
+    (err, response) => {
+      if (err) {
+        console.log(`Unexpected error for GetChartId: code = ${err.code}, message = "${err.message}"`);
+        if (error){
+          error({
+            msg: err.message,
+            type: 'ErrorMessage'
+          })
+        }
+        result()
+      } else {
+        console.log("GetChartId", response.toObject() );
+        if (error){
+          error()
+        }
+        result(
+          response.toObject()
+        )
+      }
+  });
+}
+
+
 export { 
   GetChartId,
+  GetChartData
 };

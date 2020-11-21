@@ -114,3 +114,25 @@ class ChartsService(query_webclient_pb2_grpc.ChartsServicer):
 
     print(f'--- end Chart Get', flush=True)
     return response
+
+  #rpc GetChartId ( ChartData ) returns ( ChartData );
+  def GetChartData(self, request, context):
+    print(f'--- start Get Chart Data', flush=True)
+
+    metadata = dict(context.invocation_metadata())
+
+    client = ChartsClient()
+    client_response = client.get_chart_data(
+      profileid = metadata['x-user-authorization-id']
+    )
+
+    response_dict = json_format.MessageToDict( client_response )
+
+    print(f'--- response_dict {response_dict}', flush=True)
+
+    response = query_webclient_pb2.ChartDataResponse()
+    
+    json_format.ParseDict(response_dict, response)
+
+    print(f'--- end Get Chart Data', flush=True)
+    return response

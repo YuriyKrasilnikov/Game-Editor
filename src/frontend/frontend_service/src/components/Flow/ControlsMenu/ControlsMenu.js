@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     top: '24px'
   },
   draggable: {
-    cursor: 'move',
+    cursor: 'grab',
     userSelect: 'none',
   }
 

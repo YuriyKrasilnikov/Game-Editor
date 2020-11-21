@@ -19,10 +19,10 @@ class ChartsStub(object):
                 request_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartsRequest.SerializeToString,
                 response_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartDataList.FromString,
                 )
-        self.GetChartId = channel.unary_unary(
-                '/api.query.charts.v1.Charts/GetChartId',
-                request_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.SerializeToString,
-                response_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.FromString,
+        self.GetChartData = channel.unary_unary(
+                '/api.query.charts.v1.Charts/GetChartData',
+                request_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ProfileId.SerializeToString,
+                response_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartDataResponse.FromString,
                 )
 
 
@@ -35,7 +35,7 @@ class ChartsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetChartId(self, request, context):
+    def GetChartData(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -49,10 +49,10 @@ def add_ChartsServicer_to_server(servicer, server):
                     request_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartsRequest.FromString,
                     response_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartDataList.SerializeToString,
             ),
-            'GetChartId': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetChartId,
-                    request_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.FromString,
-                    response_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.SerializeToString,
+            'GetChartData': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChartData,
+                    request_deserializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ProfileId.FromString,
+                    response_serializer=proto_dot_query_dot_charts_dot_query__charts__pb2.ChartDataResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -82,7 +82,7 @@ class Charts(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetChartId(request,
+    def GetChartData(request,
             target,
             options=(),
             channel_credentials=None,
@@ -92,8 +92,8 @@ class Charts(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.query.charts.v1.Charts/GetChartId',
-            proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.SerializeToString,
-            proto_dot_query_dot_charts_dot_query__charts__pb2.ChartData.FromString,
+        return grpc.experimental.unary_unary(request, target, '/api.query.charts.v1.Charts/GetChartData',
+            proto_dot_query_dot_charts_dot_query__charts__pb2.ProfileId.SerializeToString,
+            proto_dot_query_dot_charts_dot_query__charts__pb2.ChartDataResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

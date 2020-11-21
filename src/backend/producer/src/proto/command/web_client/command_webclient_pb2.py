@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import field_mask_pb2 as google_dot_protobuf_dot_field__mask__pb2
 
 
@@ -20,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n0proto/command/web_client/command_webclient.proto\x12\x18\x61pi.command.webclient.v1\x1a google/protobuf/field_mask.proto\"!\n\x0eStatusResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"q\n\x0bProfileData\x12,\n\x08modified\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"+\n\x08PaidData\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"*\n\x07\x42uyData\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t2\xa0\x02\n\x07Profile\x12[\n\x06Insert\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12[\n\x06Update\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12[\n\x06Remove\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x32\xb7\x01\n\x07\x42illing\x12V\n\x04Paid\x12\".api.command.webclient.v1.PaidData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12T\n\x03\x42uy\x12!.api.command.webclient.v1.BuyData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x62\x06proto3'
+  serialized_pb=b'\n0proto/command/web_client/command_webclient.proto\x12\x18\x61pi.command.webclient.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a google/protobuf/field_mask.proto\"!\n\x0eStatusResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"q\n\x0bProfileData\x12,\n\x08modified\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\x12\x10\n\x08nickname\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"+\n\x08PaidData\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"*\n\x07\x42uyData\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xe1\x01\n\x08NodeData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\'.api.command.webclient.v1.NodeData.Data\x12=\n\x08position\x18\x04 \x01(\x0b\x32+.api.command.webclient.v1.NodeData.Position\x1a#\n\x04\x44\x61ta\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x1a \n\x08Position\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\"A\n\x0cNodeDataList\x12\x31\n\x05nodes\x18\x01 \x03(\x0b\x32\".api.command.webclient.v1.NodeData\"u\n\x0cNodesRequest\x12\x39\n\tnodesData\x18\x01 \x01(\x0b\x32&.api.command.webclient.v1.NodeDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask\"\xbe\x01\n\x08\x45\x64geData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0e\n\x06source\x18\x03 \x01(\t\x12\x14\n\x0csourceHandle\x18\x04 \x01(\t\x12\x0e\n\x06target\x18\x05 \x01(\t\x12\x14\n\x0ctargetHandle\x18\x06 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x07 \x01(\x0b\x32\'.api.command.webclient.v1.EdgeData.Data\x1a\x15\n\x04\x44\x61ta\x12\r\n\x05label\x18\x01 \x01(\t\"A\n\x0c\x45\x64geDataList\x12\x31\n\x05\x65\x64ges\x18\x01 \x03(\x0b\x32\".api.command.webclient.v1.EdgeData\"u\n\x0c\x45\x64gesRequest\x12\x39\n\tedgesData\x18\x01 \x01(\x0b\x32&.api.command.webclient.v1.EdgeDataList\x12*\n\x06\x66ields\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.FieldMask2\xa0\x02\n\x07Profile\x12[\n\x06Insert\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12[\n\x06Update\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12[\n\x06Remove\x12%.api.command.webclient.v1.ProfileData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x32\xb7\x01\n\x07\x42illing\x12V\n\x04Paid\x12\".api.command.webclient.v1.PaidData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x12T\n\x03\x42uy\x12!.api.command.webclient.v1.BuyData\x1a(.api.command.webclient.v1.StatusResponse0\x01\x32\xe2\x03\n\x06\x43harts\x12M\n\x0bInsertNodes\x12&.api.command.webclient.v1.NodesRequest\x1a\x16.google.protobuf.Empty\x12M\n\x0bUpdateNodes\x12&.api.command.webclient.v1.NodesRequest\x1a\x16.google.protobuf.Empty\x12M\n\x0bRemoveNodes\x12&.api.command.webclient.v1.NodesRequest\x1a\x16.google.protobuf.Empty\x12M\n\x0bInsertEdges\x12&.api.command.webclient.v1.EdgesRequest\x1a\x16.google.protobuf.Empty\x12M\n\x0bUpdateEdges\x12&.api.command.webclient.v1.EdgesRequest\x1a\x16.google.protobuf.Empty\x12M\n\x0bRemoveEdges\x12&.api.command.webclient.v1.EdgesRequest\x1a\x16.google.protobuf.Emptyb\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_field__mask__pb2.DESCRIPTOR,])
 
 
 
@@ -54,8 +55,8 @@ _STATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=112,
-  serialized_end=145,
+  serialized_start=141,
+  serialized_end=174,
 )
 
 
@@ -107,8 +108,8 @@ _PROFILEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=147,
-  serialized_end=260,
+  serialized_start=176,
+  serialized_end=289,
 )
 
 
@@ -146,8 +147,8 @@ _PAIDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=262,
-  serialized_end=305,
+  serialized_start=291,
+  serialized_end=334,
 )
 
 
@@ -185,15 +186,409 @@ _BUYDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=307,
-  serialized_end=349,
+  serialized_start=336,
+  serialized_end=378,
+)
+
+
+_NODEDATA_DATA = _descriptor.Descriptor(
+  name='Data',
+  full_name='api.command.webclient.v1.NodeData.Data',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='label', full_name='api.command.webclient.v1.NodeData.Data.label', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='text', full_name='api.command.webclient.v1.NodeData.Data.text', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=537,
+  serialized_end=572,
+)
+
+_NODEDATA_POSITION = _descriptor.Descriptor(
+  name='Position',
+  full_name='api.command.webclient.v1.NodeData.Position',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='api.command.webclient.v1.NodeData.Position.x', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='api.command.webclient.v1.NodeData.Position.y', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=574,
+  serialized_end=606,
+)
+
+_NODEDATA = _descriptor.Descriptor(
+  name='NodeData',
+  full_name='api.command.webclient.v1.NodeData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.command.webclient.v1.NodeData.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='api.command.webclient.v1.NodeData.type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='api.command.webclient.v1.NodeData.data', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='position', full_name='api.command.webclient.v1.NodeData.position', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_NODEDATA_DATA, _NODEDATA_POSITION, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=381,
+  serialized_end=606,
+)
+
+
+_NODEDATALIST = _descriptor.Descriptor(
+  name='NodeDataList',
+  full_name='api.command.webclient.v1.NodeDataList',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='nodes', full_name='api.command.webclient.v1.NodeDataList.nodes', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=608,
+  serialized_end=673,
+)
+
+
+_NODESREQUEST = _descriptor.Descriptor(
+  name='NodesRequest',
+  full_name='api.command.webclient.v1.NodesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='nodesData', full_name='api.command.webclient.v1.NodesRequest.nodesData', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fields', full_name='api.command.webclient.v1.NodesRequest.fields', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=675,
+  serialized_end=792,
+)
+
+
+_EDGEDATA_DATA = _descriptor.Descriptor(
+  name='Data',
+  full_name='api.command.webclient.v1.EdgeData.Data',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='label', full_name='api.command.webclient.v1.EdgeData.Data.label', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=537,
+  serialized_end=558,
+)
+
+_EDGEDATA = _descriptor.Descriptor(
+  name='EdgeData',
+  full_name='api.command.webclient.v1.EdgeData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='api.command.webclient.v1.EdgeData.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='api.command.webclient.v1.EdgeData.type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='api.command.webclient.v1.EdgeData.source', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sourceHandle', full_name='api.command.webclient.v1.EdgeData.sourceHandle', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='target', full_name='api.command.webclient.v1.EdgeData.target', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='targetHandle', full_name='api.command.webclient.v1.EdgeData.targetHandle', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='api.command.webclient.v1.EdgeData.data', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_EDGEDATA_DATA, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=795,
+  serialized_end=985,
+)
+
+
+_EDGEDATALIST = _descriptor.Descriptor(
+  name='EdgeDataList',
+  full_name='api.command.webclient.v1.EdgeDataList',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='edges', full_name='api.command.webclient.v1.EdgeDataList.edges', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=987,
+  serialized_end=1052,
+)
+
+
+_EDGESREQUEST = _descriptor.Descriptor(
+  name='EdgesRequest',
+  full_name='api.command.webclient.v1.EdgesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='edgesData', full_name='api.command.webclient.v1.EdgesRequest.edgesData', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fields', full_name='api.command.webclient.v1.EdgesRequest.fields', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1054,
+  serialized_end=1171,
 )
 
 _PROFILEDATA.fields_by_name['modified'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
+_NODEDATA_DATA.containing_type = _NODEDATA
+_NODEDATA_POSITION.containing_type = _NODEDATA
+_NODEDATA.fields_by_name['data'].message_type = _NODEDATA_DATA
+_NODEDATA.fields_by_name['position'].message_type = _NODEDATA_POSITION
+_NODEDATALIST.fields_by_name['nodes'].message_type = _NODEDATA
+_NODESREQUEST.fields_by_name['nodesData'].message_type = _NODEDATALIST
+_NODESREQUEST.fields_by_name['fields'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
+_EDGEDATA_DATA.containing_type = _EDGEDATA
+_EDGEDATA.fields_by_name['data'].message_type = _EDGEDATA_DATA
+_EDGEDATALIST.fields_by_name['edges'].message_type = _EDGEDATA
+_EDGESREQUEST.fields_by_name['edgesData'].message_type = _EDGEDATALIST
+_EDGESREQUEST.fields_by_name['fields'].message_type = google_dot_protobuf_dot_field__mask__pb2._FIELDMASK
 DESCRIPTOR.message_types_by_name['StatusResponse'] = _STATUSRESPONSE
 DESCRIPTOR.message_types_by_name['ProfileData'] = _PROFILEDATA
 DESCRIPTOR.message_types_by_name['PaidData'] = _PAIDDATA
 DESCRIPTOR.message_types_by_name['BuyData'] = _BUYDATA
+DESCRIPTOR.message_types_by_name['NodeData'] = _NODEDATA
+DESCRIPTOR.message_types_by_name['NodeDataList'] = _NODEDATALIST
+DESCRIPTOR.message_types_by_name['NodesRequest'] = _NODESREQUEST
+DESCRIPTOR.message_types_by_name['EdgeData'] = _EDGEDATA
+DESCRIPTOR.message_types_by_name['EdgeDataList'] = _EDGEDATALIST
+DESCRIPTOR.message_types_by_name['EdgesRequest'] = _EDGESREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StatusResponse = _reflection.GeneratedProtocolMessageType('StatusResponse', (_message.Message,), {
@@ -224,6 +619,72 @@ BuyData = _reflection.GeneratedProtocolMessageType('BuyData', (_message.Message,
   })
 _sym_db.RegisterMessage(BuyData)
 
+NodeData = _reflection.GeneratedProtocolMessageType('NodeData', (_message.Message,), {
+
+  'Data' : _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
+    'DESCRIPTOR' : _NODEDATA_DATA,
+    '__module__' : 'proto.command.web_client.command_webclient_pb2'
+    # @@protoc_insertion_point(class_scope:api.command.webclient.v1.NodeData.Data)
+    })
+  ,
+
+  'Position' : _reflection.GeneratedProtocolMessageType('Position', (_message.Message,), {
+    'DESCRIPTOR' : _NODEDATA_POSITION,
+    '__module__' : 'proto.command.web_client.command_webclient_pb2'
+    # @@protoc_insertion_point(class_scope:api.command.webclient.v1.NodeData.Position)
+    })
+  ,
+  'DESCRIPTOR' : _NODEDATA,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.NodeData)
+  })
+_sym_db.RegisterMessage(NodeData)
+_sym_db.RegisterMessage(NodeData.Data)
+_sym_db.RegisterMessage(NodeData.Position)
+
+NodeDataList = _reflection.GeneratedProtocolMessageType('NodeDataList', (_message.Message,), {
+  'DESCRIPTOR' : _NODEDATALIST,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.NodeDataList)
+  })
+_sym_db.RegisterMessage(NodeDataList)
+
+NodesRequest = _reflection.GeneratedProtocolMessageType('NodesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _NODESREQUEST,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.NodesRequest)
+  })
+_sym_db.RegisterMessage(NodesRequest)
+
+EdgeData = _reflection.GeneratedProtocolMessageType('EdgeData', (_message.Message,), {
+
+  'Data' : _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
+    'DESCRIPTOR' : _EDGEDATA_DATA,
+    '__module__' : 'proto.command.web_client.command_webclient_pb2'
+    # @@protoc_insertion_point(class_scope:api.command.webclient.v1.EdgeData.Data)
+    })
+  ,
+  'DESCRIPTOR' : _EDGEDATA,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.EdgeData)
+  })
+_sym_db.RegisterMessage(EdgeData)
+_sym_db.RegisterMessage(EdgeData.Data)
+
+EdgeDataList = _reflection.GeneratedProtocolMessageType('EdgeDataList', (_message.Message,), {
+  'DESCRIPTOR' : _EDGEDATALIST,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.EdgeDataList)
+  })
+_sym_db.RegisterMessage(EdgeDataList)
+
+EdgesRequest = _reflection.GeneratedProtocolMessageType('EdgesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDGESREQUEST,
+  '__module__' : 'proto.command.web_client.command_webclient_pb2'
+  # @@protoc_insertion_point(class_scope:api.command.webclient.v1.EdgesRequest)
+  })
+_sym_db.RegisterMessage(EdgesRequest)
+
 
 
 _PROFILE = _descriptor.ServiceDescriptor(
@@ -233,8 +694,8 @@ _PROFILE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=352,
-  serialized_end=640,
+  serialized_start=1174,
+  serialized_end=1462,
   methods=[
   _descriptor.MethodDescriptor(
     name='Insert',
@@ -279,8 +740,8 @@ _BILLING = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=643,
-  serialized_end=826,
+  serialized_start=1465,
+  serialized_end=1648,
   methods=[
   _descriptor.MethodDescriptor(
     name='Paid',
@@ -306,5 +767,81 @@ _BILLING = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_BILLING)
 
 DESCRIPTOR.services_by_name['Billing'] = _BILLING
+
+
+_CHARTS = _descriptor.ServiceDescriptor(
+  name='Charts',
+  full_name='api.command.webclient.v1.Charts',
+  file=DESCRIPTOR,
+  index=2,
+  serialized_options=None,
+  create_key=_descriptor._internal_create_key,
+  serialized_start=1651,
+  serialized_end=2133,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='InsertNodes',
+    full_name='api.command.webclient.v1.Charts.InsertNodes',
+    index=0,
+    containing_service=None,
+    input_type=_NODESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpdateNodes',
+    full_name='api.command.webclient.v1.Charts.UpdateNodes',
+    index=1,
+    containing_service=None,
+    input_type=_NODESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RemoveNodes',
+    full_name='api.command.webclient.v1.Charts.RemoveNodes',
+    index=2,
+    containing_service=None,
+    input_type=_NODESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='InsertEdges',
+    full_name='api.command.webclient.v1.Charts.InsertEdges',
+    index=3,
+    containing_service=None,
+    input_type=_EDGESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpdateEdges',
+    full_name='api.command.webclient.v1.Charts.UpdateEdges',
+    index=4,
+    containing_service=None,
+    input_type=_EDGESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RemoveEdges',
+    full_name='api.command.webclient.v1.Charts.RemoveEdges',
+    index=5,
+    containing_service=None,
+    input_type=_EDGESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_CHARTS)
+
+DESCRIPTOR.services_by_name['Charts'] = _CHARTS
 
 # @@protoc_insertion_point(module_scope)

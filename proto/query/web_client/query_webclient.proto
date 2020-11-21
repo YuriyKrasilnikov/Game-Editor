@@ -7,11 +7,21 @@ import "google/protobuf/empty.proto";
 //import "google/protobuf/timestamp.proto";
 import "google/protobuf/field_mask.proto";
 
-service Profile {
+//---
 
+message StatusResponse {
+  string message = 1;
+}
+
+service Status {
+  rpc listen (google.protobuf.Empty) returns (ProfileDataList);
+}
+
+//---
+
+service Profile {
   rpc Get (ProfilesRequest) returns (ProfileDataList);
   rpc Identification (google.protobuf.Empty) returns (ProfileData);
-
 }
 
 message ProfileData {
@@ -110,6 +120,7 @@ message BillingsPaginationRequest {
 
 service Charts {
   rpc GetChartId ( ChartData ) returns ( ChartData );
+  rpc GetChartData ( google.protobuf.Empty ) returns ( ChartDataResponse );
 }
 
 message ChartData {
@@ -117,4 +128,39 @@ message ChartData {
   string nickname = 2;
 }
 
-
+message ChartDataResponse {
+  message NodeDataList {
+    message NodeData {
+      string id = 1;
+      string type = 2;
+      message Data {
+        string label = 1;
+        string text = 2;
+      };
+      Data data = 3;
+      message Position {
+        int32 x = 1;
+        int32 y = 2;
+      };
+      Position position = 4;
+    }
+    repeated NodeData nodes = 1;
+  }
+  NodeDataList nodesData = 1;
+  message EdgeDataList {
+    message EdgeData {
+      string id = 1;
+      string type = 2;
+      string source = 3;
+      string sourceHandle = 4;
+      string target = 5;
+      string targetHandle = 6;
+      message Data {
+        string label = 1;
+      };
+      Data data = 7;
+    }
+    repeated EdgeData edges = 1;
+  }
+  EdgeDataList edgesData = 2;
+}

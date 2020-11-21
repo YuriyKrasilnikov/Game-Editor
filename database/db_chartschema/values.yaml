@@ -1,3 +1,6 @@
+architecture: standalone
+useStatefulSet: true
+
 auth:
   database: charts
   username: mongo
