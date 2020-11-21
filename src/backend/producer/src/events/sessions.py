@@ -37,7 +37,8 @@ def send_event(producer, service_id, topic, command, user_id, dialog_id, request
       f'{kafka_consumer_address}:{kafka_consumer_port}'
     ],
     auto_offset_reset='earliest',
-    enable_auto_commit=True
+    enable_auto_commit=True,
+    consumer_timeout_ms=200
   )
 
   producer.send(
