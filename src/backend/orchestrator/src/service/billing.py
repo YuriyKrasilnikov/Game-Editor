@@ -46,11 +46,11 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
     else:
       return source
 
-  def profilesConvert(self, billings, replaced, replaced_to, source, source_to ):
+  def profilesConvert(self, datas, replaced, replaced_to, source, source_to ):
     replacedSet=set()
-    for billing in billings:
-      if billing.get(replaced):
-        replacedSet.add( billing[replaced] )
+    for data in datas:
+      if data.get(replaced):
+        replacedSet.add( data[replaced] )
 
     replacedDict=[ {source:rep} for rep in replacedSet ]
 
@@ -60,12 +60,12 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
 
     sourceToDict = { d.get(source):d.get(source_to) for d in response_dict if d.get(source_to) }
 
-    for i in range( len( billings ) ):
-      r = billings[i].pop( replaced, None )
+    for i in range( len( datas ) ):
+      r = datas[i].pop( replaced, None )
       if r:
-        billings[i][ replaced_to ]=sourceToDict[ r ]
+        datas[i][ replaced_to ]=sourceToDict[ r ]
 
-    return billings
+    return datas
 
   #rpc Get(BillingsRequest) returns (BillingDataList);
   def Get(self, request, context):
@@ -74,8 +74,8 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
     print(f'Get fields: {request.fields} ', flush=True)
 
     metadata = dict(context.invocation_metadata())
-    request_billings = response_billings = self.profilesConvert(
-        billings = json_format.MessageToDict( request.billingsData )['billings'],
+    request_billings = self.profilesConvert(
+        datas = json_format.MessageToDict( request.billingsData )['billings'],
         replaced = 'nickname',
         replaced_to = 'profileid',
         source = 'nickname',
@@ -98,7 +98,7 @@ class BillingService(query_webclient_pb2_grpc.BillingServicer):
 
     if response_dict.get( 'billings' ):
       response_billings = self.profilesConvert(
-        billings = response_dict['billings'],
+        datas = response_dict['billings'],
         replaced = 'profileid',
         replaced_to = 'nickname',
         source = 'id',

@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-charts
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: command-charts
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: command-charts
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: command-charts
+        image: yuriykrasilnikov/backend_command_charts:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: db-address
+            value: "dbcharts-mongodb.database.svc.cluster.local"
+          - name: db-port
+            value: "27017"
+          - name: db-name
+            value: "charts"
+          - name: db-user
+            value: "mongo"
+          - name: db-password
+            value: "password"
+          - name: kafka-consumer-address
+            value: "command-kafka.kafka.svc.cluster.local"
+          - name: kafka-consumer-port
+            value: "9092"
+          - name: kafka-producer-address
+            value: "command-kafka-0.command-kafka-headless.kafka.svc.cluster.local"
+          - name: kafka-producer-port
+            value: "9092"
+        ports:
+        - name: grpc-port
+          containerPort: 9000
+        volumeMounts:
+        - name: command-charts-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: command-charts-storage
+        hostPath:
+          path: /minikube-host/backend/command/charts/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: command-charts
+  namespace: backend
+  labels:
+    app: command-charts
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: command-charts
+  ports:
+  - name: grpc-port
+    port: 9000
+    
+

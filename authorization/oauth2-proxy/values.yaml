@@ -1,7 +1,7 @@
 
 config:
   clientID: 01eda78843849c4d106e
-  clientSecret: 2c516e4914de5fa6744df3b4da0636506fe87363
+  clientSecret: 99c70554890abe7416d19549440cf6b37e16a535 
   cookieSecret: f2ZloaFMgXJeG9h8QTbjEA==
   configFile: |-
     provider="github"

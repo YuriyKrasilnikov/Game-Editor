@@ -3,14 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './components/index';
 import * as serviceWorker from './serviceWorker';
+import { ThemeProvider } from '@material-ui/core/styles';
 
+import { theme } from './utilites/style'
 import { StatusObserver } from './grpc/context'
 
 
 ReactDOM.render(
   <React.StrictMode>
     <StatusObserver>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </StatusObserver>
   </React.StrictMode>,
   document.getElementById('root')

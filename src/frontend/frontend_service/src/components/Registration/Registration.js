@@ -22,8 +22,8 @@ const Registration = ( ) => {
 
   const [ msg, inlineMsg, setMsg ] = useMessage();
 
-  const [upd_nickname, upd_nicknameInput] = useInput({ type: "text", default_value:"yuriy"});
-  const [upd_description, upd_descriptionInput] = useTextarea({ default_value:"default_description" });
+  const [upd_nickname, upd_nicknameInput] = useInput({ type: "text", default_value:"yuriy", variant:"outlined"});
+  const [upd_description, upd_descriptionInput] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
   const regex = RegExp('^[a-z]{3,}');
 
   const reload = ( ) => {
@@ -33,7 +33,7 @@ const Registration = ( ) => {
   return (
       <>
           <h2>{'~'.repeat(15)} Registration {'~'.repeat(15)}</h2>
-          <table align="center" border="1" cellSpacing="0" cellPadding="7">
+          <table border="1" cellSpacing="0" cellPadding="7">
               <tbody align="left">
                   <tr>
                     <td>

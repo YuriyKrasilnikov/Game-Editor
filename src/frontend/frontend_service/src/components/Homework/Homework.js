@@ -13,7 +13,6 @@ import { StatusContext } from '../../grpc/context'
 
 import { 
   useInput,
-  useTextarea,
   useSelect
 } from '../Utilites/useInput'
 
@@ -39,6 +38,10 @@ import {
   Paid,
   Buy,
 } from '../../grpc/command/BillingClient'
+
+import {
+  GetChartId,
+} from '../../grpc/query/ChartsClient'
 
 const transpose = m => 
   m.length > 0 ? m[0].map( (x,i) => m.map(x => x[i]) ) : m
@@ -74,14 +77,14 @@ const Json2table = ( { json_obj } ) => {
     if (json_obj) {
       setLogs( unnormalize( json_obj ) )
     } else {
-      setLogs([])
+      setLogs( [] )
     }
 
     console.log(logs.length)
 
   }, [json_obj]);
 
-  return <table align="center" border="1" cellSpacing="0" cellPadding="7">
+  return <table border="1" cellSpacing="0" cellPadding="7">
             <caption>Результат запроса:</caption>
             <thead>
               <tr>
@@ -120,17 +123,37 @@ const HomeworkApi = ( ) => {
 
   //---
 
-  const key_service = [ 'profile', 'billing' ]
+  const key_service = { 
+    'profile':{
+      'options': ['nickname', 'email', 'description'],
+      'function': GetProfile
+    },
+    'billing':{
+      'options': ['nickname', 'value', 'status'],
+      'function': GetBilling
+    },
+    'charts':{
+      'options': ['nickname'],
+      'function': GetChartId
+    }
+  }
 
-  const key_options_profile = ['nickname', 'email', 'description']
+  const [ getService, getServiceSelect ] = useSelect({ default_value: Object.keys(key_service)[2], default_options: Object.keys(key_service) })
 
-  const key_options_billing = ['nickname', 'value', 'status']
+  const [ 
+    getServiceValue,
+    getServiceValueSelect,
+    setServiceValue,
+    setServiceOptions,
+  ] = useSelect({ default_value: key_service[ getService ]['options'][0], default_options: key_service[ getService ]['options'] })
 
-  const [ get_service, get_serviceSelect ] = useSelect({ default_value: key_service[0], options: key_service })
+  useEffect( ( ) => {
+    
+    setServiceOptions( key_service[ getService ]['options'] )
+    setServiceValue( key_service[ getService ]['options'][0] )
 
-  const [ get_key_profile, get_key_profileSelect ] = useSelect({ default_value: key_options_profile[0], options: key_options_profile })
-  
-  const [ get_key_billing, get_key_billingSelect ] = useSelect({ default_value: key_options_billing[0], options: key_options_billing })
+  },[ getService ]);
+
 
   //---
 
@@ -140,7 +163,7 @@ const HomeworkApi = ( ) => {
   const [ add_email, add_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
 
   const [ upd_nickname, upd_nicknameInput ] = useInput({ type: "text", default_value:"yuriy"});
-  const [ upd_description, upd_descriptionInput ] = useTextarea({ default_value:"default_description" });
+  const [ upd_description, upd_descriptionInput ] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
   const regex = RegExp('^[a-z]{3,}');
 
   const [ rmv_nickname, rmv_nicknameInput ] = useInput({ type: "text", default_value:"test"});
@@ -166,17 +189,6 @@ const HomeworkApi = ( ) => {
     window.location.reload()
   }
 
-  const get_request = ( {func, get_key} ) =>{
-    func( { 
-      data: {
-        [ get_key ]: get_value,
-      },
-      result: setAnswer,
-      error: setMsg,
-      metadata: { "x-cheat": 'true' }
-    } )
-  }
-
   return (
     <>
 
@@ -198,16 +210,14 @@ const HomeworkApi = ( ) => {
       }
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Запросы {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
-              {get_serviceSelect}
+              { getServiceSelect }
             </td>
             <td>
-              { 
-                (get_service == 'billing') ? get_key_billingSelect : get_key_profileSelect
-              }
+              { getServiceValueSelect }
             </td>
             <td>
               {get_valueInput}
@@ -219,7 +229,14 @@ const HomeworkApi = ( ) => {
                 type="submit"
                 value="Get"
                 onClick={() => {
-                  (get_service == 'billing') ? get_request( {'func':GetBilling, 'get_key':get_key_billing} ) : get_request( {'func':GetProfile, 'get_key':get_key_profile} )
+                    key_service[ getService ]['function']( { 
+                      data: {
+                        [ getServiceValue ]: get_value,
+                      },
+                      result: setAnswer,
+                      error: setMsg,
+                      metadata: { "x-cheat": 'true' }
+                    } )
                   }
                 }
               />
@@ -233,7 +250,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
       <p>Создание пользователя и создание аккаунт в биллинге при помощи саги.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -276,7 +293,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Paid {'~'.repeat(15)}</h2>
       <p>Положить деньги на счет пользователя.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -318,7 +335,7 @@ const HomeworkApi = ( ) => {
       <p>{'—'.repeat(30)}</p>
       <h2>{'~'.repeat(15)} Buy {'~'.repeat(15)}</h2>
       <p>Снять деньги со счета пользователя.</p>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>

@@ -3,7 +3,7 @@ syntax = "proto3";
 //api.[cqrs].[tag].[version]
 package api.command.webclient.v1;
 
-//import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
 //import "google/protobuf/timestamp.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -25,7 +25,6 @@ message ProfileData {
   string description = 4;
 }
 
-
 service Billing {
   rpc Paid (PaidData) returns (stream StatusResponse);
   rpc Buy (BuyData) returns (stream StatusResponse);
@@ -39,4 +38,64 @@ message PaidData {
 message BuyData {
   string nickname = 1;
   string value = 2;
+}
+
+service Charts {
+
+  rpc InsertNodes (NodesRequest) returns (google.protobuf.Empty);
+  rpc UpdateNodes (NodesRequest) returns (google.protobuf.Empty);
+  rpc RemoveNodes (NodesRequest) returns (google.protobuf.Empty);
+
+  rpc InsertEdges (EdgesRequest) returns (google.protobuf.Empty);
+  rpc UpdateEdges (EdgesRequest) returns (google.protobuf.Empty);
+  rpc RemoveEdges (EdgesRequest) returns (google.protobuf.Empty);
+
+}
+
+message NodeData {
+  string id = 1;
+  string type = 2;
+  message Data {
+    string label = 1;
+    string text = 2;
+  };
+  Data data = 3;
+  message Position {
+    int32 x = 1;
+    int32 y = 2;
+  };
+  Position position = 4;
+}
+
+message NodeDataList {
+  repeated NodeData nodes = 1;
+}
+
+message NodesRequest {
+  NodeDataList nodesData = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+
+
+message EdgeData {
+  string id = 1;
+  string type = 2;
+  string source = 3;
+  string sourceHandle = 4;
+  string target = 5;
+  string targetHandle = 6;
+  message Data {
+    string label = 1;
+  };
+  Data data = 7;
+}
+
+message EdgeDataList {
+  repeated EdgeData edges = 1;
+}
+
+message EdgesRequest {
+  EdgeDataList edgesData = 1;
+  google.protobuf.FieldMask fields = 2;
 }

@@ -47,12 +47,29 @@ def registered( server, value ):
               'status': 'active'
             }
           }
+
           for msg, status in send_event( **create_billing ):
-            yield 'Create billing '+msg, status
+            yield 'Create billing accounts '+msg, status
+
+          create_charts={
+            'service_id': server.service_id,
+            'producer': server.producer,
+            'topic': 'command-charts',
+            'command': 'insert charts',
+            'dialog_id': str( uuid.uuid4() ),
+            'user_id': profile_id, 
+            'request': {
+              'profileid': profile_id
+            }
+          }
+
+          for msg, status in send_event( **create_charts ):
+            yield 'Create charts accounts '+msg, status
+
         else:
           yield 'Get profile '+msg, status
     else:
-      yield 'Create profile '+msg, status
+      yield 'Create profile accounts'+msg, status
 
 def delete_profile( server, value ):
   user_profile={
@@ -77,11 +94,26 @@ def delete_profile( server, value ):
     }
   }
 
+  charts_profile={
+    'service_id': server.service_id,
+    'producer': server.producer,
+    'topic': 'command-charts',
+    'command': 'remove charts',
+    'dialog_id': str( uuid.uuid4() ),
+    'user_id': 'anonymous', 
+    'request': {
+      'profileid': value['id']
+    }
+  }
+
   for msg, status in send_event( **user_profile ):
     yield 'Delete user profile '+msg, status
 
   for msg, status in send_event( **billing_profile ):
     yield 'Delete billing profile '+msg, status
+
+  for msg, status in send_event( **charts_profile ):
+    yield 'Delete charts accounts '+msg, status
       
 
 commands = {

@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_command_charts:v.0.1.0 -f backend/command/charts/.docker/Dockerfile backend/command/charts
+docker push yuriykrasilnikov/backend_command_charts

@@ -60,6 +60,12 @@ dbbilling bitnami/postgresql `
 -f .\database\db_billing\values.yaml `
 --namespace database
 
+###### Start Chart Schema DB
+helm install `
+dbcharts bitnami/mongodb `
+-f .\database\db_chartschema\values.yaml `
+--namespace database
+
 
 ###### Start authorization-profiles service
 kubectl apply -f .\authorization\profiles\authorization-profiles.yaml
@@ -82,11 +88,17 @@ kubectl apply -f .\backend\command\profiles\command-profiles.yaml
 ###### Start command billing service
 kubectl apply -f .\backend\command\billing\command-billing.yaml
 
-###### Start query profiles service
-kubectl apply -f .\backend\query\profiles\query-profiles.yaml
+###### Start command charts service
+kubectl apply -f .\backend\command\charts\command-charts.yaml
 
 ###### Start query billings service
 kubectl apply -f .\backend\query\billing\query-billing.yaml
+
+###### Start query profiles service
+kubectl apply -f .\backend\query\profiles\query-profiles.yaml
+
+###### Start query charts service
+kubectl apply -f .\backend\query\charts\query-charts.yaml
 
 
 

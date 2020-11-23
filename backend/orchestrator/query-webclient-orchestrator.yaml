@@ -30,6 +30,10 @@ spec:
             value: "query-billing"
           - name: billing-port
             value: "9000"
+          - name: charts-address
+            value: "query-charts"
+          - name: charts-port
+            value: "9000"
           - name: kafka-consumer-address
             value: "command-kafka.kafka.svc.cluster.local"
           - name: kafka-consumer-port

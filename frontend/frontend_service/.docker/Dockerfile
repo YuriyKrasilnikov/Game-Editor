@@ -1,4 +1,4 @@
-FROM node:current-buster-slim
+FROM node:15.2.1-buster-slim
 
 # Label docker image
 LABEL version="0.1"
@@ -14,7 +14,7 @@ WORKDIR /usr/frontend/
 COPY package.json .env ./
 
 # Installing react dependencies
-RUN npm install -f
+RUN npm install -f --legacy-peer-deps
 
 # Application Environment variables
 ENV CHOKIDAR_USEPOLLING=True

@@ -33,6 +33,138 @@ proto.api.query.webclient.v1 = require('./query_webclient_pb.js');
  * @struct
  * @final
  */
+proto.api.query.webclient.v1.StatusClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.StatusPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.query.webclient.v1.ProfileDataList>}
+ */
+const methodDescriptor_Status_listen = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.Status/listen',
+  grpc.web.MethodType.UNARY,
+  google_protobuf_empty_pb.Empty,
+  proto.api.query.webclient.v1.ProfileDataList,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ProfileDataList.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.query.webclient.v1.ProfileDataList>}
+ */
+const methodInfo_Status_listen = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.ProfileDataList,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ProfileDataList.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.ProfileDataList)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.ProfileDataList>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.query.webclient.v1.StatusClient.prototype.listen =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.query.webclient.v1.Status/listen',
+      request,
+      metadata || {},
+      methodDescriptor_Status_listen,
+      callback);
+};
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.query.webclient.v1.ProfileDataList>}
+ *     Promise that resolves to the response
+ */
+proto.api.query.webclient.v1.StatusPromiseClient.prototype.listen =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.query.webclient.v1.Status/listen',
+      request,
+      metadata || {},
+      methodDescriptor_Status_listen);
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
 proto.api.query.webclient.v1.ProfileClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
@@ -498,6 +630,218 @@ proto.api.query.webclient.v1.BillingHistoryPromiseClient.prototype.get =
       request,
       metadata || {},
       methodDescriptor_BillingHistory_Get);
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.ChartsClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?Object} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.api.query.webclient.v1.ChartsPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options['format'] = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname;
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.api.query.webclient.v1.ChartData,
+ *   !proto.api.query.webclient.v1.ChartData>}
+ */
+const methodDescriptor_Charts_GetChartId = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.Charts/GetChartId',
+  grpc.web.MethodType.UNARY,
+  proto.api.query.webclient.v1.ChartData,
+  proto.api.query.webclient.v1.ChartData,
+  /**
+   * @param {!proto.api.query.webclient.v1.ChartData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartData.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.api.query.webclient.v1.ChartData,
+ *   !proto.api.query.webclient.v1.ChartData>}
+ */
+const methodInfo_Charts_GetChartId = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.ChartData,
+  /**
+   * @param {!proto.api.query.webclient.v1.ChartData} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartData.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.ChartData} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.ChartData)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.ChartData>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.query.webclient.v1.ChartsClient.prototype.getChartId =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartId',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartId,
+      callback);
+};
+
+
+/**
+ * @param {!proto.api.query.webclient.v1.ChartData} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.query.webclient.v1.ChartData>}
+ *     Promise that resolves to the response
+ */
+proto.api.query.webclient.v1.ChartsPromiseClient.prototype.getChartId =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartId',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartId);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.query.webclient.v1.ChartDataResponse>}
+ */
+const methodDescriptor_Charts_GetChartData = new grpc.web.MethodDescriptor(
+  '/api.query.webclient.v1.Charts/GetChartData',
+  grpc.web.MethodType.UNARY,
+  google_protobuf_empty_pb.Empty,
+  proto.api.query.webclient.v1.ChartDataResponse,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartDataResponse.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.api.query.webclient.v1.ChartDataResponse>}
+ */
+const methodInfo_Charts_GetChartData = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.api.query.webclient.v1.ChartDataResponse,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.api.query.webclient.v1.ChartDataResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.Error, ?proto.api.query.webclient.v1.ChartDataResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.api.query.webclient.v1.ChartDataResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.api.query.webclient.v1.ChartsClient.prototype.getChartData =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartData',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartData,
+      callback);
+};
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.api.query.webclient.v1.ChartDataResponse>}
+ *     Promise that resolves to the response
+ */
+proto.api.query.webclient.v1.ChartsPromiseClient.prototype.getChartData =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/api.query.webclient.v1.Charts/GetChartData',
+      request,
+      metadata || {},
+      methodDescriptor_Charts_GetChartData);
 };
 
 

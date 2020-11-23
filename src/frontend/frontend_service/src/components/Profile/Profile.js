@@ -17,7 +17,6 @@ import {
 
 import { 
   useInput,
-  useTextarea
 } from '../Utilites/useInput'
 
 import { 
@@ -91,7 +90,7 @@ const Profile = ( ) => {
 
 const EditableСell = ( { index, data_key, value, editable, editing, setEdit, result, callback } ) => {
 
-  const [textarea, textareaInput, setTextarea] = useTextarea( { default_value: value } );
+  const [textarea, textareaInput, setTextarea] = useInput( { type: "text", default_value: value,  multiline:true, variant:"outlined"} );
 
   if (editing){
     return (

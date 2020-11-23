@@ -12,8 +12,7 @@ import {
 import { StatusContext } from '../../grpc/context'
 
 import { 
-  useInput,
-  useTextarea
+  useInput
 } from '../Utilites/useInput'
 
 import { 
@@ -44,7 +43,7 @@ const ProfilesCheats = ( ) => {
   const [ add_email, add_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
 
   const [ upd_nickname, upd_nicknameInput ] = useInput({ type: "text", default_value:"yuriy"});
-  const [ upd_description, upd_descriptionInput ] = useTextarea({ default_value:"default_description" });
+  const [ upd_description, upd_descriptionInput ] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
   const regex = RegExp('^[a-z]{3,}');
 
   const [ rmv_nickname, rmv_nicknameInput ] = useInput({ type: "text", default_value:"test"});
@@ -58,7 +57,7 @@ const ProfilesCheats = ( ) => {
     <>
       <h1>ProfilesCheats</h1>
       <h2>{'~'.repeat(15)} Get {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
@@ -91,7 +90,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h3>{'-'.repeat(10)} Result {'-'.repeat(10)}</h3>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           { profile && Object.entries(profile[0]).map( ([key, value]) => 
               <tr key={key} align="left">
@@ -108,7 +107,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -148,7 +147,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Update {status ? status.nickname : '(need registered)'} {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>
@@ -188,7 +187,7 @@ const ProfilesCheats = ( ) => {
       </table>
 
       <h2>{'~'.repeat(15)} Remove {'~'.repeat(15)}</h2>
-      <table align="center" border="1" cellSpacing="0" cellPadding="7">
+      <table border="1" cellSpacing="0" cellPadding="7">
         <tbody align="left">
           <tr>
             <td>

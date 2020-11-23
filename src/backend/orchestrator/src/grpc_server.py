@@ -9,6 +9,7 @@ import proto.query.web_client.query_webclient_pb2_grpc as query_webclient_pb2_gr
 
 from service.profile import ProfileService
 from service.billing import BillingService
+from service.charts import ChartsService
 
 class GRPC_Server:
   _instance = None
@@ -45,6 +46,12 @@ class GRPC_Server:
     print('Billing GRPC Server starting...')
     query_webclient_pb2_grpc.add_BillingServicer_to_server(
       servicer=BillingService(),
+      server=self.server
+    )
+
+    print('Charts GRPC Server starting...')
+    query_webclient_pb2_grpc.add_ChartsServicer_to_server(
+      servicer=ChartsService(),
       server=self.server
     )
 

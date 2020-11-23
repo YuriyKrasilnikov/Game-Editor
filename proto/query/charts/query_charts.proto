@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.query.charts.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Charts {
+  rpc Get ( ChartsRequest ) returns ( ChartDataList );
+  rpc GetChartData ( ProfileId ) returns ( ChartDataResponse );
+}
+
+message ChartData {
+  string id = 1;
+  string profileid = 2;
+}
+
+message ChartDataList {
+  repeated ChartData charts = 1;
+}
+
+message ChartsRequest {
+  ChartDataList chartsData = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+message ProfileId {
+  string profileid = 1;
+}
+
+message ChartDataResponse {
+  message NodeDataList {
+    message NodeData {
+      string id = 1;
+      string type = 2;
+      message Data {
+        string label = 1;
+        string text = 2;
+      };
+      Data data = 3;
+      message Position {
+        int32 x = 1;
+        int32 y = 2;
+      };
+      Position position = 4;
+    }
+    repeated NodeData nodes = 1;
+  }
+  NodeDataList nodesData = 1;
+
+  message EdgeDataList {
+    message EdgeData {
+      string id = 1;
+      string type = 2;
+      string source = 3;
+      string sourceHandle = 4;
+      string target = 5;
+      string targetHandle = 6;
+      message Data {
+        string label = 1;
+      };
+      Data data = 7;
+    }
+    repeated EdgeData edges = 1;
+  }
+  EdgeDataList edgesData = 2;
+}
