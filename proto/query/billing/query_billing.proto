@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.query.billing.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Billing {
+  rpc Get ( BillingsRequest ) returns ( BillingDataList );
+}
+
+message BillingData {
+  string id = 1;
+  string updateAt = 2;
+  string profileid = 3;
+  string value = 4;
+  string status = 5;
+}
+
+message BillingDataList {
+  repeated BillingData billings = 1;
+}
+
+message BillingsRequest {
+  BillingDataList billingsData = 1;
+  google.protobuf.FieldMask fields = 2;
+}

@@ -4,6 +4,8 @@ new-item -itemtype symboliclink -path <path to location> -name <the name> -value
 или
 cmd /c mklink /D <path of link> <path of target dir>
 
+cmd /c mklink /D .\backend\saga\src ..\..\src\backend\saga\src
+
 ## curl
 kubectl exec $pod -c istio-proxy -n development -- curl $host
 
@@ -21,6 +23,7 @@ helm delete cassandra -n cassandra
 
 kubectl delete pod/cassandra-client -n cassandra
 
+kubectl run curl -n backend --image=radial/busyboxplus:curl -i --tty --rm
 
 kubectl run --namespace cassandra cassandra-client --rm --tty -i --restart='Never' `
 --env CASSANDRA_PASSWORD=qDJ6hK6MyN `
@@ -34,6 +37,8 @@ kubectl apply -f .\cassandra\config.yaml
 kubectl delete configmap cassandra-config -n cassandra 
 
 kubectl describe pod/cassandra-0 -n cassandra
+
+helm delete command-kafka --namespace kafka
 
 
 # ssl в ручную

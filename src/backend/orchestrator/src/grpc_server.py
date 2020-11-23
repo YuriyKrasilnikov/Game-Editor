@@ -5,18 +5,18 @@ from base64 import b64decode
 
 import grpc
 
-import proto.web_client.web_client_pb2_grpc as web_client_pb2_grpc
+import proto.query.web_client.query_webclient_pb2_grpc as query_webclient_pb2_grpc
 
 from service.profile import ProfileService
-from service.record import RecordService
+from service.billing import BillingService
 
-class Server:
+class GRPC_Server:
   _instance = None
   
   def __new__(cls, *args, **kwargs):
-        if not Server._instance:
-            Server._instance = super(Server, cls).__new__(cls)
-        return Server._instance
+        if not GRPC_Server._instance:
+            GRPC_Server._instance = super(GRPC_Server, cls).__new__(cls)
+        return GRPC_Server._instance
 
   def __init__(self, server_port):
     print('-'*30)
@@ -32,20 +32,19 @@ class Server:
       port=server_port
     )
 
-    print('Server now wait for termination...', flush=True)
+    print('GRPC Server now wait for termination...', flush=True)
     self.server.wait_for_termination()
 
 
   def start_grpc_server(self, port, hosts='[::]:'):
     print('Profile GRPC Server starting...')
-    web_client_pb2_grpc.add_ProfileServicer_to_server(
+    query_webclient_pb2_grpc.add_ProfileServicer_to_server(
       servicer=ProfileService(),
       server=self.server
     )
-
-    print('Record GRPC Server starting...')
-    web_client_pb2_grpc.add_RecordServicer_to_server(
-      servicer=RecordService(),
+    print('Billing GRPC Server starting...')
+    query_webclient_pb2_grpc.add_BillingServicer_to_server(
+      servicer=BillingService(),
       server=self.server
     )
 

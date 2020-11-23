@@ -1,3 +1,0 @@
-
-docker build -t yuriykrasilnikov/frontend_react_client:v.0.1.0 -f frontend_service\.docker\Dockerfile frontend_service/
-docker push yuriykrasilnikov/frontend_react_client:v.0.1.0

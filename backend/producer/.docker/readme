@@ -1,0 +1,2 @@
+docker build -t yuriykrasilnikov/backend_producer:v.0.1.0 -f backend/producer/.docker/Dockerfile backend/producer
+docker push yuriykrasilnikov/backend_producer

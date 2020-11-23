@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.command.webclient.v1;
+
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+//--- Response 
+message StatusResponse {
+  string message = 1;
+}
+
+service Profile {
+  rpc Insert (ProfileData) returns (stream StatusResponse);
+  rpc Update (ProfileData) returns (stream StatusResponse);
+  rpc Remove (ProfileData) returns (stream StatusResponse);
+}
+
+message ProfileData {
+  google.protobuf.FieldMask modified = 1;
+  string nickname = 2;
+  string email = 3;
+  string description = 4;
+}
+
+
+service Billing {
+  rpc Paid (PaidData) returns (stream StatusResponse);
+  rpc Buy (BuyData) returns (stream StatusResponse);
+}
+
+message PaidData {
+  string nickname = 1;
+  string value = 2;
+}
+
+message BuyData {
+  string nickname = 1;
+  string value = 2;
+}

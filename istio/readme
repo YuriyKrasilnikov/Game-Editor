@@ -1,10 +1,3 @@
 istioctl install `
 -f ./istio/values.yaml
 
-istioctl dashboard kiali
-
----
-
-kubectl apply -f .\istio\proxy.yaml
-
-kubectl port-forward -n istio-system service/istio-ingressgateway --address 0.0.0.0 8000:80

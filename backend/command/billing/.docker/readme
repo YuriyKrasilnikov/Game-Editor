@@ -1,0 +1,4 @@
+docker build -t yuriykrasilnikov/backend_command_billing:v.0.1.0 -f backend/command/billing/.docker/Dockerfile backend/command/billing
+docker push yuriykrasilnikov/backend_command_billing
+
+

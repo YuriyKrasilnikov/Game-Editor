@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+//api.[cqrs].[tag].[version]
+package api.query.webclient.v1;
+
+import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service Profile {
+
+  rpc Get (ProfilesRequest) returns (ProfileDataList);
+  rpc Identification (google.protobuf.Empty) returns (ProfileData);
+
+}
+
+message ProfileData {
+  string createdAt = 1;
+  string nickname = 2;
+  string email = 3;
+  string description = 4;
+}
+
+message ProfileDataList {
+  repeated ProfileData profiles = 1;
+}
+
+//--- Request
+
+message ProfilesRequest {
+  ProfileDataList profilesData = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+
+service Billing {
+  rpc Get(BillingsRequest) returns (BillingDataList);
+}
+
+service BillingHistory {
+  rpc Get(BillingsPaginationRequest) returns (BillingsCursorResponse);
+}
+
+message BillingData {
+  string updateAt = 1;
+  string nickname = 2;
+  string value = 3;
+  string status = 4;
+}
+
+message BillingDataList {
+  repeated BillingData billings = 1;
+}
+
+//---
+
+message BillingsRequest {
+  BillingDataList billingsData = 1;
+  google.protobuf.FieldMask fields = 2;
+}
+
+message BillingsCursorResponse {
+  BillingDataList billingsData = 1;
+  string cursor = 2;
+}
+
+//---
+
+enum BillingKey {
+  UNKNOWN = 0;
+  CREATEDAT = 1;
+  NICKNAME = 2;
+  VALUE = 3;
+  STATUS = 4;
+}
+
+enum Operand {
+  NONE = 0;
+  IN = 1; // in or ==
+  OUT = 2; // out or !=
+  LESS = 3; // less or <
+  GREATER = 4; // greater or >
+  EQLESS= 5; // not greater or <=
+  EQGREATER = 6; // not less or >=
+}
+
+enum Direction {
+  NOT = 0;
+  MIN = 1;
+  MAX = 2;
+}
+
+message Filter {
+  BillingKey key = 1;
+  Operand operand = 2;
+  repeated string values = 3;
+}
+
+message Ordering {
+  BillingKey key = 1;
+  Direction direction = 2; 
+}
+
+message BillingsPaginationRequest {
+  string cursor = 1;
+  repeated Filter filters = 2;
+  repeated Ordering orders = 3;
+  int32 limit = 4;
+}

@@ -1,5 +1,0 @@
-
-postgresqlUsername: "postgres"
-postgresqlPassword: "password"
-
-postgresqlDatabase: "records"

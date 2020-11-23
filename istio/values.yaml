@@ -47,6 +47,8 @@ spec:
 
     pilot:
       autoscaleEnabled: false
+      env:
+        PILOT_ENABLE_VIRTUAL_SERVICE_DELEGATE: true
 
     gateways:
       istio-ingressgateway:

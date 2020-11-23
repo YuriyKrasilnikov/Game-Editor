@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-profiles
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query-profiles
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: query-profiles
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: query-profiles
+        image: yuriykrasilnikov/backend_query_profiles:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: db-address
+            value: "dbprofiles-postgresql.database.svc.cluster.local"
+          - name: db-name
+            value: "profiles"
+          - name: db-port
+            value: "5432"
+          - name: db-user
+            value: "postgres"
+          - name: db-password
+            value: "password"
+        ports:
+        - name: grpc-port
+          containerPort: 9000
+        volumeMounts:
+        - name: query-profiles-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: query-profiles-storage
+        hostPath:
+          path: /minikube-host/backend/query/profiles/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-profiles
+  namespace: backend
+  labels:
+    app: query-profiles
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: query-profiles
+  ports:
+  - name: grpc-port
+    port: 9000
+    
+

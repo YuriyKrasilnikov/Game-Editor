@@ -1,0 +1,10 @@
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\orchestrator\src `
+--grpc_python_out=.\backend\orchestrator\src `
+.\proto\query\billing\query_billing.proto
+
+
+python -m grpc_tools.protoc -I. `
+--python_out=.\backend\query\billing\src `
+--grpc_python_out=.\backend\query\billing\src `
+.\proto\query\billing\query_billing.proto

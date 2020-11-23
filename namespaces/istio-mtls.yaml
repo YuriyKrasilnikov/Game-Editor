@@ -2,6 +2,17 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: default
+  namespace: istio-system
+spec:
+  mtls:
+    mode: STRICT
+    #mode: DISABLE 
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
   namespace: frontend
 spec:
   mtls:
@@ -30,4 +41,25 @@ spec:
     mode: STRICT
     #mode: DISABLE
 
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: database
+spec:
+  mtls:
+    mode: STRICT
+    #mode: DISABLE
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: kafka
+spec:
+  mtls:
+    #mode: STRICT
+    mode: DISABLE
 

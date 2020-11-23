@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-webclient-producer
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: command-webclient-producer
+      tier: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: command-webclient-producer
+        tier: backend
+        version: v1
+    spec:
+      containers:
+      - name: command-webclient-producer
+        image: yuriykrasilnikov/backend_producer:v.0.1.0
+        imagePullPolicy: Always
+        env: 
+          - name: kafka-consumer-address
+            value: "command-kafka.kafka.svc.cluster.local"
+          - name: kafka-consumer-port
+            value: "9092"
+          - name: kafka-producer-address
+            value: "command-kafka-0.command-kafka-headless.kafka.svc.cluster.local"
+          - name: kafka-producer-port
+            value: "9092"
+        ports:
+        - name: grpc-web-port
+          containerPort: 9000
+        volumeMounts:
+        - name: producer-storage
+          mountPath: /usr/src/app
+      volumes:
+      - name: producer-storage
+        hostPath:
+          path: /minikube-host/backend/producer/src
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: command-webclient-producer
+  namespace: backend
+  labels:
+    app: command-webclient-producer
+    tier: backend
+spec:
+  type: NodePort
+  selector:
+    app: command-webclient-producer
+  ports:
+  - name: grpc-web-port
+    port: 9000
+    
+
