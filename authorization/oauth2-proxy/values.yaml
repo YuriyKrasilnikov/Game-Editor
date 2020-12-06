@@ -1,8 +1,8 @@
 
 config:
-  clientID: 01eda78843849c4d106e
-  clientSecret: 99c70554890abe7416d19549440cf6b37e16a535 
-  cookieSecret: f2ZloaFMgXJeG9h8QTbjEA==
+  clientID: e7d0c6133271f6cec7ec
+  clientSecret: ca4d9bdf262b1bcad8bca7a433e3c0b92064f514 
+  cookieSecret: M2IxTUM4YkRMNU5xNlZGTFFpd0xoYjZZaHN3VlhIREM=
   configFile: |-
     provider="github"
     email_domains=["*"]

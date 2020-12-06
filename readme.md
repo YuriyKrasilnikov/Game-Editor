@@ -20,7 +20,7 @@ kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/sampl
 kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/kiali.yaml
 
 ###### Create certificate secret for https
-kubectl create -n istio-system secret tls arch-homework-tsl --key=./openssl/arch.homework.key --cert=./openssl/arch.homework.crt
+kubectl create -n istio-system secret tls gamescreator-tsl --key=./openssl/gamescreator.co.key --cert=./openssl/gamescreator.co.crt
 
 ###### Create namespaces
 kubectl apply -f .\namespaces\namespace.yaml

@@ -6,3 +6,5 @@ helm install `
 oauth2-proxy k8s-at-home/oauth2-proxy `
 -f authorization/oauth2-proxy/values.yaml `
 --namespace authorization
+
+helm delete oauth2-proxy --namespace authorization

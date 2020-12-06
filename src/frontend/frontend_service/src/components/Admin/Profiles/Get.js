@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 
 import {
+  useParams,
   BrowserRouter as Router,
   Link,
 } from "react-router-dom";
@@ -12,13 +13,13 @@ import {
 import { StatusContext } from '../../grpc/context'
 
 import { 
+  useMessage
+} from '../Utilites/useMessage'
+
+import { 
   useInput,
   useSelect
 } from '../Utilites/useInput'
-
-import { 
-  useMessage
-} from '../Utilites/useMessage'
 
 import {
   GetProfile,
@@ -113,7 +114,60 @@ const Json2table = ( { json_obj } ) => {
           </table>
 }
 
-const HomeworkApi = ( ) => {
+const EditableСell = ( { index, data_key, value, editable, editing, setEdit, result, callback } ) => {
+
+  const [textarea, textareaInput, setTextarea] = useInput( { type: "text", default_value: value,  multiline:true, variant:"outlined"} );
+  
+  if (editing){
+    return (
+      <>
+        { textareaInput }
+        <button
+          style={{backgroundColor:"lightgreen"}}
+          onClick={
+            ()=>{
+              let data = {}
+              data[data_key] = textarea
+              UpdateProfile( { 
+                data: data,
+                result: result,
+                callback: callback(textarea)
+              } )
+              setEdit();
+            }
+          }
+          disabled={value==textarea}
+        > V </button>
+        <button
+          onClick={
+            ()=>{
+              setTextarea(value)
+            }
+          }
+          disabled={value==textarea}
+        > C </button>
+        <button
+          style={{backgroundColor:"coral"}}
+          onClick={
+            ()=>{
+              setEdit();
+            }
+          }
+        > X </button>
+      </>
+    );
+  }else{
+    return (
+      <>
+        {value}
+        {" "}
+        {editable && <button onClick={()=>{ setEdit(index) }}> Edit </button>}
+      </>
+    )
+  }
+}
+
+const Get = ( ) => {
 
   const [ status, _ ] = useContext(StatusContext)
 
@@ -185,55 +239,51 @@ const HomeworkApi = ( ) => {
 
   const regexBuy = RegExp('^[0-9]{1,}');
 
+  //---
+
+  const [ get_nickname, get_nicknameInput] = useInput({ type: "text", default_value:"test" });
+
+  const [ add_nickname, add_nicknameInput ] = useInput({ type: "text", default_value:"test"});
+  const [ add_email, add_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
+
+  const [ upd_nickname, upd_nicknameInput ] = useInput({ type: "text", default_value:"yuriy"});
+  const [ upd_description, upd_descriptionInput ] = useInput({ type: "text", default_value:"default_description",  multiline:true, variant:"outlined"});
+  const regex = RegExp('^[a-z]{3,}');
+
+  const [ rmv_nickname, rmv_nicknameInput ] = useInput({ type: "text", default_value:"test"});
+  const [ rmv_email, rmv_emailInput ] = useInput({ type: "email", default_value:"test@test.com" });
+
+  //---
+
   const reload = ( ) => {
     window.location.reload()
   }
 
   return (
     <>
-
-      <h2>Регистрация пользователя и вход пользователя:</h2>
-      {
-        status && status.nickname
-        ? <> 
-            {"Пользователь "+status.nickname+" — авторизирован. Чтобы выйти нажмите: "}
-            <a href='https://arch.homework/oauth2/sign_out'>
-              Выход
-            </a>
-          </>
-        : <>
-            {"Пользователь не авторизирован! Чтобы войти или зарегистрироваться нажмите: "}
-            <a href="https://arch.homework/oauth2/">
-              Вход
-            </a>
-        </>
-      }
-      <p>{'—'.repeat(30)}</p>
-      <h2>{'~'.repeat(15)} Запросы {'~'.repeat(15)}</h2>
+      <h1>Profiles</h1>
+      <h2>{'~'.repeat(15)} Get {'~'.repeat(15)}</h2>
       <table border="1" cellSpacing="0" cellPadding="7">
         <tbody>
           <tr>
             <td>
-              { getServiceSelect }
+              Nickname
             </td>
             <td>
-              { getServiceValueSelect }
-            </td>
-            <td>
-              {get_valueInput}
+              {get_nicknameInput}
             </td>
           </tr>
           <tr>
-            <td align="right" colSpan="3">
+            <td align="right" colSpan="2">
               <input
                 type="submit"
                 value="Get"
                 onClick={() => {
-                    key_service[ getService ]['function']( { 
+                    GetProfile( { 
                       data: {
-                        [ getServiceValue ]: get_value,
+                        nickname: get_nickname,
                       },
-                      result: setAnswer,
+                      result: setProfile,
                       error: setMsg,
                       metadata: { "x-cheat": 'true' }
                     } )
@@ -245,132 +295,20 @@ const HomeworkApi = ( ) => {
         </tbody>
       </table>
 
-      <Json2table json_obj={ answer } />
-
-      <p>{'—'.repeat(30)}</p>
-      <h2>{'~'.repeat(15)} Insert {'~'.repeat(15)}</h2>
-      <p>Создание пользователя и создание аккаунт в биллинге при помощи саги.</p>
+      <h3>{'-'.repeat(10)} Result {'-'.repeat(10)}</h3>
       <table border="1" cellSpacing="0" cellPadding="7">
-        <tbody align="left">
-          <tr>
-            <td>
-              Nickname
-            </td>
-            <td>
-              {add_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Email
-            </td>
-            <td>
-              {add_emailInput}
-            </td>
-          </tr>
-          <tr>
-            <td align="right" colSpan="2">
-              <input
-                type="submit"
-                value="Insert"
-                onClick={() => {
-                  CreateProfile( { 
-                      data: {
-                        nickname: add_nickname,
-                        email: add_email,
-                      },
-                      result: setMsg,
-                      metadata: { "x-cheat": 'true' }
-                    } )
-                }}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-
-      <p>{'—'.repeat(30)}</p>
-      <h2>{'~'.repeat(15)} Paid {'~'.repeat(15)}</h2>
-      <p>Положить деньги на счет пользователя.</p>
-      <table border="1" cellSpacing="0" cellPadding="7">
-        <tbody align="left">
-          <tr>
-            <td>
-              Nickname
-            </td>
-            <td>
-              {paid_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Value
-            </td>
-            <td>
-              {paid_valueInput}
-            </td>
-          </tr>
-          <tr>
-            <td align="right" colSpan="2">
-              <input
-                type="submit"
-                value="Insert"
-                onClick={() => {
-                  Paid( { 
-                      data: {
-                        nickname: paid_nickname,
-                        value: paid_value,
-                      },
-                      result: setMsg,
-                    } )
-                }}
-                disabled={ !regexPaid.test(paid_value) }
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>{'—'.repeat(30)}</p>
-      <h2>{'~'.repeat(15)} Buy {'~'.repeat(15)}</h2>
-      <p>Снять деньги со счета пользователя.</p>
-      <table border="1" cellSpacing="0" cellPadding="7">
-        <tbody align="left">
-          <tr>
-            <td>
-              Nickname
-            </td>
-            <td>
-              {buy_nicknameInput}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Value
-            </td>
-            <td>
-              {buy_valueInput}
-            </td>
-          </tr>
-          <tr>
-            <td align="right" colSpan="2">
-              <input
-                type="submit"
-                value="Buy"
-                onClick={() => {
-                  Buy( { 
-                      data: {
-                        nickname: buy_nickname,
-                        value: buy_value,
-                      },
-                      result: setMsg,
-                    } )
-                }}
-                disabled={ !regexBuy.test(paid_value) }
-              />
-            </td>
-          </tr>
+        <tbody>
+          { profile && Object.entries(profile[0]).map( ([key, value]) => 
+              <tr key={key} align="left">
+                <td>
+                  {key}
+                </td>
+                <td>
+                  {value}
+                </td>
+              </tr>
+            )
+          }
         </tbody>
       </table>
 
@@ -380,4 +318,4 @@ const HomeworkApi = ( ) => {
   );
 }
 
-export { HomeworkApi };
+export { Get };

@@ -77,7 +77,7 @@ const Navbar = ( ) => {
       <Typography variant="h6" noWrap className={classes.title}>
         AppBar
       </Typography>
-      { (status && status['nickname']) ? <ProfileMenu nickname={status['nickname']} /> : <Button variant="outlined" color="inherit" href="https://arch.homework/oauth2/">Войти</Button> }
+      { (status && status['nickname']) ? <ProfileMenu nickname={status['nickname']} /> : <Button variant="outlined" color="inherit" href="/oauth2/">Войти</Button> }
 
     </Toolbar>
   </AppBar>
@@ -90,14 +90,11 @@ const Navbar = ( ) => {
   >
     <Toolbar />
     <List>
-      <ListItemLink href="https://arch.homework">
+      <ListItemLink href="/">
         <ListItemText primary="Home" />
       </ListItemLink>
-      <ListItemLink href="https://arch.homework/profiles_cheats">
-        <ListItemText primary="Profiles Admin Panel" />
-      </ListItemLink>
-      <ListItemLink href="https://arch.homework/homeworkapi">
-        <ListItemText primary="Billing Panel" />
+      <ListItemLink href="/admin">
+        <ListItemText primary="Admin Panel" />
       </ListItemLink>
     </List>
   </Drawer>

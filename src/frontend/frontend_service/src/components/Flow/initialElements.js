@@ -41,12 +41,14 @@ const ElementsObserver = ( { children } ) => {
 
   const responceToFlow = (data) => {
     setHistory(['Server responce ', ...history])
-    setElements(
-      [
-        ...data['nodesdata']['nodesList'],
-        ...data['edgesdata']['edgesList']
-      ]
-    )
+    if (data){
+      setElements(
+        [
+          ...data['nodesdata']['nodesList'],
+          ...data['edgesdata']['edgesList']
+        ]
+      )
+    }
   }
 
   const updateElement = (element) => {

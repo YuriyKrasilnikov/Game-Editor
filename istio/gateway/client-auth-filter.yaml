@@ -40,7 +40,7 @@ spec:
               local auth_path = "/"
               local auth_cluster = "outbound|80||" .. auth_host
 
-              local redirect_default_location = "https://arch.homework"
+              local redirect_default_location = "https://gamescreator.co"
 
               local redirect_registration_path = "/registration"
               local redirect_registration_location = redirect_default_location..redirect_registration_path

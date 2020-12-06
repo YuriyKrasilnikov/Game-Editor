@@ -11,6 +11,12 @@ import {
   useParams
 } from "react-router-dom";
 
+import {
+  CssBaseline,
+  Toolbar,
+  Grid,
+} from '@material-ui/core';
+
 import { 
   NotFound
 } from '../Utilites/NotFound'
@@ -28,22 +34,12 @@ import {
 } from '../Profile/Profile'
 
 import { 
-  HomeworkApi
-} from '../Homework/Homework'
-
-import { 
-  ProfilesCheats
-} from './ProfilesCheats'
+  Admin
+} from '../Admin/Admin'
 
 import { 
   FlowBase
 } from '../Flow/FlowBase'
-
-import {
-  CssBaseline,
-  Toolbar,
-  Grid,
-} from '@material-ui/core';
 
 const App = ( ) => {
   return (
@@ -58,14 +54,11 @@ const App = ( ) => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-              <Route path="/profiles_cheats">
-                <ProfilesCheats/>
-              </Route>
               <Route path="/profile/:nickname">
                 <Profile/>
               </Route>
-              <Route path="/homeworkapi">
-                <HomeworkApi/>
+              <Route path="/admin">
+                <Admin/>
               </Route>
               <Route exact path="/">
                 <FlowBase />

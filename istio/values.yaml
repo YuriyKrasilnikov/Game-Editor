@@ -31,6 +31,7 @@ spec:
     enableAutoMtls: true # Шифрование
     enableTracing: true # Включаем tracing
     enablePrometheusMerge: true 
+    accessLogFile: /dev/stdout
 
 
   # Настройки компонентов
@@ -48,7 +49,6 @@ spec:
         autoscaleEnabled: false
 
     telemetry:
-      enabled: true
       v2:
         enabled: true
         prometheus:

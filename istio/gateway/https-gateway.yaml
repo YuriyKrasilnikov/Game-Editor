@@ -10,7 +10,7 @@ spec:
     istio: ingressgateway
   servers:
   - hosts:
-    - arch.homework
+    - gamescreator.co
     port:
       name: http
       number: 80
@@ -18,13 +18,13 @@ spec:
     tls:
       httpsRedirect: true
   - hosts:
-    - arch.homework
+    - gamescreator.co
     port:
       name: grpc-web-https
       number: 443
       protocol: HTTPS
     tls:
-      credentialName: arch-homework-tsl
+      credentialName: gamescreator-tsl
       httpsRedirect: false
       mode: SIMPLE
       privateKey: sds

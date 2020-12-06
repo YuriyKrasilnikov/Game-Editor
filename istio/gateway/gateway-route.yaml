@@ -5,7 +5,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - arch.homework
+  - gamescreator.co
   gateways:
   - https-gateway
   http:

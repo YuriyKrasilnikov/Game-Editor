@@ -4,7 +4,24 @@ new-item -itemtype symboliclink -path <path to location> -name <the name> -value
 или
 cmd /c mklink /D <path of link> <path of target dir>
 
+cmd /c mklink /D .\authorization\profiles\src ..\..\src\authorization\profiles\src
+
+cmd /c mklink /D .\backend\command\billing\src ..\..\..\src\backend\command\billing\src
 cmd /c mklink /D .\backend\command\charts\src ..\..\..\src\backend\command\charts\src
+cmd /c mklink /D .\backend\command\profiles\src ..\..\..\src\backend\command\profiles\src
+
+cmd /c mklink /D .\backend\orchestrator\src ..\..\src\backend\orchestrator\src
+
+cmd /c mklink /D .\backend\producer\src ..\..\src\backend\producer\src
+
+cmd /c mklink /D .\backend\query\billing\src ..\..\..\src\backend\query\billing\src
+cmd /c mklink /D .\backend\query\charts\src ..\..\..\src\backend\query\charts\src
+cmd /c mklink /D .\backend\query\profiles\src ..\..\..\src\backend\query\profiles\src
+
+cmd /c mklink /D .\backend\saga\src ..\..\src\backend\saga\src
+
+cmd /c mklink /D .\frontend\frontend_service\src ..\..\src\frontend\frontend_service\src
+cmd /c mklink /D .\frontend\frontend_service\public ..\..\src\frontend\frontend_service\public
 
 ## curl
 kubectl exec $pod -c istio-proxy -n development -- curl $host
@@ -44,11 +61,16 @@ helm delete dbcharts --namespace database
 
 
 # ssl в ручную
-openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/CN=homework' -keyout ./openssl/homework.key -out ./openssl/homework.crt
-openssl req -out ./openssl/arch.homework.csr -newkey rsa:2048 -nodes -keyout ./openssl/arch.homework.key -subj "/CN=arch.homework"
-openssl x509 -req -days 365 -CA ./openssl/homework.crt -CAkey ./openssl/homework.key -set_serial 0 -in ./openssl/arch.homework.csr -out ./openssl/arch.homework.crt
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/CN=gamescreator.co' -keyout ./openssl/gamescreator.co.key -out ./openssl/gamescreator.co.crt
 
-kubectl create -n istio-system secret tls arch-homework-tsl --key=./openssl/arch.homework.key --cert=./openssl/arch.homework.crt
+kubectl create -n istio-system secret tls gamescreator-tsl --key=./openssl/gamescreator.co.key --cert=./openssl/gamescreator.co.crt
 
 
-curl --head -H Host:arch.homework --resolve "arch.homework:8000:arch.homework" --cacert ./openssl/arch.homework.crt "https://arch.homework:8000"  
+
+openssl req -out ./openssl/editor.gamescreator.co.csr -newkey rsa:2048 -nodes -keyout ./openssl/editor.gamescreator.co.key -subj "/CN=editor.gamescreator.co"
+openssl x509 -req -days 365 -CA ./openssl/gamescreator.co.crt -CAkey ./openssl/gamescreator.co.key -set_serial 0 -in ./openssl/editor.gamescreator.co.csr -out ./openssl/editor.gamescreator.co.crt
+kubectl create -n istio-system secret tls editor-gamescreator-tsl --key=./openssl/editor.gamescreator.co.key --cert=./openssl/editor.gamescreator.co.crt
+
+curl --head -H Host:gamescreator.co --resolve "gamescreator.co:8000:gamescreator.co" --cacert ./openssl/gamescreator.co.crt "https://gamescreator.co:80"  
+
+
