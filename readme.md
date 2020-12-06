@@ -7,6 +7,18 @@ minikube start --cpus=4 --memory=16g --cni=flannel --mount-string=$PWD\src:/mini
 ###### Start istio
 istioctl install -f .\istio\values.yaml
 
+###### Start istio addons prometheus
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/prometheus.yaml
+
+###### Start istio addons grafana
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/grafana.yaml
+
+###### Start istio addons jaeger
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/jaeger.yaml
+
+###### Start istio addons kiali
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/kiali.yaml
+
 ###### Create certificate secret for https
 kubectl create -n istio-system secret tls arch-homework-tsl --key=./openssl/arch.homework.key --cert=./openssl/arch.homework.crt
 
@@ -38,8 +50,8 @@ kubectl apply -f .\istio\command\command-route.yaml
 
 ###### Start oauth2-proxy
 helm install `
-oauth2-proxy stable/oauth2-proxy `
--f .\authorization\oauth2-proxy\values.yaml `
+oauth2-proxy k8s-at-home/oauth2-proxy `
+-f authorization/oauth2-proxy/values.yaml `
 --namespace authorization
 
 ###### Start kafka

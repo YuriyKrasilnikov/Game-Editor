@@ -25,15 +25,6 @@ spec:
     cni: # Istio container network interface плагин, обеспечивает настройку сети POD
       enabled: true
       namespace: kube-system
-
-    
-  addonComponents:
-    prometheus:
-      enabled: true
-    grafana:
-      enabled: true
-    tracing:
-      enabled: true
   
   # Настройки Service mesh
   meshConfig:
@@ -55,13 +46,6 @@ spec:
         autoscaleEnabled: false
       istio-egressgateway:
         autoscaleEnabled: false
-
-    kiali:
-      enabled: true
-      dashboard:
-        auth:
-          strategy: anonymous
-        grafanaURL: "http://grafana:3000"
 
     telemetry:
       enabled: true
